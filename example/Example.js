@@ -21,23 +21,23 @@ class Example extends React.Component {
   };
 
   sliderOneValuesChangeStart = () => {
-/*    this.setState({
+    this.setState({
       sliderOneChanging: true,
-    })*/
+    });
   }
 
-  sliderOneValuesChange = (values) => {/*
-    let newValues = [];
+  sliderOneValuesChange = (values) => {
+    let newValues = [0];
     newValues[0] = values[0];
     this.setState({
       sliderOneValue: newValues,
-    })*/
+    });
   }
 
-  sliderOneValuesChangeFinish = () => {/*
+  sliderOneValuesChangeFinish = () => {
     this.setState({
       sliderOneChanging: false,
-    })*/
+    });
   }
 
   render() {
@@ -85,7 +85,7 @@ class Example extends React.Component {
           }}
           customMarker={CustomMarker}
           sliderLength={280}
-        />        
+        />
       </View>
     );
   }

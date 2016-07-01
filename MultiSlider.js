@@ -75,10 +75,6 @@ export default class MultiSlider extends React.Component {
 
       var initialValues = this.props.values.map(value => valueToPosition(value, this.optionsArray, this.props.sliderLength));
 
-      console.log("valuesOne / Two: " + this.props.values);
-
-      console.log("initial values " + initialValues);
-
       this.state = {
         pressedOne: true,
         valueOne: this.props.values[0],
@@ -91,7 +87,7 @@ export default class MultiSlider extends React.Component {
     }
 
     componentWillMount() {
-      var customPanResponder = function (start,move,end) {
+      var customPanResponder = (start, move, end) => {
         return PanResponder.create({
           onStartShouldSetPanResponder: (evt, gestureState) => true,
           onStartShouldSetPanResponderCapture: (evt, gestureState) => true,
@@ -108,34 +104,6 @@ export default class MultiSlider extends React.Component {
 
       this._panResponderOne = customPanResponder(this.startOne, this.moveOne, this.endOne);
       this._panResponderTwo = customPanResponder(this.startTwo, this.moveTwo, this.endTwo);
-    }
-
-    componentWillReceiveProps(nextProps) {
-      if (this.props.values === nextProps.values) {
-        return;
-      }
-
-      this.set(nextProps);
-    }
-
-    set = (config) => {
-      var { max, min, optionsArray, step, values } = config || this.props;
-      this.optionsArray = optionsArray || createArray(min, max, step);
-      this.stepLength = this.props.sliderLength / this.optionsArray.length;
-
-      var initialValues = values.map(value => valueToPosition(value, this.optionsArray, this.props.sliderLength));
-
-      console.log(" set values : " + initialValues);
-
-      this.setState({
-        pressedOne: true,
-        valueOne: values[0],
-        valueTwo: values[1],
-        pastOne: initialValues[0],
-        pastTwo: initialValues[1],
-        positionOne: initialValues[0],
-        positionTwo: initialValues[1],
-      });
     }
 
     startOne = () => {
@@ -163,13 +131,14 @@ export default class MultiSlider extends React.Component {
 
       if (Math.abs(gestureState.dy) < slipDisplacement || !slipDisplacement) {
         this.setState({
-          positionOne: confined
+          positionOne: confined,
         });
       }
-      if ( value !== this.state.valueOne ) {
+
+      if (value !== this.state.valueOne) {
         this.setState({
           valueOne: value
-        }, function () {
+        }, () => {
           var change = [this.state.valueOne];
           if (this.state.valueTwo) {
             change.push(this.state.valueTwo);
@@ -189,13 +158,13 @@ export default class MultiSlider extends React.Component {
 
       if (Math.abs(gestureState.dy) < slipDisplacement || !slipDisplacement) {
         this.setState({
-          positionTwo: confined
+          positionTwo: confined,
         });
       }
       if ( value !== this.state.valueTwo ) {
         this.setState({
-          valueTwo: value
-        }, function () {
+          valueTwo: value,
+        }, () => {
           this.props.onValuesChange([this.state.valueOne, this.state.valueTwo]);
         });
       }
@@ -205,7 +174,7 @@ export default class MultiSlider extends React.Component {
       this.setState({
         pastOne: this.state.positionOne,
         onePressed: !this.state.onePressed
-      }, function () {
+      }, () => {
         var change = [this.state.valueOne];
         if (this.state.valueTwo) {
           change.push(this.state.valueTwo);
@@ -218,7 +187,7 @@ export default class MultiSlider extends React.Component {
       this.setState({
         twoPressed: !this.state.twoPressed,
         pastTwo: this.state.positionTwo,
-      }, function () {
+      }, () => {
         this.props.onValuesChangeFinish([this.state.valueOne, this.state.valueTwo]);
       });
     }
@@ -240,14 +209,10 @@ export default class MultiSlider extends React.Component {
       const touchStyle = {
         borderRadius: borderRadius || 0
       };
-      console.log("touchStyle");
-      console.log(touchStyle);
 
       const markerContainerOne = { top: -24, left : trackOneLength - 24 };
-      console.log(markerContainerOne);
 
       const markerContainerTwo = { top: -24, right: trackThreeLength - 24 };
-      console.log(markerContainerTwo);
 
       return (
         <View style={[styles.container, this.props.containerStyle]}>
