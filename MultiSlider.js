@@ -24,7 +24,6 @@ export default class MultiSlider extends React.Component {
       onValuesChangeFinish: PropTypes.func,
 
       sliderLength: PropTypes.number,
-      sliderOrientation: PropTypes.string,
       touchDimensions: PropTypes.object,
 
       customMarker: PropTypes.func,
