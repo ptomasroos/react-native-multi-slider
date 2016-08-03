@@ -105,7 +105,7 @@ export default class MultiSlider extends React.Component {
       this._panResponderTwo = customPanResponder(this.startTwo, this.moveTwo, this.endTwo);
     }
 
-		componentWillReceiveProps(nextProps) {
+    componentWillReceiveProps(nextProps) {
       if (this.state.onePressed || this.state.twoPressed) return;
 
       let position, nextState = {};
