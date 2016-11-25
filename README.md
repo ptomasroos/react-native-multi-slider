@@ -12,7 +12,7 @@ react-native run-ios
 react-native run-android
 ```
 
-![Example](https://github.com/ptomasroos/react-native-multi-slider/blob/master/docs/demo.gif)
+![Example](https://raw.githubusercontent.com/ptomasroos/react-native-multi-slider/master/docs/demo.gif)
 
 
 ## Getting Started
