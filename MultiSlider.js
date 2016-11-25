@@ -244,6 +244,24 @@ export default class MultiSlider extends React.Component {
             {twoMarkers && (
               <View style={[styles.track, this.props.trackStyle, trackThreeStyle, { width: trackThreeLength } ]} />
             )}
+            <View style={[
+              styles.markerContainer,
+              markerContainerOne,
+              positionOne > (sliderLength / 2) && styles.topMarkerContainer,
+            ]}>
+              <View
+                style={[styles.touch, touchStyle]}
+                ref={component => this._markerOne = component}
+                {...this._panResponderOne.panHandlers}
+              >
+                <Marker
+                  pressed={this.state.onePressed}
+                  markerStyle={[styles.marker, this.props.markerStyle]}
+                  pressedMarkerStyle={this.props.pressedMarkerStyle}
+                  currentValue={this.state.valueOne}
+                />
+              </View>
+            </View>
             {twoMarkers && (positionOne !== this.props.sliderLength) && (
               <View style={[styles.markerContainer, markerContainerTwo]}>
                 <View
@@ -260,20 +278,6 @@ export default class MultiSlider extends React.Component {
                 </View>
               </View>
             )}
-            <View style={[styles.markerContainer, markerContainerOne]}>
-              <View
-                style={[styles.touch, touchStyle]}
-                ref={component => this._markerOne = component}
-                {...this._panResponderOne.panHandlers}
-              >
-                <Marker
-                  pressed={this.state.onePressed}
-                  markerStyle={[styles.marker, this.props.markerStyle]}
-                  pressedMarkerStyle={this.props.pressedMarkerStyle}
-                  currentValue={this.state.valueOne}
-                />
-              </View>
-            </View>            
           </View>
         </View>
       );
@@ -318,6 +322,9 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  topMarkerContainer: {
+    zIndex: 1,
   },
   touch: {
     backgroundColor: 'transparent',
