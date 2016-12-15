@@ -1,0 +1,5 @@
+# 0.0.7
+
+Made sure examples + docs are not pushed to npm
+Removed specific versions from package dependencies
+Added CHANGELOG
