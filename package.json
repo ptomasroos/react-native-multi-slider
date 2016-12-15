@@ -23,8 +23,8 @@
   "author": "Tomas Roos <ptomasroos@gmail.com>",
   "license": "MIT",
   "peerDependencies": {
-     "react-native": "0.38.0",
-     "react": "15.4.1"
+     "react-native": "*",
+     "react": "*"
    },
    "devDependencies": {
      "babel-eslint": "^6.0.4",
