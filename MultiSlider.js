@@ -8,6 +8,7 @@ import {
   View,
   TouchableHighlight,
   Platform,
+  ViewPropTypes,
 } from 'react-native';
 
 import DefaultMarker from './DefaultMarker';
@@ -32,12 +33,12 @@ export default class MultiSlider extends React.Component {
 
     optionsArray: PropTypes.array,
 
-    containerStyle: View.propTypes.style,
-    trackStyle: View.propTypes.style,
-    selectedStyle: View.propTypes.style,
-    unselectedStyle: View.propTypes.style,
-    markerStyle: View.propTypes.style,
-    pressedMarkerStyle: View.propTypes.style,
+    containerStyle: ViewPropTypes.style,
+    trackStyle: ViewPropTypes.style,
+    selectedStyle: ViewProp.style,
+    unselectedStyle: ViewProp.style,
+    markerStyle: ViewProp.style,
+    pressedMarkerStyle: ViewProp.style,
   };
 
   static defaultProps = {
