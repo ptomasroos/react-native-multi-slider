@@ -35,10 +35,10 @@ export default class MultiSlider extends React.Component {
 
     containerStyle: ViewPropTypes.style,
     trackStyle: ViewPropTypes.style,
-    selectedStyle: ViewProp.style,
-    unselectedStyle: ViewProp.style,
-    markerStyle: ViewProp.style,
-    pressedMarkerStyle: ViewProp.style,
+    selectedStyle: ViewPropTypes.style,
+    unselectedStyle: ViewPropTypes.style,
+    markerStyle: ViewPropTypes.style,
+    pressedMarkerStyle: ViewPropTypes.style,
   };
 
   static defaultProps = {
