@@ -1,3 +1,7 @@
+# 0.0.9 (to be released)
+
+BREAKING: Updated ViewProps imports for 0.44 release
+
 # 0.0.8
 
 Removed logging #14
