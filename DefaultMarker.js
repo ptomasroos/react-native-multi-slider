@@ -13,14 +13,14 @@ export default class DefaultMarker extends React.Component {
 
   render() {
     return (
-      <TouchableHighlight onLongPress={this.props.onLongPress}>
+      <TouchableHighlight>
         <View
           style={this.props.enabled ? [
             styles.markerStyle,
             this.props.markerStyle,
             this.props.pressed && styles.pressedMarkerStyle,
             this.props.pressed && this.props.pressedMarkerStyle,
-          ] : styles.disabled}
+          ] : [styles.markerStyle, styles.disabled]}
         />
       </TouchableHighlight>
     );
@@ -64,7 +64,6 @@ const styles = StyleSheet.create({
     }),
   },
   disabled: {
-    ...markerStyle,
     backgroundColor: '#d3d3d3',
   },
 });
