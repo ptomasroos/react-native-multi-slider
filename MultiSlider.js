@@ -39,6 +39,10 @@ export default class MultiSlider extends React.Component {
     unselectedStyle: ViewPropTypes.style,
     markerStyle: ViewPropTypes.style,
     pressedMarkerStyle: ViewPropTypes.style,
+    onLongPressOne: PropTypes.func,
+    onLongPressTwo: PropTypes.func,
+    enabledOne: PropTypes.bool,
+    enabledTwo: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -57,6 +61,10 @@ export default class MultiSlider extends React.Component {
     },
     customMarker: DefaultMarker,
     sliderLength: 280,
+    onLongPressOne: () => this.setState({ 'enabledOne', !this.state.enabledOne }),
+    onLongPressTwo: () => this.setState({ 'enabledTwo', !this.state.enabledTwo }),
+    enabledOne: true,
+    enabled2: true
   };
 
   constructor(props) {
@@ -77,6 +85,8 @@ export default class MultiSlider extends React.Component {
       pastTwo: initialValues[1],
       positionOne: initialValues[0],
       positionTwo: initialValues[1],
+      enabledOne: true,
+      enabled2: true,
     };
   }
 
@@ -146,17 +156,21 @@ export default class MultiSlider extends React.Component {
   }
 
   startOne = () => {
-    this.props.onValuesChangeStart();
-    this.setState({
-      onePressed: !this.state.onePressed,
-    });
+    if (this.state.enabledOne) {
+      this.props.onValuesChangeStart();
+      this.setState({
+        onePressed: !this.state.onePressed,
+      });
+    }
   };
 
   startTwo = () => {
-    this.props.onValuesChangeStart();
-    this.setState({
-      twoPressed: !this.state.twoPressed,
-    });
+    if(this.state.enabledTwo) {
+      this.props.onValuesChangeStart();
+      this.setState({
+        twoPressed: !this.state.twoPressed,
+      });
+    }
   };
 
   moveOne = gestureState => {
@@ -330,6 +344,8 @@ export default class MultiSlider extends React.Component {
               {...this._panResponderOne.panHandlers}
             >
               <Marker
+                onLongPress={this.props.onLongPressOne}
+                enabled={this.state.enabledOne}
                 pressed={this.state.onePressed}
                 markerStyle={[styles.marker, this.props.markerStyle]}
                 pressedMarkerStyle={this.props.pressedMarkerStyle}
@@ -346,10 +362,12 @@ export default class MultiSlider extends React.Component {
                 {...this._panResponderTwo.panHandlers}
               >
                 <Marker
+                  onLongPress={this.props.onLongPressTwo}
                   pressed={this.state.twoPressed}
                   markerStyle={this.props.markerStyle}
                   pressedMarkerStyle={this.props.pressedMarkerStyle}
                   currentValue={this.state.valueTwo}
+                  enabled={this.state.enabledTwo}
                 />
               </View>
             </View>}
