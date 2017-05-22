@@ -7,7 +7,6 @@ export default class DefaultMarker extends React.Component {
     pressed: PropTypes.bool,
     pressedMarkerStyle: ViewPropTypes.style,
     markerStyle: ViewPropTypes.style,
-    onLongPress: PropTypes.func,
     enabled: PropTypes.bool,
   };
 

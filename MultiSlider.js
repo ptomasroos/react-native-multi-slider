@@ -41,8 +41,6 @@ export default class MultiSlider extends React.Component {
     unselectedStyle: ViewPropTypes.style,
     markerStyle: ViewPropTypes.style,
     pressedMarkerStyle: ViewPropTypes.style,
-    onLongPressOne: PropTypes.func,
-    onLongPressTwo: PropTypes.func,
     enabledOne: PropTypes.bool,
     enabledTwo: PropTypes.bool,
     onToggleOne: PropTypes.func,
