@@ -122,14 +122,6 @@ export default class MultiSlider extends React.Component {
       return;
     }
 
-    if (this.state.enabledOne !== nextProps.enabledOne) {
-      this.setState({ enabledOne: nextProps.enabledOne });
-    }
-
-    if (this.state.enabledTwo !== nextProps.enabledTwo) {
-      this.setState({ enabledTwo: nextProps.enabledTwo })
-    }
-
     let position, nextState = {};
     if (
       nextProps.values[0] !== this.state.valueOne ||
