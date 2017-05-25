@@ -1,5 +1,3 @@
-'use strict';
-
 import React, { PropTypes } from 'react';
 
 import {
@@ -39,13 +37,20 @@ export default class MultiSlider extends React.Component {
     unselectedStyle: ViewPropTypes.style,
     markerStyle: ViewPropTypes.style,
     pressedMarkerStyle: ViewPropTypes.style,
+    enabledOne: PropTypes.bool,
+    enabledTwo: PropTypes.bool,
+    onToggleOne: PropTypes.func,
+    onToggleTwo: PropTypes.func,
   };
 
   static defaultProps = {
     values: [0],
-    onValuesChangeStart: () => {},
-    onValuesChange: values => {},
-    onValuesChangeFinish: values => {},
+    onValuesChangeStart: () => {
+    },
+    onValuesChange: values => {
+    },
+    onValuesChangeFinish: values => {
+    },
     step: 1,
     min: 0,
     max: 10,
@@ -57,6 +62,10 @@ export default class MultiSlider extends React.Component {
     },
     customMarker: DefaultMarker,
     sliderLength: 280,
+    onToggleOne: undefined,
+    onToggleTwo: undefined,
+    enabledOne: true,
+    enabledTwo: true,
   };
 
   constructor(props) {
@@ -109,7 +118,9 @@ export default class MultiSlider extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.state.onePressed || this.state.twoPressed) return;
+    if (this.state.onePressed || this.state.twoPressed) {
+      return;
+    }
 
     let position, nextState = {};
     if (
@@ -128,7 +139,7 @@ export default class MultiSlider extends React.Component {
     if (
       nextProps.values[1] !== this.state.valueTwo ||
       (nextProps.sliderLength !== this.props.sliderLength &&
-        nextProps.values[1])
+      nextProps.values[1])
     ) {
       position = valueToPosition(
         nextProps.values[1],
@@ -146,20 +157,28 @@ export default class MultiSlider extends React.Component {
   }
 
   startOne = () => {
-    this.props.onValuesChangeStart();
-    this.setState({
-      onePressed: !this.state.onePressed,
-    });
+    if (this.state.enabledOne) {
+      this.props.onValuesChangeStart();
+      this.setState({
+        onePressed: !this.state.onePressed,
+      });
+    }
   };
 
   startTwo = () => {
-    this.props.onValuesChangeStart();
-    this.setState({
-      twoPressed: !this.state.twoPressed,
-    });
+    if (this.state.enabledTwo) {
+      this.props.onValuesChangeStart();
+      this.setState({
+        twoPressed: !this.state.twoPressed,
+      });
+    }
   };
 
   moveOne = gestureState => {
+    if (!this.props.enabledOne) {
+      return;
+    }
+
     var unconfined = gestureState.dx + this.state.pastOne;
     var bottom = 0;
     var trueTop = this.state.positionTwo - this.stepLength;
@@ -198,6 +217,10 @@ export default class MultiSlider extends React.Component {
   };
 
   moveTwo = gestureState => {
+    if (!this.props.enabledTwo) {
+      return;
+    }
+
     var unconfined = gestureState.dx + this.state.pastTwo;
     var bottom = this.state.positionOne + this.stepLength;
     var top = this.props.sliderLength;
@@ -229,6 +252,11 @@ export default class MultiSlider extends React.Component {
   };
 
   endOne = gestureState => {
+    if (gestureState.moveX === 0 && this.props.onToggleOne) {
+      this.props.onToggleOne();
+      return;
+    }
+
     this.setState(
       {
         pastOne: this.state.positionOne,
@@ -245,6 +273,11 @@ export default class MultiSlider extends React.Component {
   };
 
   endTwo = gestureState => {
+    if (gestureState.moveX === 0 && this.props.onToggleTwo) {
+      this.props.onToggleTwo();
+      return;
+    }
+
     this.setState(
       {
         twoPressed: !this.state.twoPressed,
@@ -309,14 +342,14 @@ export default class MultiSlider extends React.Component {
             ]}
           />
           {twoMarkers &&
-            <View
-              style={[
-                styles.track,
-                this.props.trackStyle,
-                trackThreeStyle,
-                { width: trackThreeLength },
-              ]}
-            />}
+          <View
+            style={[
+              styles.track,
+              this.props.trackStyle,
+              trackThreeStyle,
+              { width: trackThreeLength },
+            ]}
+          />}
           <View
             style={[
               styles.markerContainer,
@@ -330,6 +363,7 @@ export default class MultiSlider extends React.Component {
               {...this._panResponderOne.panHandlers}
             >
               <Marker
+                enabled={this.props.enabledOne}
                 pressed={this.state.onePressed}
                 markerStyle={[styles.marker, this.props.markerStyle]}
                 pressedMarkerStyle={this.props.pressedMarkerStyle}
@@ -338,21 +372,22 @@ export default class MultiSlider extends React.Component {
             </View>
           </View>
           {twoMarkers &&
-            positionOne !== this.props.sliderLength &&
-            <View style={[styles.markerContainer, markerContainerTwo]}>
-              <View
-                style={[styles.touch, touchStyle]}
-                ref={component => this._markerTwo = component}
-                {...this._panResponderTwo.panHandlers}
-              >
-                <Marker
-                  pressed={this.state.twoPressed}
-                  markerStyle={this.props.markerStyle}
-                  pressedMarkerStyle={this.props.pressedMarkerStyle}
-                  currentValue={this.state.valueTwo}
-                />
-              </View>
-            </View>}
+          positionOne !== this.props.sliderLength &&
+          <View style={[styles.markerContainer, markerContainerTwo]}>
+            <View
+              style={[styles.touch, touchStyle]}
+              ref={component => this._markerTwo = component}
+              {...this._panResponderTwo.panHandlers}
+            >
+              <Marker
+                pressed={this.state.twoPressed}
+                markerStyle={this.props.markerStyle}
+                pressedMarkerStyle={this.props.pressedMarkerStyle}
+                currentValue={this.state.valueTwo}
+                enabled={this.props.enabledTwo}
+              />
+            </View>
+          </View>}
         </View>
       </View>
     );
