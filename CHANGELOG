@@ -1,4 +1,6 @@
-# 0.0.9 (to be released)
+# 1.0.0
+    Major Rewrite, Supports many more features, see README for more details
+# 0.0.9
 
 BREAKING: Updated ViewProps imports for 0.44 release
 
