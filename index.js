@@ -1,7 +1,5 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import Immutable { fromJS } from 'immutable';
-
 import { PanResponder, ViewPropTypes, View } from 'react-native';
 
 import DefaultMarker from './DefaultMarker';
@@ -38,7 +36,6 @@ export default class MultiSlider extends PureComponent {
     iconTwoColor: PropTypes.string,
     iconOneDisabledColor: PropTypes.string,
     iconTwoDisabledColor: PropTypes.string,
-    immutable: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -69,7 +66,6 @@ export default class MultiSlider extends PureComponent {
     iconTwoColor: 'green',
     iconOneDisabledColor: 'grey',
     iconTwoDisabledColor: 'grey',
-    immutable: false,
   };
 
   constructor(props) {
@@ -78,9 +74,7 @@ export default class MultiSlider extends PureComponent {
     this.optionsArray = props.optionsArray ||
       createArray(props.min, props.max, props.step);
     this.stepLength = props.sliderLength / this.optionsArray.length;
-    if (Immutable.isImmutable(props.values)) {
-      props.values.toJS();
-    }
+
     const initialValues = props.values.map((value) =>
       valueToPosition(value, this.optionsArray, props.sliderLength));
 
@@ -156,11 +150,7 @@ export default class MultiSlider extends PureComponent {
     );
 
     if (this.props.onValuesChange) {
-      if (this.props.immutable) {
-        this.props.onValuesChange(fromJS([value, this.state.valueTwo]));
-      } else {
-        this.props.onValuesChange([value, this.state.valueTwo]);
-      }
+      this.props.onValuesChange([value, this.state.valueTwo]);
     }
 
     const slipDisplacement = this.props.touchDimensions.slipDisplacement;
@@ -197,11 +187,7 @@ export default class MultiSlider extends PureComponent {
     );
 
     if (this.props.onValuesChange) {
-      if (this.props.immutable) {
-        this.props.onValuesChange(fromJS([this.state.valueOne, value]));
-      } else {
-        this.props.onValuesChange([this.state.valueOne, value]);
-      }
+      this.props.onValuesChange([this.state.valueOne, value]);
     }
 
     const slipDisplacement = this.props.touchDimensions.slipDisplacement;
