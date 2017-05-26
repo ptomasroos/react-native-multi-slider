@@ -1,62 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="eed05bf2-b894-44b7-98b5-ea5bf7e6ed28" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/DefaultMarker/index.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/DefaultMarker/styles.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/helpers/converters.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/index.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/styles.js" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/DefaultMarker.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/MultiSlider.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/converters.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/example/.buckconfig" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/example/.flowconfig" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/example/.gitignore" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/example/.watchmanconfig" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/example/CustomMarker.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/example/Example.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/example/android/app/BUCK" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/example/android/app/build.gradle" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/example/android/app/proguard-rules.pro" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/example/android/app/src/main/AndroidManifest.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/example/android/app/src/main/java/com/example/MainActivity.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/example/android/app/src/main/java/com/example/MainApplication.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/example/android/app/src/main/res/mipmap-hdpi/ic_launcher.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/example/android/app/src/main/res/mipmap-mdpi/ic_launcher.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/example/android/app/src/main/res/mipmap-xhdpi/ic_launcher.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/example/android/app/src/main/res/mipmap-xxhdpi/ic_launcher.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/example/android/app/src/main/res/values/strings.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/example/android/app/src/main/res/values/styles.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/example/android/build.gradle" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/example/android/gradle.properties" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/example/android/gradle/wrapper/gradle-wrapper.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/example/android/gradle/wrapper/gradle-wrapper.properties" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/example/android/gradlew" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/example/android/gradlew.bat" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/example/android/keystores/BUCK" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/example/android/keystores/debug.keystore.properties" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/example/android/settings.gradle" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/example/diamond.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/example/index.android.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/example/index.ios.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/example/ios/example.xcodeproj/project.pbxproj" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/example/ios/example.xcodeproj/xcshareddata/xcschemes/example.xcscheme" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/example/ios/example/AppDelegate.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/example/ios/example/AppDelegate.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/example/ios/example/Base.lproj/LaunchScreen.xib" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/example/ios/example/Images.xcassets/AppIcon.appiconset/Contents.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/example/ios/example/Info.plist" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/example/ios/example/main.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/example/ios/exampleTests/Info.plist" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/example/ios/exampleTests/exampleTests.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/example/package.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/example/ruby.png" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CHANGELOG" afterPath="$PROJECT_DIR$/CHANGELOG" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/LICENSE" afterPath="$PROJECT_DIR$/LICENSE" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/package.json" />
-    </list>
+    <list default="true" id="eed05bf2-b894-44b7-98b5-ea5bf7e6ed28" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -70,8 +15,8 @@
       <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-197">
-              <caret line="24" column="36" lean-forward="false" selection-start-line="24" selection-start-column="36" selection-end-line="24" selection-end-column="36" />
+            <state relative-caret-position="497">
+              <caret line="332" column="62" lean-forward="true" selection-start-line="332" selection-start-column="62" selection-end-line="332" selection-end-column="62" />
               <folding>
                 <element signature="e#0#45#0" expanded="true" />
               </folding>
@@ -79,15 +24,35 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="README.md" pinned="false" current-in-tab="true">
+      <file leaf-file-name="README.md" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="295">
-                <caret line="89" column="8" lean-forward="false" selection-start-line="89" selection-start-column="8" selection-end-line="89" selection-end-column="8" />
+              <first_editor relative-caret-position="405">
+                <caret line="27" column="0" lean-forward="true" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
                 <folding />
               </first_editor>
               <second_editor />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CHANGELOG" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/CHANGELOG">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="240">
+              <caret line="16" column="0" lean-forward="true" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/DefaultMarker/index.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="825">
+              <caret line="60" column="0" lean-forward="true" selection-start-line="60" selection-start-column="0" selection-end-line="60" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -125,6 +90,7 @@
         <option value="$PROJECT_DIR$/test/testProject/react-native-multi-slider-1/index.js" />
         <option value="$PROJECT_DIR$/index.js" />
         <option value="$PROJECT_DIR$/README.md" />
+        <option value="$PROJECT_DIR$/CHANGELOG" />
       </list>
     </option>
   </component>
@@ -316,25 +282,24 @@
       <workItem from="1495762296993" duration="18000" />
       <workItem from="1495762330924" duration="45000" />
       <workItem from="1495762388482" duration="93000" />
-      <workItem from="1495762494147" duration="6156000" />
+      <workItem from="1495762494147" duration="7261000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="10495000" />
+    <option name="totallyTimeSpent" value="11600000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="802" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2811159" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2811159" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32957748" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.26895565" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="true" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26895565" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -629,24 +594,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/CHANGELOG">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="16" column="0" lean-forward="true" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/DefaultMarker/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="900">
-          <caret line="60" column="0" lean-forward="true" selection-start-line="60" selection-start-column="0" selection-end-line="60" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#45#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/DefaultMarker/styles.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="420">
@@ -671,10 +618,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/DefaultMarker/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="825">
+          <caret line="60" column="0" lean-forward="true" selection-start-line="60" selection-start-column="0" selection-end-line="60" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-197">
-          <caret line="24" column="36" lean-forward="false" selection-start-line="24" selection-start-column="36" selection-end-line="24" selection-end-column="36" />
+        <state relative-caret-position="497">
+          <caret line="332" column="62" lean-forward="true" selection-start-line="332" selection-start-column="62" selection-end-line="332" selection-end-column="62" />
           <folding>
             <element signature="e#0#45#0" expanded="true" />
           </folding>
@@ -684,11 +639,19 @@
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="295">
-            <caret line="89" column="8" lean-forward="false" selection-start-line="89" selection-start-column="8" selection-end-line="89" selection-end-column="8" />
+          <first_editor relative-caret-position="405">
+            <caret line="27" column="0" lean-forward="true" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
             <folding />
           </first_editor>
           <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CHANGELOG">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="16" column="0" lean-forward="true" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>

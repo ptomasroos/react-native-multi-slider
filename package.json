@@ -1,6 +1,6 @@
 {
   "name": "@ptomasroos/react-native-multi-slider",
-  "version": "1.0.0",
+  "version": "0.0.8",
   "description": "Android and iOS supported pure JS slider component with multiple markers for React Native",
   "main": "index.js",
   "repository": {
@@ -18,7 +18,8 @@
     "react-native",
     "component",
     "ios",
-    "android"
+    "android",
+    "redux-form"
   ],
   "authors": [
     "Tomas Roos <ptomasroos@gmail.com>",
