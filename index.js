@@ -22,6 +22,8 @@ export default class MultiSlider extends PureComponent {
     containerStyle: ViewPropTypes.style,
     trackStyle: ViewPropTypes.style,
     markerStyle: ViewPropTypes.style,
+    selectedStyle: ViewPropTypes.style,
+    unselectedStyle: ViewPropTypes.style,
     enabledOne: PropTypes.bool,
     enabledTwo: PropTypes.bool,
     onToggleOne: PropTypes.func,
@@ -317,8 +319,8 @@ export default class MultiSlider extends PureComponent {
                 icon={this.props.icon}
                 iconName={this.props.iconTwoName}
                 disabledIconName={this.props.iconTwoDisabledName}
-                iconColor={this.props.iconOneColor}
-                disabledIconColor={this.props.iconOneDisabledColor}
+                iconColor={this.props.iconTwoColor}
+                disabledIconColor={this.props.iconTwoDisabledColor}
               />
             </View>
           )}

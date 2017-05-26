@@ -29,7 +29,7 @@ export default class DefaultMarker extends PureComponent {
       this.props.enabled ? styles.enabled : styles.disabled,
     ];
     return (
-      <View style={iconStyles}/>
+      <View style={iconStyles} />
     );
   };
 

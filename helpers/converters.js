@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 export function valueToPosition(value, valuesArray, sliderLength) {
   const index = valuesArray.indexOf(value);
 
