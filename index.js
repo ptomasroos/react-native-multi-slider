@@ -171,7 +171,6 @@ export default class MultiSlider extends PureComponent {
     }
 
     const unconfined = gestureState.dx + this.state.pastTwo;
-    const unconfined = gestureState.dx + this.state.pastTwo;
     const bottom = this.state.positionOne + this.stepLength;
     const top = this.props.sliderLength;
 
