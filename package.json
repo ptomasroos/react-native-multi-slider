@@ -2,7 +2,7 @@
   "name": "@ptomasroos/react-native-multi-slider",
   "version": "0.0.8",
   "description": "Android and iOS supported pure JS slider component with multiple markers for React Native",
-  "main": "MultiSlider.js",
+  "main": "index.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ptomasroos/react-native-multi-slider.git"
@@ -18,22 +18,28 @@
     "react-native",
     "component",
     "ios",
-    "android"
+    "android",
+    "redux-form"
   ],
-  "author": "Tomas Roos <ptomasroos@gmail.com>",
+  "authors": [
+    "Tomas Roos <ptomasroos@gmail.com>",
+    "Joshua Conlin <joshjconlin@yahoo.com>"
+  ],
   "license": "MIT",
-  "peerDependencies": {
-     "react-native": "*",
-     "react": "*"
-   },
-   "devDependencies": {
-     "babel-eslint": "7.2.3",
-     "eslint": "3.19.0",
-     "eslint-config-airbnb": "14.1.0",
-     "eslint-plugin-import": "2.2.0",
-     "eslint-plugin-jsx-a11y": "4.0.0",
-     "eslint-plugin-react": "6.10.3"
-   },
+  "dependencies": {
+    "prop-types": "^15.5.10",
+    "react": "^15.5.4",
+    "react-native": "^0.44.0",
+    "react-native-vector-icons": "^4.1.1"
+  },
+  "devDependencies": {
+    "babel-eslint": "7.2.3",
+    "eslint": "3.19.0",
+    "eslint-config-airbnb": "14.1.0",
+    "eslint-plugin-import": "2.2.0",
+    "eslint-plugin-jsx-a11y": "4.0.0",
+    "eslint-plugin-react": "6.10.3"
+  },
   "bugs": {
     "url": "https://github.com/ptomasroos/react-native-multi-slider/issues"
   },
