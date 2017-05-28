@@ -29,7 +29,7 @@ export default class DefaultMarker extends PureComponent {
       this.props.enabled ? styles.enabled : styles.disabled,
     ];
     return (
-      <View style={iconStyles}/>
+      <View style={iconStyles} />
     );
   };
 
@@ -45,7 +45,8 @@ export default class DefaultMarker extends PureComponent {
         style={iconStyles}
         selectable={false}
         name={this.props.enabled ? this.props.iconName : this.props.disabledIconName}
-        color={this.props.enabled ? this.props.iconColor : this.props.disabledIconColor}
+        color="white",
+        backgroundColor={this.props.enabled ? this.props.iconColor : this.props.disabledIconColor}
       />
     );
   };

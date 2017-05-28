@@ -30,8 +30,7 @@
     "prop-types": "^15.5.10",
     "react": "^15.5.4",
     "react-native": "^0.44.0",
-    "react-native-vector-icons": "^4.1.1",
-    "immutable": "^3.8.1"
+    "react-native-vector-icons": "^4.1.1"
   },
   "devDependencies": {
     "babel-eslint": "7.2.3",
