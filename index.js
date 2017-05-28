@@ -179,9 +179,9 @@ export default class MultiSlider extends PureComponent {
     }
 
     const unconfined = gestureState.dx + this.state.pastTwo;
-    const bottom = 0;
-    const trueTop = this.state.positionTwo - this.stepLength;
-    const top = trueTop === 0 ? 0 : trueTop || this.props.sliderLength;
+    const unconfined = gestureState.dx + this.state.pastTwo;
+    const bottom = this.state.positionOne + this.stepLength;
+    const top = this.props.sliderLength;
 
     let confined = unconfined;
     if (confined < bottom) {
