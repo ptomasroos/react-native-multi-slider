@@ -1,12 +1,12 @@
 import React, { PropTypes } from 'react';
 
-import { View, StyleSheet, Platform, TouchableHighlight, ViewPropTypes } from 'react-native';
+import { View, StyleSheet, Platform, TouchableHighlight } from 'react-native';
 
 export default class DefaultMarker extends React.Component {
   static propTypes = {
     pressed: PropTypes.bool,
-    pressedMarkerStyle: ViewPropTypes.style,
-    markerStyle: ViewPropTypes.style,
+    pressedMarkerStyle: View.propTypes.style,
+    markerStyle: View.propTypes.style,
     enabled: PropTypes.bool,
   };
 
