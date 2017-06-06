@@ -5,8 +5,7 @@ import {
   PanResponder,
   View,
   TouchableHighlight,
-  Platform,
-  ViewPropTypes,
+  Platform
 } from 'react-native';
 
 import DefaultMarker from './DefaultMarker';
@@ -15,6 +14,7 @@ import { createArray, valueToPosition, positionToValue } from './converters';
 export default class MultiSlider extends React.Component {
   static propTypes = {
     values: PropTypes.arrayOf(PropTypes.number),
+    labels: PropTypes.arrayOf(PropTypes.string),
 
     onValuesChangeStart: PropTypes.func,
     onValuesChange: PropTypes.func,
@@ -31,12 +31,12 @@ export default class MultiSlider extends React.Component {
 
     optionsArray: PropTypes.array,
 
-    containerStyle: ViewPropTypes.style,
-    trackStyle: ViewPropTypes.style,
-    selectedStyle: ViewPropTypes.style,
-    unselectedStyle: ViewPropTypes.style,
-    markerStyle: ViewPropTypes.style,
-    pressedMarkerStyle: ViewPropTypes.style,
+    containerStyle: View.propTypes.style,
+    trackStyle: View.propTypes.style,
+    selectedStyle: View.propTypes.style,
+    unselectedStyle: View.propTypes.style,
+    markerStyle: View.propTypes.style,
+    pressedMarkerStyle: View.propTypes.style,
     enabledOne: PropTypes.bool,
     enabledTwo: PropTypes.bool,
     onToggleOne: PropTypes.func,
@@ -368,6 +368,7 @@ export default class MultiSlider extends React.Component {
                 markerStyle={[styles.marker, this.props.markerStyle]}
                 pressedMarkerStyle={this.props.pressedMarkerStyle}
                 currentValue={this.state.valueOne}
+                label={this.props.labels[0]}
               />
             </View>
           </View>
@@ -385,6 +386,7 @@ export default class MultiSlider extends React.Component {
                 pressedMarkerStyle={this.props.pressedMarkerStyle}
                 currentValue={this.state.valueTwo}
                 enabled={this.props.enabledTwo}
+                label={this.props.labels[1]}
               />
             </View>
           </View>}
