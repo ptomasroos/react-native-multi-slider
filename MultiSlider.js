@@ -6,7 +6,6 @@ import {
   View,
   TouchableHighlight,
   Platform,
-  ViewPropTypes,
 } from 'react-native';
 
 import DefaultMarker from './DefaultMarker';
@@ -31,12 +30,12 @@ export default class MultiSlider extends React.Component {
 
     optionsArray: PropTypes.array,
 
-    containerStyle: ViewPropTypes.style,
-    trackStyle: ViewPropTypes.style,
-    selectedStyle: ViewPropTypes.style,
-    unselectedStyle: ViewPropTypes.style,
-    markerStyle: ViewPropTypes.style,
-    pressedMarkerStyle: ViewPropTypes.style,
+    containerStyle: PropTypes.any,
+    trackStyle: PropTypes.any,
+    selectedStyle: PropTypes.any,
+    unselectedStyle: PropTypes.any,
+    markerStyle: PropTypes.any,
+    pressedMarkerStyle: PropTypes.any,
     enabledOne: PropTypes.bool,
     enabledTwo: PropTypes.bool,
     onToggleOne: PropTypes.func,
@@ -79,7 +78,6 @@ export default class MultiSlider extends React.Component {
       valueToPosition(value, this.optionsArray, this.props.sliderLength));
 
     this.state = {
-      pressedOne: true,
       valueOne: this.props.values[0],
       valueTwo: this.props.values[1],
       pastOne: initialValues[0],
@@ -157,7 +155,7 @@ export default class MultiSlider extends React.Component {
   }
 
   startOne = () => {
-    if (this.state.enabledOne) {
+    if (this.props.enabledOne) {
       this.props.onValuesChangeStart();
       this.setState({
         onePressed: !this.state.onePressed,
@@ -166,7 +164,7 @@ export default class MultiSlider extends React.Component {
   };
 
   startTwo = () => {
-    if (this.state.enabledTwo) {
+    if (this.props.enabledTwo) {
       this.props.onValuesChangeStart();
       this.setState({
         twoPressed: !this.state.twoPressed,
