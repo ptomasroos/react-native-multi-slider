@@ -39,8 +39,8 @@ export default class MultiSlider extends React.Component {
     pressedMarkerStyle: ViewPropTypes.style,
     enabledOne: PropTypes.bool,
     enabledTwo: PropTypes.bool,
-    onToggleOne: PropTypes.func,
-    onToggleTwo: PropTypes.func,
+    onToggleOne: PropTypes.number,
+    onToggleTwo: PropTypes.number,
   };
 
   static defaultProps = {
@@ -61,6 +61,8 @@ export default class MultiSlider extends React.Component {
       slipDisplacement: 200,
     },
     customMarker: DefaultMarker,
+    markerOffsetX: 0,
+    markerOffsetY: 0,
     sliderLength: 280,
     onToggleOne: undefined,
     onToggleTwo: undefined,
@@ -294,7 +296,7 @@ export default class MultiSlider extends React.Component {
 
   render() {
     const { positionOne, positionTwo } = this.state;
-    const { selectedStyle, unselectedStyle, sliderLength } = this.props;
+    const { selectedStyle, unselectedStyle, sliderLength, markerOffsetX, markerOffsetY } = this.props;
     const twoMarkers = positionTwo;
 
     const trackOneLength = positionOne;
@@ -318,9 +320,9 @@ export default class MultiSlider extends React.Component {
       borderRadius: borderRadius || 0,
     };
 
-    const markerContainerOne = { top: -24, left: trackOneLength - 24 };
+    const markerContainerOne = { top: markerOffsetY - 24, left : trackOneLength + markerOffsetX - 24 }
 
-    const markerContainerTwo = { top: -24, right: trackThreeLength - 24 };
+    const markerContainerTwo = { top: markerOffsetY - 24, right: trackThreeLength + markerOffsetX - 24 };
 
     return (
       <View style={[styles.container, this.props.containerStyle]}>
