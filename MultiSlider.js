@@ -41,6 +41,9 @@ export default class MultiSlider extends React.Component {
     enabledTwo: PropTypes.bool,
     onToggleOne: PropTypes.func,
     onToggleTwo: PropTypes.func,
+    
+    markerOffsetX: PropTypes.number,
+    markerOffsetY: PropTypes.number,
   };
 
   static defaultProps = {
