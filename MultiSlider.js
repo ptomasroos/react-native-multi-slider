@@ -41,6 +41,7 @@ export default class MultiSlider extends React.Component {
     enabledTwo: PropTypes.bool,
     onToggleOne: PropTypes.func,
     onToggleTwo: PropTypes.func,
+    allowOverlap: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -66,6 +67,7 @@ export default class MultiSlider extends React.Component {
     onToggleTwo: undefined,
     enabledOne: true,
     enabledTwo: true,
+    allowOverlap: false,
   };
 
   constructor(props) {
@@ -181,7 +183,7 @@ export default class MultiSlider extends React.Component {
 
     var unconfined = gestureState.dx + this.state.pastOne;
     var bottom = 0;
-    var trueTop = this.state.positionTwo - this.stepLength;
+    var trueTop = this.state.positionTwo - (this.props.allowOverlap ? 0 : this.stepLength);
     var top = trueTop === 0 ? 0 : trueTop || this.props.sliderLength;
     var confined = unconfined < bottom
       ? bottom
@@ -222,7 +224,7 @@ export default class MultiSlider extends React.Component {
     }
 
     var unconfined = gestureState.dx + this.state.pastTwo;
-    var bottom = this.state.positionOne + this.stepLength;
+    var bottom = this.state.positionOne + (this.props.allowOverlap ? 0 : this.stepLength);
     var top = this.props.sliderLength;
     var confined = unconfined < bottom
       ? bottom
@@ -295,7 +297,7 @@ export default class MultiSlider extends React.Component {
   render() {
     const { positionOne, positionTwo } = this.state;
     const { selectedStyle, unselectedStyle, sliderLength } = this.props;
-    const twoMarkers = positionTwo;
+    const twoMarkers = this.props.values.length == 2;
 
     const trackOneLength = positionOne;
     const trackOneStyle = twoMarkers
