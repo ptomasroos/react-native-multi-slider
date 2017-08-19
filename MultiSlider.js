@@ -42,6 +42,7 @@ export default class MultiSlider extends React.Component {
     onToggleOne: PropTypes.func,
     onToggleTwo: PropTypes.func,
     allowOverlap: PropTypes.bool,
+    snapped: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -68,6 +69,7 @@ export default class MultiSlider extends React.Component {
     enabledOne: true,
     enabledTwo: true,
     allowOverlap: false,
+    snapped: false,
   };
 
   constructor(props) {
@@ -188,33 +190,37 @@ export default class MultiSlider extends React.Component {
     var confined = unconfined < bottom
       ? bottom
       : unconfined > top ? top : unconfined;
-    var value = positionToValue(
-      this.state.positionOne,
-      this.optionsArray,
-      this.props.sliderLength,
-    );
-
     var slipDisplacement = this.props.touchDimensions.slipDisplacement;
 
     if (Math.abs(gestureState.dy) < slipDisplacement || !slipDisplacement) {
-      this.setState({
-        positionOne: confined,
-      });
-    }
-
-    if (value !== this.state.valueOne) {
-      this.setState(
-        {
-          valueOne: value,
-        },
-        () => {
-          var change = [this.state.valueOne];
-          if (this.state.valueTwo) {
-            change.push(this.state.valueTwo);
-          }
-          this.props.onValuesChange(change);
-        },
+      var value = positionToValue(
+        confined,
+        this.optionsArray,
+        this.props.sliderLength,
       );
+      var snapped = valueToPosition(
+        value,
+        this.optionsArray,
+        this.props.sliderLength,
+      );
+      this.setState({
+        positionOne: this.props.snapped ? snapped : confined,
+      });
+
+      if (value !== this.state.valueOne) {
+        this.setState(
+          {
+            valueOne: value,
+          },
+          () => {
+            var change = [this.state.valueOne];
+            if (this.state.valueTwo) {
+              change.push(this.state.valueTwo);
+            }
+            this.props.onValuesChange(change);
+          },
+        );
+      }
     }
   };
 
@@ -229,27 +235,34 @@ export default class MultiSlider extends React.Component {
     var confined = unconfined < bottom
       ? bottom
       : unconfined > top ? top : unconfined;
-    var value = positionToValue(
-      this.state.positionTwo,
-      this.optionsArray,
-      this.props.sliderLength,
-    );
     var slipDisplacement = this.props.touchDimensions.slipDisplacement;
 
     if (Math.abs(gestureState.dy) < slipDisplacement || !slipDisplacement) {
-      this.setState({
-        positionTwo: confined,
-      });
-    }
-    if (value !== this.state.valueTwo) {
-      this.setState(
-        {
-          valueTwo: value,
-        },
-        () => {
-          this.props.onValuesChange([this.state.valueOne, this.state.valueTwo]);
-        },
+      var value = positionToValue(
+        confined,
+        this.optionsArray,
+        this.props.sliderLength,
       );
+      var snapped = valueToPosition(
+        value,
+        this.optionsArray,
+        this.props.sliderLength,
+      );
+
+      this.setState({
+        positionTwo: this.props.snapped ? snapped : confined,
+      });
+
+      if (value !== this.state.valueTwo) {
+        this.setState(
+          {
+            valueTwo: value,
+          },
+          () => {
+            this.props.onValuesChange([this.state.valueOne, this.state.valueTwo]);
+          },
+        );
+      }
     }
   };
 

@@ -68,7 +68,6 @@ class Example extends React.Component {
             <Text style={styles.text}>{this.state.multiSliderValue[0]} </Text>
             <Text style={styles.text}>{this.state.multiSliderValue[1]}</Text>
           </View>
-
           <MultiSlider
             values={[this.state.multiSliderValue[0], this.state.multiSliderValue[1]]}
             sliderLength={280}
@@ -77,6 +76,7 @@ class Example extends React.Component {
             max={10}
             step={1}
             allowOverlap
+            snapped
           />
         </View>
         <Text style={styles.text}>Native RCT Slider</Text>
