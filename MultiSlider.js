@@ -161,7 +161,7 @@ export default class MultiSlider extends React.Component {
   }
 
   startOne = () => {
-    if (this.state.enabledOne) {
+    if (this.props.enabledOne) {
       this.props.onValuesChangeStart();
       this.setState({
         onePressed: !this.state.onePressed,
@@ -170,7 +170,7 @@ export default class MultiSlider extends React.Component {
   };
 
   startTwo = () => {
-    if (this.state.enabledTwo) {
+    if (this.props.enabledTwo) {
       this.props.onValuesChangeStart();
       this.setState({
         twoPressed: !this.state.twoPressed,
