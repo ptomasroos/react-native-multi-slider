@@ -18,6 +18,7 @@ class Example extends React.Component {
   state = {
     sliderOneChanging: false,
     sliderOneValue: [5],
+    multiSliderValue: [3, 7],
   };
 
   sliderOneValuesChangeStart = () => {
@@ -40,6 +41,12 @@ class Example extends React.Component {
     });
   }
 
+  multiSliderValuesChange = (values) => {
+    this.setState({
+      multiSliderValue: values,
+    });
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -56,8 +63,21 @@ class Example extends React.Component {
             onValuesChange={this.sliderOneValuesChange}
             onValuesChangeFinish={this.sliderOneValuesChangeFinish}
           />
-          <Text style={styles.text}>Two Markers</Text>
-          <MultiSlider values={[3,7]} sliderLength={280} />
+          <View style={styles.sliderOne}>
+            <Text style={styles.text}>Two Markers:</Text>
+            <Text style={styles.text}>{this.state.multiSliderValue[0]} </Text>
+            <Text style={styles.text}>{this.state.multiSliderValue[1]}</Text>
+          </View>
+          <MultiSlider
+            values={[this.state.multiSliderValue[0], this.state.multiSliderValue[1]]}
+            sliderLength={280}
+            onValuesChange={this.multiSliderValuesChange}
+            min={0}
+            max={10}
+            step={1}
+            allowOverlap
+            snapped
+          />
         </View>
         <Text style={styles.text}>Native RCT Slider</Text>
         <Slider style={{width: 280,}}/>
