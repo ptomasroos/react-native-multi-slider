@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 
 import {
   StyleSheet,
@@ -43,6 +44,8 @@ export default class MultiSlider extends React.Component {
     onToggleTwo: PropTypes.func,
     allowOverlap: PropTypes.bool,
     snapped: PropTypes.bool,
+    markerOffsetX: PropTypes.number,
+    markerOffsetY: PropTypes.number,
   };
 
   static defaultProps = {
@@ -63,6 +66,8 @@ export default class MultiSlider extends React.Component {
       slipDisplacement: 200,
     },
     customMarker: DefaultMarker,
+    markerOffsetX: 0,
+    markerOffsetY: 0,
     sliderLength: 280,
     onToggleOne: undefined,
     onToggleTwo: undefined,
@@ -309,8 +314,8 @@ export default class MultiSlider extends React.Component {
 
   render() {
     const { positionOne, positionTwo } = this.state;
-    const { selectedStyle, unselectedStyle, sliderLength } = this.props;
-    const twoMarkers = this.props.values.length == 2;
+    const { selectedStyle, unselectedStyle, sliderLength, markerOffsetX, markerOffsetY } = this.props;
+    const twoMarkers = this.props.values.length == 2;   // when allowOverlap, positionTwo could be 0, identified as string '0' and throwing 'RawText 0 needs to be wrapped in <Text>' error
 
     const trackOneLength = positionOne;
     const trackOneStyle = twoMarkers
@@ -333,9 +338,9 @@ export default class MultiSlider extends React.Component {
       borderRadius: borderRadius || 0,
     };
 
-    const markerContainerOne = { top: -24, left: trackOneLength - 24 };
+    const markerContainerOne = { top: markerOffsetY - 24, left : trackOneLength + markerOffsetX - 24 }
 
-    const markerContainerTwo = { top: -24, right: trackThreeLength - 24 };
+    const markerContainerTwo = { top: markerOffsetY - 24, right: trackThreeLength + markerOffsetX - 24 };
 
     return (
       <View style={[styles.container, this.props.containerStyle]}>
