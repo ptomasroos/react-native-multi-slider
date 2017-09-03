@@ -7,11 +7,12 @@ import {
   View,
   TouchableHighlight,
   Platform,
-  ViewPropTypes,
 } from 'react-native';
 
 import DefaultMarker from './DefaultMarker';
 import { createArray, valueToPosition, positionToValue } from './converters';
+
+const ViewPropTypes = require('react-native').ViewPropTypes || View.propTypes;
 
 export default class MultiSlider extends React.Component {
   static propTypes = {
