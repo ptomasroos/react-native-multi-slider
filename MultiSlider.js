@@ -37,6 +37,7 @@ export default class MultiSlider extends React.Component {
     trackStyle: ViewPropTypes.style,
     selectedStyle: ViewPropTypes.style,
     unselectedStyle: ViewPropTypes.style,
+    markerContainerStyle: ViewPropTypes.style,
     markerStyle: ViewPropTypes.style,
     pressedMarkerStyle: ViewPropTypes.style,
     enabledOne: PropTypes.bool,
@@ -375,6 +376,7 @@ export default class MultiSlider extends React.Component {
             style={[
               styles.markerContainer,
               markerContainerOne,
+              this.props.markerContainerStyle,
               positionOne > sliderLength / 2 && styles.topMarkerContainer,
             ]}
           >
@@ -394,7 +396,7 @@ export default class MultiSlider extends React.Component {
           </View>
           {twoMarkers &&
           positionOne !== this.props.sliderLength &&
-          <View style={[styles.markerContainer, markerContainerTwo]}>
+          <View style={[styles.markerContainer, markerContainerTwo, this.props.markerContainerStyle]}>
             <View
               style={[styles.touch, touchStyle]}
               ref={component => this._markerTwo = component}
