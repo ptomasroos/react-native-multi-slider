@@ -37,8 +37,11 @@ export default class MultiSlider extends React.Component {
     trackStyle: ViewPropTypes.style,
     selectedStyle: ViewPropTypes.style,
     unselectedStyle: ViewPropTypes.style,
+    markerContainerStyle: ViewPropTypes.style,
     markerStyle: ViewPropTypes.style,
     pressedMarkerStyle: ViewPropTypes.style,
+    valuePrefix: PropTypes.string,
+    valueSuffix: PropTypes.string,
     enabledOne: PropTypes.bool,
     enabledTwo: PropTypes.bool,
     onToggleOne: PropTypes.func,
@@ -375,6 +378,7 @@ export default class MultiSlider extends React.Component {
             style={[
               styles.markerContainer,
               markerContainerOne,
+              this.props.markerContainerStyle,
               positionOne > sliderLength / 2 && styles.topMarkerContainer,
             ]}
           >
@@ -389,12 +393,14 @@ export default class MultiSlider extends React.Component {
                 markerStyle={[styles.marker, this.props.markerStyle]}
                 pressedMarkerStyle={this.props.pressedMarkerStyle}
                 currentValue={this.state.valueOne}
+                valuePrefix={this.props.valuePrefix}
+                valueSuffix={this.props.valueSuffix}
               />
             </View>
           </View>
           {twoMarkers &&
           positionOne !== this.props.sliderLength &&
-          <View style={[styles.markerContainer, markerContainerTwo]}>
+          <View style={[styles.markerContainer, markerContainerTwo, this.props.markerContainerStyle]}>
             <View
               style={[styles.touch, touchStyle]}
               ref={component => this._markerTwo = component}
@@ -406,6 +412,8 @@ export default class MultiSlider extends React.Component {
                 pressedMarkerStyle={this.props.pressedMarkerStyle}
                 currentValue={this.state.valueTwo}
                 enabled={this.props.enabledTwo}
+                valuePrefix={this.props.valuePrefix}
+                valueSuffix={this.props.valueSuffix}
               />
             </View>
           </View>}
