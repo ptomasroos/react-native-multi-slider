@@ -31,7 +31,6 @@ export function createArray(start, end, step) {
     const length = Math.abs((start - end) / step) + 1;
 
     return [...Array(Math.ceil(length)).keys()].reduce((acc, i) => {
-      console.log('v: ', start, i, step, direction);
       return [
         ...acc,
         start + i * Math.abs(step) * direction,
