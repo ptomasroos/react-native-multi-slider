@@ -135,33 +135,37 @@ export default class MultiSlider extends React.Component {
       return;
     }
 
-    let position, nextState = {};
-    if (
-      nextProps.values[0] !== this.state.valueOne ||
-      nextProps.sliderLength !== this.props.sliderLength
+    let nextState = {};
+    if (nextProps.min !== this.props.min ||
+        nextProps.max !== this.props.max ||
+        nextProps.values[0] !== this.state.valueOne ||
+        nextProps.sliderLength !== this.props.sliderLength ||
+        nextProps.values[1] !== this.state.valueTwo ||
+        (nextProps.sliderLength !== this.props.sliderLength &&
+            nextProps.values[1])
     ) {
-      position = valueToPosition(
+      this.optionsArray = this.props.optionsArray ||
+        createArray(nextProps.min, nextProps.max, nextProps.step);
+
+      this.stepLength = this.props.sliderLength / this.optionsArray.length;
+
+      positionOne = valueToPosition(
         nextProps.values[0],
         this.optionsArray,
         nextProps.sliderLength,
       );
       nextState.valueOne = nextProps.values[0];
-      nextState.pastOne = position;
-      nextState.positionOne = position;
-    }
-    if (
-      nextProps.values[1] !== this.state.valueTwo ||
-      (nextProps.sliderLength !== this.props.sliderLength &&
-      nextProps.values[1])
-    ) {
-      position = valueToPosition(
+      nextState.pastOne = positionOne;
+      nextState.positionOne = positionOne;
+
+      positionTwo = valueToPosition(
         nextProps.values[1],
         this.optionsArray,
         nextProps.sliderLength,
       );
       nextState.valueTwo = nextProps.values[1];
-      nextState.pastTwo = position;
-      nextState.positionTwo = position;
+      nextState.pastTwo = positionTwo;
+      nextState.positionTwo = positionTwo;
     }
 
     if (nextState != {}) {
