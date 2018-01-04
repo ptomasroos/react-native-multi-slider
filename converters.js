@@ -1,5 +1,5 @@
 // Find closest index for a given value
-const closest = (array, n) => array.findIndex((elem) => (n < elem));
+const closest = (array, n) => array.findIndex((elem) => (n <= elem));
 
 export function valueToPosition(value, valuesArray, sliderLength) {
   const index = closest(valuesArray, value);
