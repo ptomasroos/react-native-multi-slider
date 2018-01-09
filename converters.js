@@ -24,17 +24,18 @@ export function positionToValue(position, valuesArray, sliderLength) {
 }
 
 export function createArray(start, end, step) {
-  const direction = start - end > 0 ? -1 : 1;
+  var i;
+  var length;
+  var direction = start - end > 0 ? -1 : 1;
+  var result = [];
   if (!step) {
-    return [];
+    //console.log('invalid step: ', step);
+    return result;
   } else {
-    const length = Math.abs((start - end) / step) + 1;
-
-    return [...Array(Math.ceil(length)).keys()].reduce((acc, i) => {
-      return [
-        ...acc,
-        start + i * Math.abs(step) * direction,
-      ];
-    }, []);
+    length = Math.abs((start - end) / step) + 1;
+    for (i = 0; i < length; i++) {
+      result.push(start + i * Math.abs(step) * direction);
+    }
+    return result;
   }
 }
