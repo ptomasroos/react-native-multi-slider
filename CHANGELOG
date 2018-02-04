@@ -1,3 +1,14 @@
+# 0.0.12
+
+Various updates:
+
+- modernize converters code
+- valueToPosition uses closest index function
+- improve cWRP to handle min, max properly changes
+- fix wierd bug on multiple values
+- fixed valueToPosition again
+- ignore termination request
+
 # 0.0.11
 
 Updated ViewProps to support older versions
