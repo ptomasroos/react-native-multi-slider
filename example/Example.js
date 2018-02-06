@@ -11,7 +11,7 @@ import {
   Platform,
 } from 'react-native';
 
-import MultiSlider from '@ptomasroos/react-native-multi-slider';
+import MultiSlider from 'react-native-indie-multi-slider';
 import CustomMarker from './CustomMarker';
 
 class Example extends React.Component {
