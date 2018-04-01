@@ -24,3 +24,21 @@ react-native run-android
 ```bash
 $ npm install --save @ptomasroos/react-native-multi-slider
 ```
+
+### Usage in a ScrollView
+
+```
+ enableScroll = () => this.setState({ scrollEnabled: true });
+ disableScroll = () => this.setState({ scrollEnabled: false });
+ 
+ render() {
+   return (
+     <ScrollView scrollEnabled={this.state.scrollEnabled}>
+      <MultiSlider
+        ...
+        onValuesChangeStart={this.disableScroll}
+        onValuesChangeFinish={this.enableScroll}
+      />
+    <ScrollView>
+    );
+```
