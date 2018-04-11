@@ -27,6 +27,10 @@ export default class MultiSlider extends React.Component {
 
     customMarker: PropTypes.func,
 
+      customMarkerLeft: PropTypes.func,
+      customMarkerRight: PropTypes.func,
+      isMarkersSeparated: PropTypes.bool,
+
     min: PropTypes.number,
     max: PropTypes.number,
     step: PropTypes.number,
@@ -70,6 +74,10 @@ export default class MultiSlider extends React.Component {
       slipDisplacement: 200,
     },
     customMarker: DefaultMarker,
+
+      customMarkerLeft: DefaultMarker,
+      customMarkerRight: DefaultMarker,
+
     markerOffsetX: 0,
     markerOffsetY: 0,
     sliderLength: 280,
@@ -336,6 +344,11 @@ export default class MultiSlider extends React.Component {
       ? selectedStyle || styles.selectedTrack
       : unselectedStyle;
     const Marker = this.props.customMarker;
+
+      const MarkerLeft = this.props.customMarkerLeft;
+      const MarkerRight = this.props.customMarkerRight;
+      const isMarkersSeparated = this.props.isMarkersSeparated || false;
+
     const {
       slipDisplacement,
       height,
@@ -391,15 +404,31 @@ export default class MultiSlider extends React.Component {
               ref={component => this._markerOne = component}
               {...this._panResponderOne.panHandlers}
             >
-              <Marker
-                enabled={this.props.enabledOne}
-                pressed={this.state.onePressed}
-                markerStyle={[styles.marker, this.props.markerStyle]}
-                pressedMarkerStyle={this.props.pressedMarkerStyle}
-                currentValue={this.state.valueOne}
-                valuePrefix={this.props.valuePrefix}
-                valueSuffix={this.props.valueSuffix}
-              />
+                {isMarkersSeparated === false &&
+                <Marker
+                    enabled={this.props.enabledOne}
+                    pressed={this.state.onePressed}
+                    markerStyle={[styles.marker, this.props.markerStyle]}
+                    pressedMarkerStyle={this.props.pressedMarkerStyle}
+                    currentValue={this.state.valueOne}
+                    valuePrefix={this.props.valuePrefix}
+                    valueSuffix={this.props.valueSuffix}
+                />
+                }
+
+                {
+                    isMarkersSeparated === true  &&
+                    <MarkerLeft
+                        enabled={this.props.enabledOne}
+                        pressed={this.state.onePressed}
+                        markerStyle={[styles.marker, this.props.markerStyle]}
+                        pressedMarkerStyle={this.props.pressedMarkerStyle}
+                        currentValue={this.state.valueOne}
+                        valuePrefix={this.props.valuePrefix}
+                        valueSuffix={this.props.valueSuffix}
+                    />
+
+                }
             </View>
           </View>
           {twoMarkers &&
@@ -410,15 +439,30 @@ export default class MultiSlider extends React.Component {
               ref={component => this._markerTwo = component}
               {...this._panResponderTwo.panHandlers}
             >
-              <Marker
-                pressed={this.state.twoPressed}
-                markerStyle={this.props.markerStyle}
-                pressedMarkerStyle={this.props.pressedMarkerStyle}
-                currentValue={this.state.valueTwo}
-                enabled={this.props.enabledTwo}
-                valuePrefix={this.props.valuePrefix}
-                valueSuffix={this.props.valueSuffix}
-              />
+                {isMarkersSeparated===false &&
+                <Marker
+                    pressed={this.state.twoPressed}
+                    markerStyle={this.props.markerStyle}
+                    pressedMarkerStyle={this.props.pressedMarkerStyle}
+                    currentValue={this.state.valueTwo}
+                    enabled={this.props.enabledTwo}
+                    valuePrefix={this.props.valuePrefix}
+                    valueSuffix={this.props.valueSuffix}
+                />
+                }
+
+                {
+                    isMarkersSeparated===true &&
+                    <MarkerRight
+                        pressed={this.state.twoPressed}
+                        markerStyle={this.props.markerStyle}
+                        pressedMarkerStyle={this.props.pressedMarkerStyle}
+                        currentValue={this.state.valueTwo}
+                        enabled={this.props.enabledTwo}
+                        valuePrefix={this.props.valuePrefix}
+                        valueSuffix={this.props.valueSuffix}
+                    />
+                }
             </View>
           </View>}
         </View>
