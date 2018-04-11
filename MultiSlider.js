@@ -25,7 +25,8 @@ export default class MultiSlider extends React.Component {
     sliderLength: PropTypes.number,
     touchDimensions: PropTypes.object,
 
-    customMarker: PropTypes.func,
+    customMarkerLeft: PropTypes.func,
+    customMarkerRight: PropTypes.func,
 
     min: PropTypes.number,
     max: PropTypes.number,
@@ -69,7 +70,7 @@ export default class MultiSlider extends React.Component {
       borderRadius: 15,
       slipDisplacement: 200,
     },
-    customMarker: DefaultMarker,
+    customMarkerLeft: DefaultMarker,
     markerOffsetX: 0,
     markerOffsetY: 0,
     sliderLength: 280,
@@ -335,7 +336,8 @@ export default class MultiSlider extends React.Component {
     const trackTwoStyle = twoMarkers
       ? selectedStyle || styles.selectedTrack
       : unselectedStyle;
-    const Marker = this.props.customMarker;
+    const MarkerLeft = this.props.customMarkerLeft;
+    const MarkerRight = this.props.customMarkerRight;
     const {
       slipDisplacement,
       height,
@@ -391,7 +393,7 @@ export default class MultiSlider extends React.Component {
               ref={component => this._markerOne = component}
               {...this._panResponderOne.panHandlers}
             >
-              <Marker
+              <MarkerLeft
                 enabled={this.props.enabledOne}
                 pressed={this.state.onePressed}
                 markerStyle={[styles.marker, this.props.markerStyle]}
@@ -410,7 +412,7 @@ export default class MultiSlider extends React.Component {
               ref={component => this._markerTwo = component}
               {...this._panResponderTwo.panHandlers}
             >
-              <Marker
+              <MarkerRight
                 pressed={this.state.twoPressed}
                 markerStyle={this.props.markerStyle}
                 pressedMarkerStyle={this.props.pressedMarkerStyle}
