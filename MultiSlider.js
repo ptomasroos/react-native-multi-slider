@@ -149,7 +149,7 @@ export default class MultiSlider extends React.Component {
 
       this.stepLength = this.props.sliderLength / this.optionsArray.length;
 
-      positionOne = valueToPosition(
+      var positionOne = valueToPosition(
         nextProps.values[0],
         this.optionsArray,
         nextProps.sliderLength,
@@ -158,7 +158,7 @@ export default class MultiSlider extends React.Component {
       nextState.pastOne = positionOne;
       nextState.positionOne = positionOne;
 
-      positionTwo = valueToPosition(
+      var positionTwo = valueToPosition(
         nextProps.values[1],
         this.optionsArray,
         nextProps.sliderLength,
