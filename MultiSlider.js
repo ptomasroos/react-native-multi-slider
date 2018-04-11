@@ -28,6 +28,7 @@ export default class MultiSlider extends React.Component {
         customMarker: PropTypes.func,
         customMarkerLeft: PropTypes.func,
         customMarkerRight: PropTypes.func,
+        isMarkersSeparated: PropTypes.bool,
 
         min: PropTypes.number,
         max: PropTypes.number,
@@ -342,6 +343,7 @@ export default class MultiSlider extends React.Component {
         const Marker = this.props.customMarker;
         const MarkerLeft = this.props.customMarkerLeft;
         const MarkerRight = this.props.customMarkerRight;
+        const isMarkersSeparated = this.props.isMarkersSeparated || false;
         const {
             slipDisplacement,
             height,
@@ -398,7 +400,7 @@ export default class MultiSlider extends React.Component {
                             {...this._panResponderOne.panHandlers}
                         >
 
-                            {(this.props.customMarker && this.props.customMarker !== undefined) &&
+                            {isMarkersSeparated === false &&
                             <Marker
                                 enabled={this.props.enabledOne}
                                 pressed={this.state.onePressed}
@@ -411,7 +413,7 @@ export default class MultiSlider extends React.Component {
                             }
 
                             {
-                                ((!this.props.customMarker || this.props.customMarker === undefined) && this.props.customMarkerLeft && this.props.customMarkerRight) &&
+                                isMarkersSeparated === true  &&
                                 <MarkerLeft
                                     enabled={this.props.enabledOne}
                                     pressed={this.state.onePressed}
@@ -437,7 +439,7 @@ export default class MultiSlider extends React.Component {
                         >
 
 
-                            {(this.props.customMarker && this.props.customMarker !== undefined) &&
+                            {isMarkersSeparated===false &&
                             <Marker
                                 pressed={this.state.twoPressed}
                                 markerStyle={this.props.markerStyle}
@@ -450,13 +452,13 @@ export default class MultiSlider extends React.Component {
                             }
 
                             {
-                                ((!this.props.customMarker || this.props.customMarker === undefined) && this.props.customMarkerLeft && this.props.customMarkerRight) &&
+                                isMarkersSeparated===true &&
                                 <MarkerRight
-                                    enabled={this.props.enabledOne}
-                                    pressed={this.state.onePressed}
-                                    markerStyle={[styles.marker, this.props.markerStyle]}
+                                    pressed={this.state.twoPressed}
+                                    markerStyle={this.props.markerStyle}
                                     pressedMarkerStyle={this.props.pressedMarkerStyle}
-                                    currentValue={this.state.valueOne}
+                                    currentValue={this.state.valueTwo}
+                                    enabled={this.props.enabledTwo}
                                     valuePrefix={this.props.valuePrefix}
                                     valueSuffix={this.props.valueSuffix}
                                 />
