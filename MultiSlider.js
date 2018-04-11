@@ -26,10 +26,11 @@ export default class MultiSlider extends React.Component {
         touchDimensions: PropTypes.object,
 
         customMarker: PropTypes.func,
+        //TODO:Here added by sadeghipour start
         customMarkerLeft: PropTypes.func,
         customMarkerRight: PropTypes.func,
         isMarkersSeparated: PropTypes.bool,
-
+        //TODO:Here added by sadeghipour end
         min: PropTypes.number,
         max: PropTypes.number,
         step: PropTypes.number,
@@ -73,8 +74,10 @@ export default class MultiSlider extends React.Component {
             slipDisplacement: 200,
         },
         customMarker: DefaultMarker,
+        //TODO:Here added by sadeghipour start
         customMarkerLeft: DefaultMarker,
         customMarkerRight: DefaultMarker,
+        //TODO:Here added by sadeghipour end
         markerOffsetX: 0,
         markerOffsetY: 0,
         sliderLength: 280,
@@ -340,10 +343,13 @@ export default class MultiSlider extends React.Component {
         const trackTwoStyle = twoMarkers
             ? selectedStyle || styles.selectedTrack
             : unselectedStyle;
+
         const Marker = this.props.customMarker;
+        //TODO:Here added by sadeghipour start
         const MarkerLeft = this.props.customMarkerLeft;
         const MarkerRight = this.props.customMarkerRight;
         const isMarkersSeparated = this.props.isMarkersSeparated || false;
+        //TODO:Here added by sadeghipour end
         const {
             slipDisplacement,
             height,
@@ -400,6 +406,8 @@ export default class MultiSlider extends React.Component {
                             {...this._panResponderOne.panHandlers}
                         >
 
+                            {/*TODO:Here added by sadeghipour start*/}
+
                             {isMarkersSeparated === false &&
                             <Marker
                                 enabled={this.props.enabledOne}
@@ -426,6 +434,8 @@ export default class MultiSlider extends React.Component {
 
                             }
 
+                            {/*TODO:Here added by sadeghipour end*/}
+
 
                         </View>
                     </View>
@@ -439,6 +449,7 @@ export default class MultiSlider extends React.Component {
                         >
 
 
+                            {/*TODO:Here added by sadeghipour start*/}
                             {isMarkersSeparated===false &&
                             <Marker
                                 pressed={this.state.twoPressed}
@@ -463,6 +474,7 @@ export default class MultiSlider extends React.Component {
                                     valueSuffix={this.props.valueSuffix}
                                 />
                             }
+                            {/*TODO:Here added by sadeghipour end*/}
                         </View>
                     </View>}
                 </View>
