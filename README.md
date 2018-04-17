@@ -42,3 +42,25 @@ $ npm install --save @ptomasroos/react-native-multi-slider
     <ScrollView>
     );
 ```
+### shape up CustomMarker as left and right
+
+In order to make different styles on markers you can set isMarkersSeparated to true, define customMarkerLeft and customMarkerRight in MultiSlider. for example:
+
+
+```
+<MultiSlider
+     ...
+      isMarkersSeparated={true}
+      
+      customMarkerLeft={(e) => {
+         return (<CustomSliderMarkerLeft
+          currentValue={e.currentValue}/>)
+          }}
+         
+         customMarkerRight={(e) => {
+         return (<CustomSliderMarkerRight
+         currentValue={e.currentValue}/>)
+         }}
+     />
+
+```
