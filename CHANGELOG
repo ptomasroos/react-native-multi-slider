@@ -1,3 +1,9 @@
+# 0.0.13
+ - Pass currentValue to Markers
+ - Missing var statement
+ - Allow different types of left and right markers in a single slider
+ - Improvements on marker alignment on large gaps
+
 # 0.0.12
 
 Various updates:
