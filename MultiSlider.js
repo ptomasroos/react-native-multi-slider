@@ -204,12 +204,7 @@ export default class MultiSlider extends React.Component {
     if (!this.props.enabledOne) {
       return;
     }
-    var unconfined
-    if (I18nManager.isRTL) {
-      unconfined = this.state.pastOne - gestureState.dx;
-    } else {
-      unconfined = gestureState.dx + this.state.pastOne;
-    }
+    const unconfined = I18nManager.isRTL ? this.state.pastOne - gestureState.dx : gestureState.dx + this.state.pastOne;
     var bottom = 0;
     var trueTop = this.state.positionTwo - (this.props.allowOverlap ? 0 : this.stepLength);
     var top = trueTop === 0 ? 0 : trueTop || this.props.sliderLength;
@@ -254,12 +249,7 @@ export default class MultiSlider extends React.Component {
     if (!this.props.enabledTwo) {
       return;
     }
-    var unconfined
-    if (I18nManager.isRTL) {
-      unconfined = this.state.pastTwo - gestureState.dx;
-    } else {
-      unconfined = gestureState.dx + this.state.pastTwo;
-    }
+    const unconfined = I18nManager.isRTL ? this.state.pastTwo - gestureState.dx : gestureState.dx + this.state.pastTwo;
     var bottom = this.state.positionOne + (this.props.allowOverlap ? 0 : this.stepLength);
     var top = this.props.sliderLength;
     var confined = unconfined < bottom
