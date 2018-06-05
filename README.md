@@ -39,7 +39,7 @@ $ npm install --save @ptomasroos/react-native-multi-slider
         onValuesChangeStart={this.disableScroll}
         onValuesChangeFinish={this.enableScroll}
       />
-    <ScrollView>
+    </ScrollView>
     );
 ```
 ### shape up CustomMarker as left and right
