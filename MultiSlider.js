@@ -55,6 +55,7 @@ export default class MultiSlider extends React.Component {
     snapped: PropTypes.bool,
     markerOffsetX: PropTypes.number,
     markerOffsetY: PropTypes.number,
+    vertical: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -88,6 +89,7 @@ export default class MultiSlider extends React.Component {
     enabledTwo: true,
     allowOverlap: false,
     snapped: false,
+    vertical: false,
   };
 
   constructor(props) {
@@ -200,11 +202,14 @@ export default class MultiSlider extends React.Component {
     }
   };
 
-  moveOne = gestureState => {
+  moveOne = (gestureState) => {
     if (!this.props.enabledOne) {
       return;
     }
-    const unconfined = I18nManager.isRTL ? this.state.pastOne - gestureState.dx : gestureState.dx + this.state.pastOne;
+
+    const accumDistance = this.props.vertical ? gestureState.dy : gestureState.dx;
+
+    const unconfined = I18nManager.isRTL ? this.state.pastOne - accumDistance : accumDistance + this.state.pastOne;
     var bottom = 0;
     var trueTop = this.state.positionTwo - (this.props.allowOverlap ? 0 : this.stepLength);
     var top = trueTop === 0 ? 0 : trueTop || this.props.sliderLength;
@@ -249,7 +254,10 @@ export default class MultiSlider extends React.Component {
     if (!this.props.enabledTwo) {
       return;
     }
-    const unconfined = I18nManager.isRTL ? this.state.pastTwo - gestureState.dx : gestureState.dx + this.state.pastTwo;
+
+    const accumDistance = this.props.vertical ? gestureState.dy : gestureState.dx;
+
+    const unconfined = I18nManager.isRTL ? this.state.pastTwo - accumDistance : accumDistance + this.state.pastTwo;
     var bottom = this.state.positionOne + (this.props.allowOverlap ? 0 : this.stepLength);
     var top = this.props.sliderLength;
     var confined = unconfined < bottom
