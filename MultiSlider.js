@@ -370,8 +370,16 @@ export default class MultiSlider extends React.Component {
 
     const markerContainerTwo = { top: markerOffsetY - 24, right: trackThreeLength + markerOffsetX - 24 };
 
+    const containerStyle = [styles.container, this.props.containerStyle];
+
+    if (this.props.vertical) {
+      containerStyle.push({
+        transform: [{ rotate: '90deg' }],
+      })
+    }
+
     return (
-      <View style={[styles.container, this.props.containerStyle]}>
+      <View style={containerStyle}>
         <View style={[styles.fullTrack, { width: sliderLength }]}>
           <View
             style={[
