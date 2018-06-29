@@ -468,6 +468,7 @@ const styles = StyleSheet.create({
   container: {
     position: 'relative',
     height: 50,
+    justifyContent: 'center'
   },
   fullTrack: {
     flexDirection: 'row',
