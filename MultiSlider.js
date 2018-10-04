@@ -209,8 +209,7 @@ export default class MultiSlider extends React.Component {
 
     const accumDistance = this.props.vertical ? -gestureState.dy : gestureState.dx;
     const accumDistanceDisplacement = this.props.vertical ? gestureState.dx : gestureState.dy;
-
-    const unconfined = I18nManager.isRTL ? this.state.pastOne - accumDistance : accumDistance + this.state.pastOne;
+    const unconfined = accumDistance + this.state.pastOne;
     var bottom = 0;
     var trueTop = this.state.positionTwo - (this.props.allowOverlap ? 0 : this.stepLength);
     var top = trueTop === 0 ? 0 : trueTop || this.props.sliderLength;
@@ -259,7 +258,7 @@ export default class MultiSlider extends React.Component {
     const accumDistance = this.props.vertical ? -gestureState.dy : gestureState.dx;
     const accumDistanceDisplacement = this.props.vertical ? gestureState.dx : gestureState.dy;
 
-    const unconfined = I18nManager.isRTL ? this.state.pastTwo - accumDistance : accumDistance + this.state.pastTwo;
+    const unconfined = accumDistance + this.state.pastTwo;
     var bottom = this.state.positionOne + (this.props.allowOverlap ? 0 : this.stepLength);
     var top = this.props.sliderLength;
     var confined = unconfined < bottom
@@ -489,7 +488,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   fullTrack: {
-    flexDirection: 'row',
+    flexDirection: I18nManager.isRTL ? 'row-reverse' : 'row',
   },
   track: {
     ...Platform.select({
