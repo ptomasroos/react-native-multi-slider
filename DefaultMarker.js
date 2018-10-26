@@ -1,31 +1,21 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-
 import { View, StyleSheet, Platform, TouchableHighlight } from 'react-native';
 
-const ViewPropTypes = require('react-native').ViewPropTypes || View.propTypes;
-
-export default class DefaultMarker extends React.Component {
-  static propTypes = {
-    pressed: PropTypes.bool,
-    pressedMarkerStyle: ViewPropTypes.style,
-    markerStyle: ViewPropTypes.style,
-    enabled: PropTypes.bool,
-    currentValue: PropTypes.number,
-    valuePrefix: PropTypes.string,
-    valueSuffix: PropTypes.string,
-  };
-
+class DefaultMarker extends React.Component {
   render() {
     return (
       <TouchableHighlight>
         <View
-          style={this.props.enabled ? [
-            styles.markerStyle,
-            this.props.markerStyle,
-            this.props.pressed && styles.pressedMarkerStyle,
-            this.props.pressed && this.props.pressedMarkerStyle,
-          ] : [styles.markerStyle, styles.disabled]}
+          style={
+            this.props.enabled
+              ? [
+                  styles.markerStyle,
+                  this.props.markerStyle,
+                  this.props.pressed && styles.pressedMarkerStyle,
+                  this.props.pressed && this.props.pressedMarkerStyle,
+                ]
+              : [styles.markerStyle, styles.disabled]
+          }
         />
       </TouchableHighlight>
     );
@@ -72,3 +62,5 @@ const styles = StyleSheet.create({
     backgroundColor: '#d3d3d3',
   },
 });
+
+export default DefaultMarker;
