@@ -1,5 +1,7 @@
+// @flow
+
 // Find closest index for a given value
-const closest = (array, n) => {
+const closest = (array: Array<number>, n: number) => {
   let minI = 0;
   let maxI = array.length - 1;
 
@@ -38,7 +40,11 @@ const closest = (array, n) => {
   return -1;
 };
 
-export function valueToPosition(value, valuesArray, sliderLength) {
+export function valueToPosition(
+  value: number,
+  valuesArray: Array<number>,
+  sliderLength: number,
+) {
   const index = closest(valuesArray, value);
 
   const arrLength = valuesArray.length - 1;
@@ -47,31 +53,33 @@ export function valueToPosition(value, valuesArray, sliderLength) {
   return (sliderLength * validIndex) / arrLength;
 }
 
-export function positionToValue(position, valuesArray, sliderLength) {
-  var arrLength;
-  var index;
-
+export function positionToValue(
+  position: number,
+  valuesArray: Array<number>,
+  sliderLength: number,
+) {
   if (position < 0 || sliderLength < position) {
     return null;
-  } else {
-    arrLength = valuesArray.length - 1;
-    index = (arrLength * position) / sliderLength;
-    return valuesArray[Math.round(index)];
   }
+
+  const arrLength = valuesArray.length - 1;
+  const index = (arrLength * position) / sliderLength;
+  return valuesArray[Math.round(index)];
 }
 
-export function createArray(start, end, step) {
-  var i;
-  var length;
-  var direction = start - end > 0 ? -1 : 1;
-  var result = [];
+export function createArray(start: number, end: number, step: number) {
+  const result = [];
+
   if (!step) {
     return result;
-  } else {
-    length = Math.abs((start - end) / step) + 1;
-    for (i = 0; i < length; i++) {
-      result.push(start + i * Math.abs(step) * direction);
-    }
-    return result;
   }
+
+  const direction = start - end > 0 ? -1 : 1;
+  const length = Math.abs((start - end) / step) + 1;
+
+  for (let i = 0; i < length; i++) {
+    result.push(start + i * Math.abs(step) * direction);
+  }
+
+  return result;
 }
