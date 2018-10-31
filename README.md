@@ -64,3 +64,35 @@ In order to make different styles on markers you can set isMarkersSeparated to t
      />
 
 ```
+
+### Partial report of the props
+Feel free to contribute to this part of the documentation.
+
+
+| Prop name | Default value | Type | Purpouse |
+|:---------------------------------------------------------------------------------:|:-------------------------------------------------------------:|:-----------------:|:---------------------------------------:|
+| values | [0] | array of numbers | Prefixed values of the slider. |
+| onValuesChangeStart | () => {} | function | Callback when the value starts changing |
+| onValuesChange | () => {} | function | Callback when the value changes |
+| onValuesChangeFinish | (values) => {} | function | Callback when the value stops changing |
+| sliderLength | 280 | number | Length of the slider (?) |
+| touchDimensions | {height: 50,width: 50,borderRadius: 15,slipDisplacement: 200} | object | (?) |
+| customMarker |  | function | Component used for the cursor. |
+| customMarkerLeft |  | function | Component used for the left cursor. |
+| customMarkerRight |  | function | Component used for the right cursor. |
+| isMarkersSeparated |  | boolean | (?) |
+| min | 0 | number | Minimum value available in the slider. |
+| max | 10 | number | Maximum value available in the slider. |
+| step | 1 | number | Step value of the slider. |
+| optionsArray |  | array | (?) |
+| {container/track/selected/unselected/ markerContainer/marker/pressedMarker} Style |  | style object | Styles for the slider |
+| valuePrefix |  | string | Prefix added to the value. |
+| valueSuffix |  | string | Suffix added to the value. |
+| enabledOne | true | boolean | Enables the first cursor |
+| enabledTwo | true | boolean | Enables the second cursor |
+| onToggleOne | undefined | function callback | Listener when first cursor toggles. |
+| onToggleTwo | undefined | function callback | Listener when second cursor toggles. |
+| allowOverlap | false | boolean | Allow the overlap within the cursors. |
+| snapped | false | boolean | (?) |
+| markerOffsetX | 0 | number | Offset first cursor. |
+| markerOffsetY | 0 | number | Offset second cursor. |
