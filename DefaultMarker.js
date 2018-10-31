@@ -1,7 +1,18 @@
-import React from 'react';
+// @flow
+import * as React from 'react';
 import { View, StyleSheet, Platform, TouchableHighlight } from 'react-native';
 
-class DefaultMarker extends React.Component {
+type ViewProps = React.ElementProps<typeof View>;
+type ViewStyleProp = $PropertyType<ViewProps, 'style'>;
+
+type Props = {
+  enabled: boolean,
+  pressed: boolean,
+  markerStyle: ViewStyleProp,
+  pressedMarkerStyle: ViewStyleProp,
+};
+
+class DefaultMarker extends React.Component<Props> {
   render() {
     return (
       <TouchableHighlight>
