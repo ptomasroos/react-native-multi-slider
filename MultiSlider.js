@@ -100,7 +100,7 @@ class MultiSlider extends React.Component<Props, State> {
       createArray(this.props.min, this.props.max, this.props.step);
     this.stepLength = this.props.sliderLength / this.optionsArray.length;
 
-    var initialValues = this.props.values.map(value =>
+    const initialValues = this.props.values.map(value =>
       valueToPosition(value, this.optionsArray, this.props.sliderLength),
     );
 
@@ -222,13 +222,13 @@ class MultiSlider extends React.Component<Props, State> {
     const unconfined = I18nManager.isRTL
       ? this.state.pastOne - accumDistance
       : accumDistance + this.state.pastOne;
-    var bottom = 0;
-    var trueTop =
+    const bottom = 0;
+    const trueTop =
       this.state.positionTwo - (this.props.allowOverlap ? 0 : this.stepLength);
-    var top = trueTop === 0 ? 0 : trueTop || this.props.sliderLength;
-    var confined =
+    const top = trueTop === 0 ? 0 : trueTop || this.props.sliderLength;
+    const confined =
       unconfined < bottom ? bottom : unconfined > top ? top : unconfined;
-    var slipDisplacement = this.props.touchDimensions.slipDisplacement;
+    const slipDisplacement = this.props.touchDimensions.slipDisplacement;
 
     if (
       Math.abs(accumDistanceDisplacement) < slipDisplacement ||
@@ -256,7 +256,7 @@ class MultiSlider extends React.Component<Props, State> {
             valueOne: value,
           },
           () => {
-            var change = [this.state.valueOne];
+            const change = [this.state.valueOne];
             if (this.state.valueTwo) {
               change.push(this.state.valueTwo);
             }
@@ -282,12 +282,12 @@ class MultiSlider extends React.Component<Props, State> {
     const unconfined = I18nManager.isRTL
       ? this.state.pastTwo - accumDistance
       : accumDistance + this.state.pastTwo;
-    var bottom =
+    const bottom =
       this.state.positionOne + (this.props.allowOverlap ? 0 : this.stepLength);
-    var top = this.props.sliderLength;
-    var confined =
+    const top = this.props.sliderLength;
+    const confined =
       unconfined < bottom ? bottom : unconfined > top ? top : unconfined;
-    var slipDisplacement = this.props.touchDimensions.slipDisplacement;
+    const slipDisplacement = this.props.touchDimensions.slipDisplacement;
 
     if (
       Math.abs(accumDistanceDisplacement) < slipDisplacement ||
@@ -337,7 +337,7 @@ class MultiSlider extends React.Component<Props, State> {
         onePressed: !this.state.onePressed,
       },
       () => {
-        var change = [this.state.valueOne];
+        const change = [this.state.valueOne];
         if (this.state.valueTwo) {
           change.push(this.state.valueTwo);
         }
