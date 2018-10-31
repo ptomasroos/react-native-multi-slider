@@ -26,9 +26,9 @@ type Props = MarkerProps & {
   min: number,
   max: number,
   touchDimensions: Object,
-  customMarker: MarkerProps,
-  customMarkerLeft: MarkerProps,
-  customMarkerRight: MarkerProps,
+  customMarker: any,
+  customMarkerLeft: any,
+  customMarkerRight: any,
   markerOffsetX: number,
   markerOffsetY: number,
   onToggleOne: Function,
@@ -189,7 +189,7 @@ class MultiSlider extends React.Component<Props, State> {
     }
   }*/
 
-  startOne = () => {
+  startOne = (): void => {
     if (this.props.enabledOne) {
       this.props.onValuesChangeStart();
       this.setState({
