@@ -1,7 +1,7 @@
 // @flow
 
 // Find closest index for a given value
-const closest = (array: Array<number>, n: number) => {
+const closest = (array: Array<number>, n: number): number => {
   let minI = 0;
   let maxI = array.length - 1;
 
@@ -57,9 +57,9 @@ export function positionToValue(
   position: number,
   valuesArray: Array<number>,
   sliderLength: number,
-) {
+): number {
   if (position < 0 || sliderLength < position) {
-    return null;
+    return -1;
   }
 
   const arrLength = valuesArray.length - 1;
@@ -67,8 +67,12 @@ export function positionToValue(
   return valuesArray[Math.round(index)];
 }
 
-export function createArray(start: number, end: number, step: number) {
-  const result = [];
+export function createArray(
+  start: number,
+  end: number,
+  step: number,
+): Array<number> {
+  const result: Array<number> = [];
 
   if (!step) {
     return result;
