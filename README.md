@@ -30,7 +30,7 @@ $ npm install --save @ptomasroos/react-native-multi-slider
 ```
  enableScroll = () => this.setState({ scrollEnabled: true });
  disableScroll = () => this.setState({ scrollEnabled: false });
- 
+
  render() {
    return (
      <ScrollView scrollEnabled={this.state.scrollEnabled}>
@@ -51,12 +51,12 @@ In order to make different styles on markers you can set isMarkersSeparated to t
 <MultiSlider
      ...
       isMarkersSeparated={true}
-      
+
       customMarkerLeft={(e) => {
          return (<CustomSliderMarkerLeft
           currentValue={e.currentValue}/>)
           }}
-         
+
          customMarkerRight={(e) => {
          return (<CustomSliderMarkerRight
          currentValue={e.currentValue}/>)
@@ -93,6 +93,6 @@ Feel free to contribute to this part of the documentation.
 | onToggleOne | undefined | function callback | Listener when first cursor toggles. |
 | onToggleTwo | undefined | function callback | Listener when second cursor toggles. |
 | allowOverlap | false | boolean | Allow the overlap within the cursors. |
-| snapped | false | boolean | (?) |
+| snapped | false | boolean | Use this when you want a fixed position for your markers, this will split the slider in N specific positions |
 | markerOffsetX | 0 | number | Offset first cursor. |
 | markerOffsetY | 0 | number | Offset second cursor. |
