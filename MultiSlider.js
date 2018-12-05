@@ -37,7 +37,6 @@ type Props = MarkerProps & {
   enabledTwo: boolean,
   allowOverlap: boolean,
   snapped: boolean,
-  vertical: boolean,
   isMarkersSeparated: boolean,
   trackStyle: ViewStyleProp,
   containerStyle: ViewStyleProp,
@@ -88,7 +87,6 @@ class MultiSlider extends React.Component<Props, State> {
     enabledTwo: true,
     allowOverlap: false,
     snapped: false,
-    vertical: false,
     sliderLength: 0,
   };
 
@@ -170,6 +168,7 @@ class MultiSlider extends React.Component<Props, State> {
         this.optionsArray,
         nextProps.sliderLength,
       );
+
       nextState.valueOne = nextProps.values[0];
       nextState.pastOne = positionOne;
       nextState.positionOne = positionOne;
@@ -212,12 +211,8 @@ class MultiSlider extends React.Component<Props, State> {
       return;
     }
 
-    const accumDistance = this.props.vertical
-      ? -gestureState.dy
-      : gestureState.dx;
-    const accumDistanceDisplacement = this.props.vertical
-      ? gestureState.dx
-      : gestureState.dy;
+    const accumDistance = gestureState.dx;
+    const accumDistanceDisplacement = gestureState.dy;
 
     const unconfined = I18nManager.isRTL
       ? this.state.pastOne - accumDistance
@@ -272,12 +267,8 @@ class MultiSlider extends React.Component<Props, State> {
       return;
     }
 
-    const accumDistance = this.props.vertical
-      ? -gestureState.dy
-      : gestureState.dx;
-    const accumDistanceDisplacement = this.props.vertical
-      ? gestureState.dx
-      : gestureState.dy;
+    const accumDistance = gestureState.dx;
+    const accumDistanceDisplacement = gestureState.dy;
 
     const unconfined = I18nManager.isRTL
       ? this.state.pastTwo - accumDistance
@@ -367,9 +358,7 @@ class MultiSlider extends React.Component<Props, State> {
   };
 
   onContainerLayout = (e: Object) => {
-    const { vertical } = this.props;
-    const { width, height } = e.nativeEvent.layout;
-    this.setState({ sliderLength: vertical ? height : width });
+    this.setState({ sliderLength: e.nativeEvent.layout.width });
   };
 
   render() {
@@ -413,16 +402,11 @@ class MultiSlider extends React.Component<Props, State> {
       right: trackThreeLength + markerOffsetX - 24,
     };
 
-    const containerStyle = [styles.container, this.props.containerStyle];
-
-    if (this.props.vertical) {
-      containerStyle.push({
-        transform: [{ rotate: '-90deg' }],
-      });
-    }
-
     return (
-      <View style={containerStyle} onLayout={this.onContainerLayout}>
+      <View
+        style={[styles.container, this.props.containerStyle]}
+        onLayout={this.onContainerLayout}
+      >
         <View style={[styles.fullTrack, { width: sliderLength }]}>
           <View
             style={[
