@@ -84,7 +84,7 @@ Feel free to contribute to this part of the documentation.
 | min | 0 | number | Minimum value available in the slider. |
 | max | 10 | number | Maximum value available in the slider. |
 | step | 1 | number | Step value of the slider. |
-| optionsArray |  | array | (?) |
+| optionsArray |  | array of numbers | Possible values of the slider. Ignores min and max. |
 | {container/track/selected/unselected/ markerContainer/marker/pressedMarker} Style |  | style object | Styles for the slider |
 | valuePrefix |  | string | Prefix added to the value. |
 | valueSuffix |  | string | Suffix added to the value. |
