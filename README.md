@@ -6,7 +6,7 @@ Options to customize track, touch area and provide customer markers and callback
 ## Examples
 
 ```
-cd example
+cd example/Basic
 npm install
 react-native run-ios
 react-native run-android
