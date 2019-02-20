@@ -416,6 +416,7 @@ export default class MultiSlider extends React.Component {
                   pressed={this.state.onePressed}
                   markerStyle={[styles.marker, this.props.markerStyle]}
                   pressedMarkerStyle={this.props.pressedMarkerStyle}
+                  disabledMarkerStyle={this.props.disabledMarkerStyle}
                   currentValue={this.state.valueOne}
                   valuePrefix={this.props.valuePrefix}
                   valueSuffix={this.props.valueSuffix}
@@ -426,6 +427,7 @@ export default class MultiSlider extends React.Component {
                   pressed={this.state.onePressed}
                   markerStyle={[styles.marker, this.props.markerStyle]}
                   pressedMarkerStyle={this.props.pressedMarkerStyle}
+                  disabledMarkerStyle={this.props.disabledMarkerStyle}
                   currentValue={this.state.valueOne}
                   valuePrefix={this.props.valuePrefix}
                   valueSuffix={this.props.valueSuffix}
@@ -452,6 +454,7 @@ export default class MultiSlider extends React.Component {
                       pressed={this.state.twoPressed}
                       markerStyle={this.props.markerStyle}
                       pressedMarkerStyle={this.props.pressedMarkerStyle}
+                      disabledMarkerStyle={this.props.disabledMarkerStyle}
                       currentValue={this.state.valueTwo}
                       enabled={this.props.enabledTwo}
                       valuePrefix={this.props.valuePrefix}
@@ -462,6 +465,7 @@ export default class MultiSlider extends React.Component {
                       pressed={this.state.twoPressed}
                       markerStyle={this.props.markerStyle}
                       pressedMarkerStyle={this.props.pressedMarkerStyle}
+                      disabledMarkerStyle={this.props.disabledMarkerStyle}
                       currentValue={this.state.valueTwo}
                       enabled={this.props.enabledTwo}
                       valuePrefix={this.props.valuePrefix}
