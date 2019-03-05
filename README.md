@@ -96,4 +96,4 @@ Feel free to contribute to this part of the documentation.
 | snapped | false | boolean | Use this when you want a fixed position for your markers, this will split the slider in N specific positions |
 | markerOffsetX | 0 | number | Offset first cursor. |
 | markerOffsetY | 0 | number | Offset second cursor. |
-| minMarkerOverlapDistance | 0 | number | if defined and more than 0 and allowOverlap set to true, we will use this distance to calculate the overlap distance between the two markers, rather than use the default step length. |
+| minMarkerOverlapDistance | 0 | number | if defined and more than 0, and allowOverlap is set to false, we will use this number to calculate the closest the cursors can come together, rather than use the default step length. This is useful for cases where developers need to prioritize cursors not overlapping over cursors having to be one step length from each other |
