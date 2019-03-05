@@ -102,7 +102,8 @@ export default class MultiSlider extends React.Component {
     let nextState = {};
     if (
       nextProps.min !== this.props.min ||
-      nextProps.max !== this.props.max ||
+	  nextProps.max !== this.props.max ||
+	  nextProps.step !== this.props.step ||
       nextProps.values[0] !== this.state.valueOne ||
       nextProps.sliderLength !== this.props.sliderLength ||
       nextProps.values[1] !== this.state.valueTwo ||
