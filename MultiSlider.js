@@ -1,19 +1,17 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 
 import {
 	I18nManager,
 	PanResponder,
 	Platform,
-	StyleSheet,
-	TouchableHighlight,
-	View,
-} from "react-native";
+	I18nManager,
+} from 'react-native';
 
-import DefaultMarker from "./DefaultMarker";
-import { createArray, positionToValue, valueToPosition } from "./converters";
+import DefaultMarker from './DefaultMarker';
+import { createArray, valueToPosition, positionToValue } from './converters';
 
-const ViewPropTypes = require("react-native").ViewPropTypes || View.propTypes;
+const ViewPropTypes = require('react-native').ViewPropTypes || View.propTypes;
 
 export default class MultiSlider extends React.Component {
 	static defaultProps = {
@@ -136,7 +134,7 @@ export default class MultiSlider extends React.Component {
 			nextState.positionTwo = positionTwo;
 		}
 
-		if (nextState !== {}) {
+		if (nextState != {}) {
 			this.setState(nextState);
 		}
 	}
@@ -148,7 +146,7 @@ export default class MultiSlider extends React.Component {
 				onePressed: !this.state.onePressed,
 			});
 		}
-	}
+	};
 
 	startTwo = () => {
 		if (this.props.enabledTwo) {
@@ -157,7 +155,7 @@ export default class MultiSlider extends React.Component {
 				twoPressed: !this.state.twoPressed,
 			});
 		}
-	}
+	};
 
 	moveOne = gestureState => {
 		if (!this.props.enabledOne) {
@@ -217,7 +215,7 @@ export default class MultiSlider extends React.Component {
 				);
 			}
 		}
-	}
+	};
 
 	moveTwo = gestureState => {
 		if (!this.props.enabledTwo) {
@@ -277,7 +275,7 @@ export default class MultiSlider extends React.Component {
 				);
 			}
 		}
-	}
+	};
 
 	endOne = gestureState => {
 		if (gestureState.moveX === 0 && this.props.onToggleOne) {
@@ -298,7 +296,7 @@ export default class MultiSlider extends React.Component {
 				this.props.onValuesChangeFinish(change);
 			},
 		);
-	}
+	};
 
 	endTwo = gestureState => {
 		if (gestureState.moveX === 0 && this.props.onToggleTwo) {
@@ -318,7 +316,7 @@ export default class MultiSlider extends React.Component {
 				]);
 			},
 		);
-	}
+	};
 
 	render() {
 		const { positionOne, positionTwo } = this.state;
@@ -329,7 +327,7 @@ export default class MultiSlider extends React.Component {
 			markerOffsetX,
 			markerOffsetY,
 		} = this.props;
-		const twoMarkers = this.props.values.length === 2; // when allowOverlap, positionTwo could be 0, identified as string '0' and throwing 'RawText 0 needs to be wrapped in <Text>' error
+		const twoMarkers = this.props.values.length == 2; // when allowOverlap, positionTwo could be 0, identified as string '0' and throwing 'RawText 0 needs to be wrapped in <Text>' error
 
 		const trackOneLength = positionOne;
 		const trackOneStyle = twoMarkers
@@ -371,7 +369,7 @@ export default class MultiSlider extends React.Component {
 
 		if (this.props.vertical) {
 			containerStyle.push({
-				transform: [{ rotate: "-90deg" }],
+				transform: [{ rotate: '-90deg' }],
 			});
 		}
 
@@ -486,51 +484,51 @@ export default class MultiSlider extends React.Component {
 
 const styles = StyleSheet.create({
 	container: {
-		position: "relative",
+		position: 'relative',
 		height: 50,
-		justifyContent: "center",
+		justifyContent: 'center',
 	},
 	fullTrack: {
-		flexDirection: "row",
+		flexDirection: 'row',
 	},
 	track: {
 		...Platform.select({
 			ios: {
 				height: 2,
 				borderRadius: 2,
-				backgroundColor: "#A7A7A7",
+				backgroundColor: '#A7A7A7',
 			},
 			android: {
 				height: 2,
-				backgroundColor: "#CECECE",
+				backgroundColor: '#CECECE',
 			},
 		}),
 	},
 	selectedTrack: {
 		...Platform.select({
 			ios: {
-				backgroundColor: "#095FFF",
+				backgroundColor: '#095FFF',
 			},
 			android: {
-				backgroundColor: "#0D8675",
+				backgroundColor: '#0D8675',
 			},
 		}),
 	},
 	markerContainer: {
-		position: "absolute",
+		position: 'absolute',
 		width: 48,
 		height: 48,
-		backgroundColor: "transparent",
-		justifyContent: "center",
-		alignItems: "center",
+		backgroundColor: 'transparent',
+		justifyContent: 'center',
+		alignItems: 'center',
 	},
 	topMarkerContainer: {
 		zIndex: 1,
 	},
 	touch: {
-		backgroundColor: "transparent",
-		justifyContent: "center",
-		alignItems: "center",
-		alignSelf: "stretch",
+		backgroundColor: 'transparent',
+		justifyContent: 'center',
+		alignItems: 'center',
+		alignSelf: 'stretch',
 	},
 });
