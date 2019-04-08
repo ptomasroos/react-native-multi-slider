@@ -21,6 +21,7 @@ export default class MultiSlider extends React.Component {
     onValuesChangeStart: () => {},
     onValuesChange: values => {},
     onValuesChangeFinish: values => {},
+    onRef: ref => {},
     step: 1,
     min: 0,
     max: 10,
@@ -139,6 +140,10 @@ export default class MultiSlider extends React.Component {
     if (nextState != {}) {
       this.setState(nextState);
     }
+  }
+
+  componentDidMount() {
+    this.props.onRef(this);
   }
 
   startOne = () => {
