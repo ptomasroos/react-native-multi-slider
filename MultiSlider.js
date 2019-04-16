@@ -421,7 +421,7 @@ export default class MultiSlider extends React.Component {
                 <Marker
                   enabled={this.props.enabledOne}
                   pressed={this.state.onePressed}
-                  markerStyle={[styles.marker, this.props.markerStyle]}
+                  markerStyle={this.props.markerStyle}
                   pressedMarkerStyle={this.props.pressedMarkerStyle}
                   currentValue={this.state.valueOne}
                   valuePrefix={this.props.valuePrefix}
@@ -431,7 +431,7 @@ export default class MultiSlider extends React.Component {
                 <MarkerLeft
                   enabled={this.props.enabledOne}
                   pressed={this.state.onePressed}
-                  markerStyle={[styles.marker, this.props.markerStyle]}
+                  markerStyle={this.props.markerStyle}
                   pressedMarkerStyle={this.props.pressedMarkerStyle}
                   currentValue={this.state.valueOne}
                   valuePrefix={this.props.valuePrefix}
