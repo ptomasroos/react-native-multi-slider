@@ -478,12 +478,12 @@ export default class MultiSlider extends React.Component {
     </React.Fragment>);
     return (
       <React.Fragment>
-        {this.props.backgroundImageSource && 
-          <ImageBackground source={this.props.backgroundImageSource} style={[{width: '100%', height: '100%'}, containerStyle]}>
+        {this.props.imageBackgroundSource && 
+          <ImageBackground source={this.props.imageBackgroundSource} style={[{width: '100%', height: '100%'}, containerStyle]}>
             {body}
           </ImageBackground>
         }
-        {!this.props.backgroundImageSource &&
+        {!this.props.imageBackgroundSource &&
           <View style={containerStyle}>
             {body}
           </View>
