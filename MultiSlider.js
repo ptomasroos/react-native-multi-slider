@@ -83,7 +83,7 @@ export default class MultiSlider extends React.Component {
       });
     };
     
-    this._panResponsderBetween = customPanResponder(
+    this._panResponderBetween = customPanResponder(
       (gestureState) => {
         this.startOne(gestureState);
         this.startTwo(gestureState);
@@ -408,7 +408,7 @@ export default class MultiSlider extends React.Component {
               trackTwoStyle,
               { width: trackTwoLength },
             ]}
-            {...(twoMarkers ? this._panResponsderBetween.panHandlers : {})}
+            {...(twoMarkers ? this._panResponderBetween.panHandlers : {})}
           />
           {twoMarkers && (
             <View
