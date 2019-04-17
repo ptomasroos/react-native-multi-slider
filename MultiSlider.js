@@ -1,19 +1,16 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 import {
   StyleSheet,
   PanResponder,
   View,
-  TouchableHighlight,
   Platform,
   I18nManager,
+  ImageBackground
 } from 'react-native';
 
 import DefaultMarker from './DefaultMarker';
 import { createArray, valueToPosition, positionToValue } from './converters';
-
-const ViewPropTypes = require('react-native').ViewPropTypes || View.propTypes;
 
 export default class MultiSlider extends React.Component {
   static defaultProps = {
@@ -41,7 +38,7 @@ export default class MultiSlider extends React.Component {
     allowOverlap: false,
     snapped: false,
     vertical: false,
-    minMarkerOverlapDistance: 0,
+    minMarkerOverlapDistance: 0
   };
 
   constructor(props) {
@@ -82,8 +79,8 @@ export default class MultiSlider extends React.Component {
         onShouldBlockNativeResponder: (evt, gestureState) => true,
       });
     };
-    
-    this._panResponsderBetween = customPanResponder(
+
+    this._panResponderBetween = customPanResponder(
       (gestureState) => {
         this.startOne(gestureState);
         this.startTwo(gestureState);
@@ -390,9 +387,8 @@ export default class MultiSlider extends React.Component {
       });
     }
 
-    return (
-      <View style={containerStyle}>
-        <View style={[styles.fullTrack, { width: sliderLength }]}>
+    const body = (<React.Fragment>
+      <View style={[styles.fullTrack, { width: sliderLength }]}>
           <View
             style={[
               styles.track,
@@ -408,7 +404,7 @@ export default class MultiSlider extends React.Component {
               trackTwoStyle,
               { width: trackTwoLength },
             ]}
-            {...(twoMarkers ? this._panResponsderBetween.panHandlers : {})}
+            {...(twoMarkers ? this._panResponderBetween.panHandlers : {})}
           />
           {twoMarkers && (
             <View
@@ -437,7 +433,7 @@ export default class MultiSlider extends React.Component {
                 <Marker
                   enabled={this.props.enabledOne}
                   pressed={this.state.onePressed}
-                  markerStyle={[styles.marker, this.props.markerStyle]}
+                  markerStyle={this.props.markerStyle}
                   pressedMarkerStyle={this.props.pressedMarkerStyle}
                   currentValue={this.state.valueOne}
                   valuePrefix={this.props.valuePrefix}
@@ -447,7 +443,7 @@ export default class MultiSlider extends React.Component {
                 <MarkerLeft
                   enabled={this.props.enabledOne}
                   pressed={this.state.onePressed}
-                  markerStyle={[styles.marker, this.props.markerStyle]}
+                  markerStyle={this.props.markerStyle}
                   pressedMarkerStyle={this.props.pressedMarkerStyle}
                   currentValue={this.state.valueOne}
                   valuePrefix={this.props.valuePrefix}
@@ -495,7 +491,20 @@ export default class MultiSlider extends React.Component {
               </View>
             )}
         </View>
-      </View>
+    </React.Fragment>);
+    return (
+      <React.Fragment>
+        {this.props.imageBackgroundSource && 
+          <ImageBackground source={this.props.imageBackgroundSource} style={[{width: '100%', height: '100%'}, containerStyle]}>
+            {body}
+          </ImageBackground>
+        }
+        {!this.props.imageBackgroundSource &&
+          <View style={containerStyle}>
+            {body}
+          </View>
+        }
+      </React.Fragment>
     );
   }
 }
