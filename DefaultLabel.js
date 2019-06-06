@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { View, Text, StyleSheet, Platform, TouchableHighlight } from 'react-native';
 
-const ViewPropTypes = require('react-native').ViewPropTypes || View.propTypes;
+const ViewPropTypes = require('react-native').ViewPropTypes || ViewPropTypes;
 
 export default class DefaultLabel extends React.Component {
   static propTypes = {
