@@ -488,7 +488,7 @@ const styles = StyleSheet.create({
   container: {
     position: 'relative',
     height: 50,
-    justifyContent: 'center',
+    justifyContent: 'center'
   },
   fullTrack: {
     flexDirection: 'row',
@@ -504,6 +504,11 @@ const styles = StyleSheet.create({
         height: 2,
         backgroundColor: '#CECECE',
       },
+      web:{
+        height: 2,
+        borderRadius: 2,
+        backgroundColor: '#A7A7A7',
+      }
     }),
   },
   selectedTrack: {
@@ -514,6 +519,9 @@ const styles = StyleSheet.create({
       android: {
         backgroundColor: '#0D8675',
       },
+      web:{
+        backgroundColor: '#095FFF',
+      }
     }),
   },
   markerContainer: {
