@@ -5,11 +5,13 @@ import {
   PanResponder,
   View,
   Platform,
+  Dimensions,
   I18nManager,
   ImageBackground
 } from 'react-native';
 
 import DefaultMarker from './DefaultMarker';
+import DefaultLabel from './DefaultLabel';
 import { createArray, valueToPosition, positionToValue } from './converters';
 
 export default class MultiSlider extends React.Component {
@@ -18,16 +20,20 @@ export default class MultiSlider extends React.Component {
     onValuesChangeStart: () => {},
     onValuesChange: values => {},
     onValuesChangeFinish: values => {},
+    onMarkersPosition: values => {},
     step: 1,
     min: 0,
     max: 10,
     touchDimensions: {
+      height: 50,
+      width: 50,
       borderRadius: 15,
       slipDisplacement: 200,
     },
     customMarker: DefaultMarker,
     customMarkerLeft: DefaultMarker,
     customMarkerRight: DefaultMarker,
+    customLabel: DefaultLabel,
     markerOffsetX: 0,
     markerOffsetY: 0,
     sliderLength: 280,
@@ -135,6 +141,10 @@ export default class MultiSlider extends React.Component {
 
     if (nextState != {}) {
       this.setState(nextState);
+
+      if (typeof nextState.positionOne !== 'undefined' && typeof nextState.positionTwo !== 'undefined') {
+          this.props.onMarkersPosition([nextState.positionOne, nextState.positionTwo]);
+      }
     }
   }
 
@@ -210,6 +220,8 @@ export default class MultiSlider extends React.Component {
               change.push(this.state.valueTwo);
             }
             this.props.onValuesChange(change);
+
+            this.props.onMarkersPosition([this.state.positionOne, this.state.positionTwo]);
           },
         );
       }
@@ -266,10 +278,9 @@ export default class MultiSlider extends React.Component {
             valueTwo: value,
           },
           () => {
-            this.props.onValuesChange([
-              this.state.valueOne,
-              this.state.valueTwo,
-            ]);
+            this.props.onValuesChange([this.state.valueOne, this.state.valueTwo]);
+
+            this.props.onMarkersPosition([this.state.positionOne, this.state.positionTwo]);
           },
         );
       }
@@ -344,6 +355,8 @@ export default class MultiSlider extends React.Component {
     const MarkerRight = this.props.customMarkerRight;
     const isMarkersSeparated = this.props.isMarkersSeparated || false;
 
+    const Label = this.props.customLabel;
+
     const {
       slipDisplacement,
       height,
@@ -382,6 +395,24 @@ export default class MultiSlider extends React.Component {
               { width: trackOneLength },
             ]}
           />
+          <View
+            style={[
+              styles.track,
+              this.props.trackStyle,
+              trackTwoStyle,
+              { width: trackTwoLength },
+            ]}
+          />
+          {twoMarkers && (
+            <View
+              style={[
+                styles.track,
+                this.props.trackStyle,
+                trackOneStyle,
+                { width: trackOneLength },
+              ]}
+            />
+          )}
           <View
             style={[
               styles.track,
@@ -474,10 +505,18 @@ export default class MultiSlider extends React.Component {
                 </View>
               </View>
             )}
-        </View>
+          </View>
     </React.Fragment>);
+    const leftDiff = (Dimensions.get('window').width - this.props.sliderLength) / 2;
     return (
-      <React.Fragment>
+      <View>
+        <Label
+          leftDiff={leftDiff}
+          oneMarkerValue={this.state.valueOne}
+          twoMarkerValue={this.state.valueTwo}
+          oneMarkerLeftPosition={positionOne}
+          twoMarkerLeftPosition={positionTwo}
+        />
         {this.props.imageBackgroundSource && 
           <ImageBackground source={this.props.imageBackgroundSource} style={[{width: '100%', height: '100%'}, containerStyle]}>
             {body}
@@ -488,7 +527,7 @@ export default class MultiSlider extends React.Component {
             {body}
           </View>
         }
-      </React.Fragment>
+      </View>
     );
   }
 }
