@@ -44,7 +44,10 @@ export default class MultiSlider extends React.Component {
     allowOverlap: false,
     snapped: false,
     vertical: false,
-    minMarkerOverlapDistance: 0
+    minMarkerOverlapDistance: 0,
+    leftKnobComponent: null,
+    rightKnobComponent: null,
+    showLabel: false
   };
 
   constructor(props) {
@@ -470,7 +473,9 @@ export default class MultiSlider extends React.Component {
                   currentValue={this.state.valueOne}
                   valuePrefix={this.props.valuePrefix}
                   valueSuffix={this.props.valueSuffix}
-                />
+                >
+                  {this.props.leftKnobComponent}
+                </Marker>
               ) : (
                 <MarkerLeft
                   enabled={this.props.enabledOne}
@@ -481,7 +486,9 @@ export default class MultiSlider extends React.Component {
                   currentValue={this.state.valueOne}
                   valuePrefix={this.props.valuePrefix}
                   valueSuffix={this.props.valueSuffix}
-                />
+                >
+                  {this.props.leftKnobComponent}
+                </MarkerLeft>
               )}
             </View>
           </View>
@@ -509,7 +516,9 @@ export default class MultiSlider extends React.Component {
                       enabled={this.props.enabledTwo}
                       valuePrefix={this.props.valuePrefix}
                       valueSuffix={this.props.valueSuffix}
-                    />
+                    >
+                      {this.props.rightKnobComponent}
+                    </Marker>
                   ) : (
                     <MarkerRight
                       pressed={this.state.twoPressed}
@@ -520,7 +529,9 @@ export default class MultiSlider extends React.Component {
                       enabled={this.props.enabledTwo}
                       valuePrefix={this.props.valuePrefix}
                       valueSuffix={this.props.valueSuffix}
-                    />
+                    >
+                      {this.props.rightKnobComponent}
+                    </MarkerRight>
                   )}
                 </View>
               </View>
@@ -530,13 +541,15 @@ export default class MultiSlider extends React.Component {
     const leftDiff = (Dimensions.get('window').width - this.props.sliderLength) / 2;
     return (
       <View>
-        <Label
-          leftDiff={leftDiff}
-          oneMarkerValue={this.state.valueOne}
-          twoMarkerValue={this.state.valueTwo}
-          oneMarkerLeftPosition={positionOne}
-          twoMarkerLeftPosition={positionTwo}
-        />
+        {this.props.showLabel &&
+          <Label
+            leftDiff={leftDiff}
+            oneMarkerValue={this.state.valueOne}
+            twoMarkerValue={this.state.valueTwo}
+            oneMarkerLeftPosition={positionOne}
+            twoMarkerLeftPosition={positionTwo}
+          />
+        }
         {this.props.imageBackgroundSource && 
           <ImageBackground source={this.props.imageBackgroundSource} style={[{width: '100%', height: '100%'}, containerStyle]}>
             {body}

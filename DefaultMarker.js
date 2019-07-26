@@ -16,7 +16,9 @@ class DefaultMarker extends React.Component {
                 ]
               : [styles.markerStyle, styles.disabled, this.props.disabledMarkerStyle]
           }
-        />
+        >
+          {this.props.children}
+        </View>
       </TouchableHighlight>
     );
   }
