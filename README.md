@@ -80,6 +80,7 @@ Feel free to contribute to this part of the documentation.
 | customMarker |  | function | Component used for the cursor. |
 | customMarkerLeft |  | function | Component used for the left cursor. |
 | customMarkerRight |  | function | Component used for the right cursor. |
+| customTrack |  | function | Component used for the track. |
 | isMarkersSeparated |  | boolean | (?) |
 | min | 0 | number | Minimum value available in the slider. |
 | max | 10 | number | Maximum value available in the slider. |

@@ -12,6 +12,7 @@ import { StyleSheet, View, Text, Slider } from 'react-native';
 
 import MultiSlider from 'react-native-multi-slider';
 import CustomMarker from './CustomMarker';
+import CustomTrack from './CustomTrack';
 
 class App extends React.Component {
     state = {
@@ -142,6 +143,30 @@ class App extends React.Component {
                     customMarker={CustomMarker}
                     sliderLength={280}
                 />
+
+	            <Text style={styles.text}>Custom Track</Text>
+	            <MultiSlider
+		            selectedStyle={{
+			            backgroundColor: 'transparent',
+		            }}
+		            unselectedStyle={{
+			            backgroundColor: 'transparent',
+		            }}
+		            values={[1, 5]}
+		            trackStyle={{
+			            height: 10,
+			            backgroundColor: 'red',
+		            }}
+		            touchDimensions={{
+			            height: 40,
+			            width: 40,
+			            borderRadius: 20,
+			            slipDisplacement: 40,
+		            }}
+		            customMarker={CustomMarker}
+		            customTrack={CustomTrack}
+		            sliderLength={280}
+	            />
             </View>
         );
     }

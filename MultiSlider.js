@@ -34,6 +34,7 @@ export default class MultiSlider extends React.Component {
     customMarkerLeft: DefaultMarker,
     customMarkerRight: DefaultMarker,
     customLabel: DefaultLabel,
+    customTrack: View,
     markerOffsetX: 0,
     markerOffsetY: 0,
     sliderLength: 280,
@@ -371,6 +372,7 @@ export default class MultiSlider extends React.Component {
     const isMarkersSeparated = this.props.isMarkersSeparated || false;
 
     const Label = this.props.customLabel;
+    const Track = this.props.customTrack;
 
     const {
       slipDisplacement,
@@ -541,13 +543,13 @@ export default class MultiSlider extends React.Component {
           <ImageBackground source={this.props.imageBackgroundSource} style={[{width: '100%', height: '100%'}, containerStyle]}>
             {body}
           </ImageBackground>
-        }
-        {!this.props.imageBackgroundSource &&
-          <View style={containerStyle}>
-            {body}
-          </View>
-        }
-      </View>
+          }
+          {!this.props.imageBackgroundSource &&
+            <Track style={containerStyle}>
+              {body}
+            </Track>
+          }
+        </View>
     );
   }
 }
