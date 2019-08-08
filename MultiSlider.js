@@ -34,7 +34,7 @@ export default class MultiSlider extends React.Component {
     customMarkerLeft: DefaultMarker,
     customMarkerRight: DefaultMarker,
     customLabel: DefaultLabel,
-    customTrack: View,
+    customTrack: undefined,
     markerOffsetX: 0,
     markerOffsetY: 0,
     sliderLength: 280,
@@ -86,7 +86,7 @@ export default class MultiSlider extends React.Component {
         onShouldBlockNativeResponder: (evt, gestureState) => true,
       });
     };
-    
+
     this._panResponderBetween = customPanResponder(
       (gestureState) => {
         this.startOne(gestureState);
@@ -352,6 +352,7 @@ export default class MultiSlider extends React.Component {
       sliderLength,
       markerOffsetX,
       markerOffsetY,
+      customTrack,
     } = this.props;
     const twoMarkers = this.props.values.length == 2; // when allowOverlap, positionTwo could be 0, identified as string '0' and throwing 'RawText 0 needs to be wrapped in <Text>' error
 
@@ -372,7 +373,7 @@ export default class MultiSlider extends React.Component {
     const isMarkersSeparated = this.props.isMarkersSeparated || false;
 
     const Label = this.props.customLabel;
-    const Track = this.props.customTrack;
+    const Track = customTrack || View;
 
     const {
       slipDisplacement,
@@ -402,11 +403,19 @@ export default class MultiSlider extends React.Component {
       });
     }
 
+    const customTrackStyle = {}
+
+    if (customTrack) {
+      customTrackStyle.backgroundColor = 'transparent'
+    }
+
+
     const body = (<React.Fragment>
-      <View style={[styles.fullTrack, { width: sliderLength }]}>
+      <Track style={[styles.fullTrack, { width: sliderLength }]}>
           <View
             style={[
               styles.track,
+              customTrackStyle,
               this.props.trackStyle,
               trackOneStyle,
               { width: trackOneLength },
@@ -415,6 +424,7 @@ export default class MultiSlider extends React.Component {
           <View
             style={[
               styles.track,
+              customTrackStyle,
               this.props.trackStyle,
               trackTwoStyle,
               { width: trackTwoLength },
@@ -425,6 +435,7 @@ export default class MultiSlider extends React.Component {
             <View
               style={[
                 styles.track,
+                customTrackStyle,
                 this.props.trackStyle,
                 trackOneStyle,
                 { width: trackOneLength },
@@ -434,6 +445,7 @@ export default class MultiSlider extends React.Component {
           <View
             style={[
               styles.track,
+              customTrackStyle,
               this.props.trackStyle,
               trackTwoStyle,
               { width: trackTwoLength },
@@ -443,6 +455,7 @@ export default class MultiSlider extends React.Component {
             <View
               style={[
                 styles.track,
+                customTrackStyle,
                 this.props.trackStyle,
                 trackThreeStyle,
                 { width: trackThreeLength },
@@ -527,7 +540,7 @@ export default class MultiSlider extends React.Component {
                 </View>
               </View>
             )}
-          </View>
+          </Track>
     </React.Fragment>);
     const leftDiff = (Dimensions.get('window').width - this.props.sliderLength) / 2;
     return (
@@ -539,15 +552,15 @@ export default class MultiSlider extends React.Component {
           oneMarkerLeftPosition={positionOne}
           twoMarkerLeftPosition={positionTwo}
         />
-        {this.props.imageBackgroundSource && 
+        {this.props.imageBackgroundSource &&
           <ImageBackground source={this.props.imageBackgroundSource} style={[{width: '100%', height: '100%'}, containerStyle]}>
             {body}
           </ImageBackground>
           }
           {!this.props.imageBackgroundSource &&
-            <Track style={containerStyle}>
+            <View style={containerStyle}>
               {body}
-            </Track>
+            </View>
           }
         </View>
     );

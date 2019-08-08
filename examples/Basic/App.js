@@ -146,26 +146,15 @@ class App extends React.Component {
 
 	            <Text style={styles.text}>Custom Track</Text>
 	            <MultiSlider
-		            selectedStyle={{
-			            backgroundColor: 'transparent',
-		            }}
-		            unselectedStyle={{
-			            backgroundColor: 'transparent',
-		            }}
+                    selectedStyle={{
+                        backgroundColor: 'transparent',
+                    }}
 		            values={[1, 5]}
 		            trackStyle={{
-			            height: 10,
-			            backgroundColor: 'red',
-		            }}
-		            touchDimensions={{
-			            height: 40,
-			            width: 40,
-			            borderRadius: 20,
-			            slipDisplacement: 40,
+			            height: 8,
 		            }}
 		            customMarker={CustomMarker}
 		            customTrack={CustomTrack}
-		            sliderLength={280}
 	            />
             </View>
         );
