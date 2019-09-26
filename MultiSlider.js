@@ -44,7 +44,8 @@ export default class MultiSlider extends React.Component {
     allowOverlap: false,
     snapped: false,
     vertical: false,
-    minMarkerOverlapDistance: 0
+    minMarkerOverlapDistance: 0,
+    gradientWrapper: undefined,
   };
 
   constructor(props) {
@@ -402,23 +403,47 @@ export default class MultiSlider extends React.Component {
 
     const body = (<React.Fragment>
       <View style={[styles.fullTrack, { width: sliderLength }]}>
-          <View
-            style={[
-              styles.track,
-              this.props.trackStyle,
-              trackOneStyle,
-              { width: trackOneLength },
-            ]}
-          />
-          <View
-            style={[
-              styles.track,
-              this.props.trackStyle,
-              trackTwoStyle,
-              { width: trackTwoLength },
-            ]}
-            {...(twoMarkers ? this._panResponderBetween.panHandlers : {})}
-          />
+        {
+          this.props.gradientWrapper ? this.props.gradientWrapper(
+              <View
+                  style={[
+                    styles.track,
+                    this.props.trackStyle,
+                    trackOneStyle,
+                    { width: trackOneLength},
+                  ]}
+              />
+
+              ) :
+              <View
+                  style={[
+                    styles.track,
+                    this.props.trackStyle,
+                    trackOneStyle,
+                    { width: trackOneLength },
+                  ]}
+              />
+        }
+        {
+          this.props.gradientWrapper ? this.props.gradientWrapper(
+              <View
+                  style={[
+                    styles.track,
+                    this.props.trackStyle,
+                    trackTwoStyle,
+                    { width: trackTwoLength},
+                  ]}
+              />
+              ) :
+              <View
+                  style={[
+                    styles.track,
+                    this.props.trackStyle,
+                    trackTwoStyle,
+                    { width: trackTwoLength },
+                  ]}
+              />
+        }
           {twoMarkers && (
             <View
               style={[
