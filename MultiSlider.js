@@ -429,14 +429,6 @@ export default class MultiSlider extends React.Component {
               ]}
             />
           )}
-          <View
-            style={[
-              styles.track,
-              this.props.trackStyle,
-              trackTwoStyle,
-              { width: trackTwoLength },
-            ]}
-          />
           {twoMarkers && (
             <View
               style={[
