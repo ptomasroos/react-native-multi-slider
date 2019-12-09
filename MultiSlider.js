@@ -45,6 +45,7 @@ export default class MultiSlider extends React.Component {
     snapped: false,
     vertical: false,
     minMarkerOverlapDistance: 0,
+    containerPointerEvents: 'auto',
   };
 
   constructor(props) {
@@ -430,7 +431,10 @@ export default class MultiSlider extends React.Component {
 
     const body = (
       <React.Fragment>
-        <View style={[styles.fullTrack, { width: sliderLength }]}>
+        <View
+          style={[styles.fullTrack, { width: sliderLength }]}
+          pointerEvents={this.props.containerPointerEvents}
+        >
           <View
             style={[
               styles.track,
@@ -438,6 +442,7 @@ export default class MultiSlider extends React.Component {
               trackOneStyle,
               { width: trackOneLength },
             ]}
+            pointerEvents={this.props.containerPointerEvents}
           />
           <View
             style={[
@@ -447,6 +452,7 @@ export default class MultiSlider extends React.Component {
               { width: trackTwoLength },
             ]}
             {...(twoMarkers ? this._panResponderBetween.panHandlers : {})}
+            pointerEvents={this.props.containerPointerEvents}
           />
           {twoMarkers && (
             <View
@@ -456,6 +462,7 @@ export default class MultiSlider extends React.Component {
                 trackThreeStyle,
                 { width: trackThreeLength },
               ]}
+              pointerEvents={this.props.containerPointerEvents}
             />
           )}
           <View
@@ -465,6 +472,7 @@ export default class MultiSlider extends React.Component {
               this.props.markerContainerStyle,
               positionOne > sliderLength / 2 && styles.topMarkerContainer,
             ]}
+            pointerEvents={this.props.containerPointerEvents}
           >
             <View
               style={[styles.touch, touchStyle]}
@@ -560,7 +568,12 @@ export default class MultiSlider extends React.Component {
           </ImageBackground>
         )}
         {!this.props.imageBackgroundSource && (
-          <View style={containerStyle}>{body}</View>
+          <View
+            style={containerStyle}
+            pointerEvents={this.props.containerPointerEvents}
+          >
+            {body}
+          </View>
         )}
       </View>
     );
