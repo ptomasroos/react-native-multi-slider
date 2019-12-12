@@ -7,15 +7,17 @@
     "test": "jest"
   },
   "dependencies": {
-    "react": "16.6.0-alpha.8af6728",
-    "react-native": "0.57.4",
-    "react-native-multi-slider": "file:../../"
+    "react": "16.8.6",
+    "react-native": "0.60.6",
+    "react-native-multi-slider": "https://github.com/ptomasroos/react-native-multi-slider"
   },
   "devDependencies": {
-    "babel-jest": "23.6.0",
-    "jest": "23.6.0",
-    "metro-react-native-babel-preset": "0.48.1",
-    "react-test-renderer": "16.6.0-alpha.8af6728"
+    "@babel/core": "^7.6.2",
+    "@babel/runtime": "^7.6.2",
+    "babel-jest": "^24.9.0",
+    "jest": "^24.9.0",
+    "metro-react-native-babel-preset": "^0.56.0",
+    "react-test-renderer": "16.8.6"
   },
   "jest": {
     "preset": "react-native"
