@@ -8,8 +8,7 @@
   },
   "dependencies": {
     "react": "16.8.6",
-    "react-native": "0.60.6",
-    "react-native-multi-slider": "https://github.com/ptomasroos/react-native-multi-slider"
+    "react-native": "0.60.6"
   },
   "devDependencies": {
     "@babel/core": "^7.6.2",
