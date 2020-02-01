@@ -5,7 +5,7 @@
   "main": "MultiSlider.js",
   "scripts": {
     "prettier": "prettier --single-quote --trailing-comma all --bracket-spacing --write \"**/*.js\""
-  },  
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ptomasroos/react-native-multi-slider.git"
@@ -26,14 +26,14 @@
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"
-    }  
+    }
   },
   "lint-staged": {
     "*.js": [
       "./node_modules/.bin/prettier --single-quote --trailing-comma all --bracket-spacing --write",
       "git add"
     ]
-  },  
+  },
   "author": "Tomas Roos <ptomasroos@gmail.com>",
   "license": "MIT",
   "peerDependencies": {
@@ -48,5 +48,6 @@
   "bugs": {
     "url": "https://github.com/ptomasroos/react-native-multi-slider/issues"
   },
-  "homepage": "https://github.com/ptomasroos/react-native-multi-slider#readme"
+  "homepage": "https://github.com/ptomasroos/react-native-multi-slider#readme",
+  "dependencies": {}
 }
