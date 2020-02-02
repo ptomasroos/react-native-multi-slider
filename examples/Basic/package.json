@@ -9,6 +9,8 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@ptomasroos/react-native-multi-slider": "^1.0.0",
+    "@react-native-community/slider": "^2.0.8",
     "react": "16.9.0",
     "react-native": "0.61.5"
   },
