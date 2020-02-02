@@ -9,7 +9,6 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "@ptomasroos/react-native-multi-slider": "^1.0.0",
     "@react-native-community/slider": "^2.0.8",
     "react": "16.9.0",
     "react-native": "0.61.5"
@@ -19,7 +18,6 @@
     "@babel/runtime": "7.8.4",
     "@react-native-community/eslint-config": "0.0.5",
     "eslint": "6.8.0",
-    "metro-react-native-babel-preset": "0.56.4",
-    "react-test-renderer": "16.9.0"
+    "metro-react-native-babel-preset": "0.56.4"
   }
 }

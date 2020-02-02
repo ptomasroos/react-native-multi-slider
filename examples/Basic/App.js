@@ -6,9 +6,9 @@ import React from 'react';
 
 import { StyleSheet, View, Text } from 'react-native';
 import Slider from '@react-native-community/slider';
-
-import MultiSlider from '@ptomasroos/react-native-multi-slider';
+import MultiSlider from 'react-native-multi-slider';
 import CustomMarker from './CustomMarker';
+import CustomLabel from './CustomLabel';
 
 export default function App() {
   const [sliderOneChanging, setSliderOneChanging] = React.useState(false);
