@@ -12,6 +12,9 @@ export default class DefaultLabel extends React.Component {
 
     oneMarkerLeftPosition: PropTypes.number,
     twoMarkerLeftPosition: PropTypes.number,
+
+    oneMarkerPressed: PropTypes.bool,
+    twoMarkerPressed: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -25,6 +28,8 @@ export default class DefaultLabel extends React.Component {
       twoMarkerValue,
       oneMarkerLeftPosition,
       twoMarkerLeftPosition,
+      oneMarkerPressed,
+      twoMarkerPressed,
     } = this.props;
 
     return (
@@ -34,6 +39,7 @@ export default class DefaultLabel extends React.Component {
             style={[
               styles.sliderLabel,
               { left: oneMarkerLeftPosition - leftDiff / 2 },
+              oneMarkerPressed && styles.markerPressed,
             ]}
           >
             <Text style={styles.sliderLabelText}>{oneMarkerValue}</Text>
@@ -45,6 +51,7 @@ export default class DefaultLabel extends React.Component {
             style={[
               styles.sliderLabel,
               { left: twoMarkerLeftPosition - leftDiff / 2 },
+              twoMarkerPressed && styles.markerPressed,
             ]}
           >
             <Text style={styles.sliderLabelText}>{twoMarkerValue}</Text>
@@ -68,5 +75,9 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontStyle: 'normal',
     fontSize: 11,
+  },
+  markerPressed: {
+    borderWidth: 2,
+    borderColor: '#999',
   },
 });
