@@ -1,22 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import {
-  View,
-  Text,
-  StyleSheet,
-  Platform,
-  TouchableHighlight,
-} from 'react-native';
-
-const ViewPropTypes = require('react-native').ViewPropTypes || ViewPropTypes;
+import { View, Text, StyleSheet } from 'react-native';
 
 export default class DefaultLabel extends React.Component {
   static propTypes = {
     leftDiff: PropTypes.number,
-
-    labelStyle: ViewPropTypes.style,
-    labelTextStyle: ViewPropTypes.style,
 
     oneMarkerValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     twoMarkerValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
@@ -27,15 +16,11 @@ export default class DefaultLabel extends React.Component {
 
   static defaultProps = {
     leftDiff: 0,
-    labelStyle: {},
-    labelTextStyle: {},
   };
 
   render() {
     const {
       leftDiff,
-      labelStyle,
-      labelTextStyle,
       oneMarkerValue,
       twoMarkerValue,
       oneMarkerLeftPosition,
@@ -49,12 +34,9 @@ export default class DefaultLabel extends React.Component {
             style={[
               styles.sliderLabel,
               { left: oneMarkerLeftPosition - leftDiff / 2 },
-              labelStyle,
             ]}
           >
-            <Text style={[styles.sliderLabelText, labelTextStyle]}>
-              {oneMarkerValue}
-            </Text>
+            <Text style={styles.sliderLabelText}>{oneMarkerValue}</Text>
           </View>
         )}
 
@@ -63,12 +45,9 @@ export default class DefaultLabel extends React.Component {
             style={[
               styles.sliderLabel,
               { left: twoMarkerLeftPosition - leftDiff / 2 },
-              labelStyle,
             ]}
           >
-            <Text style={[styles.sliderLabelText, labelTextStyle]}>
-              {twoMarkerValue}
-            </Text>
+            <Text style={styles.sliderLabelText}>{twoMarkerValue}</Text>
           </View>
         )}
       </View>
@@ -79,7 +58,7 @@ export default class DefaultLabel extends React.Component {
 const styles = StyleSheet.create({
   sliderLabel: {
     position: 'absolute',
-    top: -24,
+    bottom: 0,
     minWidth: 51,
     padding: 8,
     backgroundColor: '#fff',
