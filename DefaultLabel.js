@@ -1,7 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { View, Text, StyleSheet, Platform, TouchableHighlight } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Platform,
+  TouchableHighlight,
+} from 'react-native';
 
 const ViewPropTypes = require('react-native').ViewPropTypes || ViewPropTypes;
 
@@ -12,37 +18,59 @@ export default class DefaultLabel extends React.Component {
     labelStyle: ViewPropTypes.style,
     labelTextStyle: ViewPropTypes.style,
 
-    oneMarkerValue: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.number
-    ]),
-    twoMarkerValue: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.number
-    ]),
+    oneMarkerValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    twoMarkerValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
     oneMarkerLeftPosition: PropTypes.number,
-    twoMarkerLeftPosition: PropTypes.number
+    twoMarkerLeftPosition: PropTypes.number,
   };
 
   static defaultProps = {
     leftDiff: 0,
     labelStyle: {},
-    labelTextStyle: {}
+    labelTextStyle: {},
   };
 
   render() {
-    const {leftDiff, labelStyle, labelTextStyle, oneMarkerValue, twoMarkerValue, oneMarkerLeftPosition, twoMarkerLeftPosition} = this.props;
+    const {
+      leftDiff,
+      labelStyle,
+      labelTextStyle,
+      oneMarkerValue,
+      twoMarkerValue,
+      oneMarkerLeftPosition,
+      twoMarkerLeftPosition,
+    } = this.props;
 
     return (
-      <View style={{position: 'relative'}}>
-        <View style={[styles.sliderLabel, {left: (oneMarkerLeftPosition - leftDiff)}, labelStyle]}>
-          <Text style={[styles.sliderLabelText, labelTextStyle]}>{oneMarkerValue}</Text>
-        </View>
+      <View style={{ position: 'relative' }}>
+        {Number.isFinite(oneMarkerLeftPosition) && (
+          <View
+            style={[
+              styles.sliderLabel,
+              { left: oneMarkerLeftPosition - leftDiff / 2 },
+              labelStyle,
+            ]}
+          >
+            <Text style={[styles.sliderLabelText, labelTextStyle]}>
+              {oneMarkerValue}
+            </Text>
+          </View>
+        )}
 
-        <View style={[styles.sliderLabel, {left: (twoMarkerLeftPosition - leftDiff)}, labelStyle]}>
-          <Text style={[styles.sliderLabelText, labelTextStyle]}>{twoMarkerValue}</Text>
-        </View>
+        {Number.isFinite(twoMarkerLeftPosition) && (
+          <View
+            style={[
+              styles.sliderLabel,
+              { left: twoMarkerLeftPosition - leftDiff / 2 },
+              labelStyle,
+            ]}
+          >
+            <Text style={[styles.sliderLabelText, labelTextStyle]}>
+              {twoMarkerValue}
+            </Text>
+          </View>
+        )}
       </View>
     );
   }
@@ -60,6 +88,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     textAlign: 'center',
     fontStyle: 'normal',
-    fontSize: 11
+    fontSize: 11,
   },
 });
