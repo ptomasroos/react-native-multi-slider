@@ -84,6 +84,7 @@ const styles = StyleSheet.create({
   sliderLabel: {
     position: 'absolute',
     justifyContent: 'center',
+    bottom: '100%',
     width: width,
     height: width,
   },
