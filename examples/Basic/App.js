@@ -61,6 +61,7 @@ export default function App() {
           step={1}
           allowOverlap
           snapped
+          customLabel={CustomLabel}
         />
       </View>
       <View style={styles.sliderOne}>
@@ -84,6 +85,7 @@ export default function App() {
         snapped
         minMarkerOverlapDistance={40}
         customMarker={CustomMarker}
+        customLabel={CustomLabel}
       />
       <Text style={styles.text}>Native RCT Slider</Text>
       <Slider style={{ width: 280 }} />
@@ -110,6 +112,7 @@ export default function App() {
           slipDisplacement: 40,
         }}
         customMarker={CustomMarker}
+        customLabel={CustomLabel}
         sliderLength={280}
       />
     </View>
