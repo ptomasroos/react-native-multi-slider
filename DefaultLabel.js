@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import { View, Text, StyleSheet } from 'react-native';
 
+const sliderRadius = 3;
 export default class DefaultLabel extends React.Component {
   static propTypes = {
     leftDiff: PropTypes.number,
@@ -38,7 +39,7 @@ export default class DefaultLabel extends React.Component {
           <View
             style={[
               styles.sliderLabel,
-              { left: oneMarkerLeftPosition - leftDiff / 2 },
+              { left: oneMarkerLeftPosition - leftDiff / 2 + sliderRadius },
               oneMarkerPressed && styles.markerPressed,
             ]}
           >
@@ -50,7 +51,7 @@ export default class DefaultLabel extends React.Component {
           <View
             style={[
               styles.sliderLabel,
-              { left: twoMarkerLeftPosition - leftDiff / 2 },
+              { left: twoMarkerLeftPosition - leftDiff / 2 + sliderRadius },
               twoMarkerPressed && styles.markerPressed,
             ]}
           >
