@@ -35,29 +35,31 @@ export default class DefaultLabel extends React.Component {
 
     return (
       <View style={{ position: 'relative' }}>
-        {Number.isFinite(oneMarkerLeftPosition) && (
-          <View
-            style={[
-              styles.sliderLabel,
-              { left: oneMarkerLeftPosition - leftDiff / 2 + sliderRadius },
-              oneMarkerPressed && styles.markerPressed,
-            ]}
-          >
-            <Text style={styles.sliderLabelText}>{oneMarkerValue}</Text>
-          </View>
-        )}
+        {Number.isFinite(oneMarkerLeftPosition) &&
+          Number.isFinite(oneMarkerValue) && (
+            <View
+              style={[
+                styles.sliderLabel,
+                { left: oneMarkerLeftPosition - leftDiff / 2 + sliderRadius },
+                oneMarkerPressed && styles.markerPressed,
+              ]}
+            >
+              <Text style={styles.sliderLabelText}>{oneMarkerValue}</Text>
+            </View>
+          )}
 
-        {Number.isFinite(twoMarkerLeftPosition) && (
-          <View
-            style={[
-              styles.sliderLabel,
-              { left: twoMarkerLeftPosition - leftDiff / 2 + sliderRadius },
-              twoMarkerPressed && styles.markerPressed,
-            ]}
-          >
-            <Text style={styles.sliderLabelText}>{twoMarkerValue}</Text>
-          </View>
-        )}
+        {Number.isFinite(twoMarkerLeftPosition) &&
+          Number.isFinite(twoMarkerValue) && (
+            <View
+              style={[
+                styles.sliderLabel,
+                { left: twoMarkerLeftPosition - leftDiff / 2 + sliderRadius },
+                twoMarkerPressed && styles.markerPressed,
+              ]}
+            >
+              <Text style={styles.sliderLabelText}>{twoMarkerValue}</Text>
+            </View>
+          )}
       </View>
     );
   }
@@ -69,7 +71,7 @@ const styles = StyleSheet.create({
     bottom: 0,
     minWidth: 51,
     padding: 8,
-    backgroundColor: '#fff',
+    backgroundColor: '#f1f1f1',
   },
   sliderLabelText: {
     alignItems: 'center',
