@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
   sliderLabelText: {
     textAlign: 'center',
     lineHeight: width,
-    borderRadius: width,
+    borderRadius: width / 2,
     borderWidth: 2,
     borderColor: '#999',
     backgroundColor: '#fff',
