@@ -47,6 +47,64 @@ export default class MultiSlider extends React.Component {
     minMarkerOverlapDistance: 0,
   };
 
+  static getDerivedStateFromProps(props, state) {
+    const {
+      onePressed,
+      twoPressed,
+      min,
+      max,
+      step,
+      sliderLength,
+      valueTwo,
+      optionsArray,
+    } = state;
+    if (onePressed || twoPressed) {
+      return null;
+    }
+
+    let nextState = {};
+
+    if (
+      props.min !== min ||
+      props.max !== max ||
+      props.step !== step ||
+      props.values[0] !== valueOne ||
+      props.sliderLength !== sliderLength ||
+      props.values[1] !== valueTwo ||
+      (props.sliderLength !== sliderLength && props.values[1])
+    ) {
+      this.optionsArray =
+        optionsArray || createArray(props.min, props.max, props.step);
+
+      this.stepLength = sliderLength / this.optionsArray.length;
+
+      const positionOne = valueToPosition(
+        props.values[0],
+        this.optionsArray,
+        props.sliderLength,
+      );
+      nextState.valueOne = props.values[0];
+      nextState.pastOne = positionOne;
+      nextState.positionOne = positionOne;
+
+      const positionTwo = valueToPosition(
+        props.values[1],
+        this.optionsArray,
+        props.sliderLength,
+      );
+      nextState.valueTwo = props.values[1];
+      nextState.pastTwo = positionTwo;
+      nextState.positionTwo = positionTwo;
+    }
+
+    if (nextState != {}) {
+      return {
+        ...state,
+        ...nextState,
+      };
+    }
+  }
+
   constructor(props) {
     super(props);
 
@@ -68,9 +126,11 @@ export default class MultiSlider extends React.Component {
       positionOne: initialValues[0],
       positionTwo: initialValues[1],
     };
+
+    this.subscribePanResponder();
   }
 
-  componentWillMount() {
+  subscribePanResponder = () => {
     var customPanResponder = (start, move, end) => {
       return PanResponder.create({
         onStartShouldSetPanResponder: (evt, gestureState) => true,
@@ -111,63 +171,7 @@ export default class MultiSlider extends React.Component {
       this.moveTwo,
       this.endTwo,
     );
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (this.state.onePressed || this.state.twoPressed) {
-      return;
-    }
-
-    let nextState = {};
-    if (
-      nextProps.min !== this.props.min ||
-      nextProps.max !== this.props.max ||
-      nextProps.step !== this.props.step ||
-      nextProps.values[0] !== this.state.valueOne ||
-      nextProps.sliderLength !== this.props.sliderLength ||
-      nextProps.values[1] !== this.state.valueTwo ||
-      (nextProps.sliderLength !== this.props.sliderLength &&
-        nextProps.values[1])
-    ) {
-      this.optionsArray =
-        this.props.optionsArray ||
-        createArray(nextProps.min, nextProps.max, nextProps.step);
-
-      this.stepLength = this.props.sliderLength / this.optionsArray.length;
-
-      var positionOne = valueToPosition(
-        nextProps.values[0],
-        this.optionsArray,
-        nextProps.sliderLength,
-      );
-      nextState.valueOne = nextProps.values[0];
-      nextState.pastOne = positionOne;
-      nextState.positionOne = positionOne;
-
-      var positionTwo = valueToPosition(
-        nextProps.values[1],
-        this.optionsArray,
-        nextProps.sliderLength,
-      );
-      nextState.valueTwo = nextProps.values[1];
-      nextState.pastTwo = positionTwo;
-      nextState.positionTwo = positionTwo;
-    }
-
-    if (nextState != {}) {
-      this.setState(nextState);
-
-      if (
-        typeof nextState.positionOne !== 'undefined' &&
-        typeof nextState.positionTwo !== 'undefined'
-      ) {
-        this.props.onMarkersPosition([
-          nextState.positionOne,
-          nextState.positionTwo,
-        ]);
-      }
-    }
-  }
+  };
 
   startOne = () => {
     if (this.props.enabledOne) {
@@ -362,6 +366,25 @@ export default class MultiSlider extends React.Component {
       },
     );
   };
+
+  componentDidUpdate(_, prevState) {
+    const {
+      positionOne: prevPositionOne,
+      positionTwo: prevPositionTwo,
+    } = prevState;
+    const { positionOne, positionTwo } = this.state;
+
+    if (
+      typeof positionOne === 'undefined' &&
+      typeof positionTwo !== 'undefined'
+    ) {
+      return;
+    }
+
+    if (positionOne !== prevPositionOne || positionTwo !== prevPositionTwo) {
+      this.props.onMarkersPosition([positionOne, positionTwo]);
+    }
+  }
 
   render() {
     const { positionOne, positionTwo } = this.state;
