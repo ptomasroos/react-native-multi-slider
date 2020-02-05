@@ -42,7 +42,7 @@ export default function App() {
         </View>
         <MultiSlider
           values={sliderOneValue}
-          sliderLength={280}
+          sliderLength={310}
           onValuesChangeStart={sliderOneValuesChangeStart}
           onValuesChange={sliderOneValuesChange}
           onValuesChangeFinish={sliderOneValuesChangeFinish}
@@ -54,7 +54,7 @@ export default function App() {
         </View>
         <MultiSlider
           values={[multiSliderValue[0], multiSliderValue[1]]}
-          sliderLength={280}
+          sliderLength={250}
           onValuesChange={multiSliderValuesChange}
           min={0}
           max={10}

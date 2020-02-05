@@ -9,7 +9,6 @@ CustomLabel.defaultProps = {
 
 const width = 50;
 const pointerWidth = width * 0.47;
-const sliderRadius = 3;
 
 function LabelBase(props) {
   const { position, value, leftDiff, pressed } = props;
@@ -33,7 +32,7 @@ function LabelBase(props) {
         style={[
           styles.sliderLabel,
           {
-            left: position - leftDiff / 2 + sliderRadius,
+            left: position - width / 2,
             transform: [
               { translateY: width },
               { scale: scaleValue.current },
