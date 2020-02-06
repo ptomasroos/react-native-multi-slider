@@ -14,7 +14,11 @@ class DefaultMarker extends React.Component {
                   this.props.pressed && styles.pressedMarkerStyle,
                   this.props.pressed && this.props.pressedMarkerStyle,
                 ]
-              : [styles.markerStyle, styles.disabled, this.props.disabledMarkerStyle]
+              : [
+                  styles.markerStyle,
+                  styles.disabled,
+                  this.props.disabledMarkerStyle,
+                ]
           }
         />
       </TouchableHighlight>

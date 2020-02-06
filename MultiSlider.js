@@ -563,6 +563,8 @@ export default class MultiSlider extends React.Component {
           twoMarkerValue={this.state.valueTwo}
           oneMarkerLeftPosition={positionOne}
           twoMarkerLeftPosition={positionTwo}
+          oneMarkerPressed={this.state.onePressed}
+          twoMarkerPressed={this.state.twoPressed}
         />
         {this.props.imageBackgroundSource && (
           <ImageBackground
