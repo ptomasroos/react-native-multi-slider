@@ -553,12 +553,10 @@ export default class MultiSlider extends React.Component {
         </View>
       </React.Fragment>
     );
-    const leftDiff =
-      (Dimensions.get('window').width - this.props.sliderLength) / 2;
+
     return (
       <View>
         <Label
-          leftDiff={leftDiff}
           oneMarkerValue={this.state.valueOne}
           twoMarkerValue={this.state.valueTwo}
           oneMarkerLeftPosition={positionOne}
