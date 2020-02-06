@@ -331,19 +331,16 @@ export default class MultiSlider extends React.Component {
       this.props.onToggleOne();
       return;
     }
-
+    var change = [this.state.valueOne];
+    if (this.state.valueTwo) {
+      change.push(this.state.valueTwo);
+    }
+    this.props.onValuesChangeFinish(change);
     this.setState(
       {
         pastOne: this.state.positionOne,
         onePressed: !this.state.onePressed,
-      },
-      () => {
-        var change = [this.state.valueOne];
-        if (this.state.valueTwo) {
-          change.push(this.state.valueTwo);
-        }
-        this.props.onValuesChangeFinish(change);
-      },
+      }
     );
   };
 
@@ -352,17 +349,14 @@ export default class MultiSlider extends React.Component {
       this.props.onToggleTwo();
       return;
     }
-
+    this.props.onValuesChangeFinish([
+      this.state.valueOne,
+      this.state.valueTwo,
+    ]);
     this.setState(
       {
         twoPressed: !this.state.twoPressed,
         pastTwo: this.state.positionTwo,
-      },
-      () => {
-        this.props.onValuesChangeFinish([
-          this.state.valueOne,
-          this.state.valueTwo,
-        ]);
       },
     );
   };
