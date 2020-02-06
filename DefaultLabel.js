@@ -1,48 +1,66 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { View, Text, StyleSheet, Platform, TouchableHighlight } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 
-const ViewPropTypes = require('react-native').ViewPropTypes || ViewPropTypes;
-
+const sliderRadius = 3;
+const width = 50;
 export default class DefaultLabel extends React.Component {
   static propTypes = {
     leftDiff: PropTypes.number,
 
-    labelStyle: ViewPropTypes.style,
-    labelTextStyle: ViewPropTypes.style,
-
-    oneMarkerValue: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.number
-    ]),
-    twoMarkerValue: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.number
-    ]),
+    oneMarkerValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    twoMarkerValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
     oneMarkerLeftPosition: PropTypes.number,
-    twoMarkerLeftPosition: PropTypes.number
+    twoMarkerLeftPosition: PropTypes.number,
+
+    oneMarkerPressed: PropTypes.bool,
+    twoMarkerPressed: PropTypes.bool,
   };
 
   static defaultProps = {
     leftDiff: 0,
-    labelStyle: {},
-    labelTextStyle: {}
   };
 
   render() {
-    const {leftDiff, labelStyle, labelTextStyle, oneMarkerValue, twoMarkerValue, oneMarkerLeftPosition, twoMarkerLeftPosition} = this.props;
+    const {
+      leftDiff,
+      oneMarkerValue,
+      twoMarkerValue,
+      oneMarkerLeftPosition,
+      twoMarkerLeftPosition,
+      oneMarkerPressed,
+      twoMarkerPressed,
+    } = this.props;
 
     return (
-      <View style={{position: 'relative'}}>
-        <View style={[styles.sliderLabel, {left: (oneMarkerLeftPosition - leftDiff)}, labelStyle]}>
-          <Text style={[styles.sliderLabelText, labelTextStyle]}>{oneMarkerValue}</Text>
-        </View>
+      <View style={{ position: 'relative' }}>
+        {Number.isFinite(oneMarkerLeftPosition) &&
+          Number.isFinite(oneMarkerValue) && (
+            <View
+              style={[
+                styles.sliderLabel,
+                { left: oneMarkerLeftPosition - width / 2 + sliderRadius },
+                oneMarkerPressed && styles.markerPressed,
+              ]}
+            >
+              <Text style={styles.sliderLabelText}>{oneMarkerValue}</Text>
+            </View>
+          )}
 
-        <View style={[styles.sliderLabel, {left: (twoMarkerLeftPosition - leftDiff)}, labelStyle]}>
-          <Text style={[styles.sliderLabelText, labelTextStyle]}>{twoMarkerValue}</Text>
-        </View>
+        {Number.isFinite(twoMarkerLeftPosition) &&
+          Number.isFinite(twoMarkerValue) && (
+            <View
+              style={[
+                styles.sliderLabel,
+                { left: twoMarkerLeftPosition - width / 2 + sliderRadius },
+                twoMarkerPressed && styles.markerPressed,
+              ]}
+            >
+              <Text style={styles.sliderLabelText}>{twoMarkerValue}</Text>
+            </View>
+          )}
       </View>
     );
   }
@@ -51,15 +69,19 @@ export default class DefaultLabel extends React.Component {
 const styles = StyleSheet.create({
   sliderLabel: {
     position: 'absolute',
-    top: -24,
-    minWidth: 51,
+    bottom: 0,
+    minWidth: width,
     padding: 8,
-    backgroundColor: '#fff',
+    backgroundColor: '#f1f1f1',
   },
   sliderLabelText: {
     alignItems: 'center',
     textAlign: 'center',
     fontStyle: 'normal',
-    fontSize: 11
+    fontSize: 11,
+  },
+  markerPressed: {
+    borderWidth: 2,
+    borderColor: '#999',
   },
 });
