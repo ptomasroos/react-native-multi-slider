@@ -17,6 +17,15 @@ export interface MarkerProps {
     valueSuffix: string;
 }
 
+export interface LabelProps {
+    oneMarkerValue: string | number;
+    twoMarkerValue: string | number;
+    oneMarkerLeftPosition: number;
+    twoMarkerLeftPosition: number;
+    oneMarkerPressed: boolean;
+    twoMarkerPressed: boolean;
+}
+
 export interface MultiSliderProps {
     values?: number[];
 
@@ -35,6 +44,7 @@ export interface MultiSliderProps {
     customMarker?: React.ComponentType<MarkerProps>;
     customMarkerLeft?: React.ComponentType<MarkerProps>;
     customMarkerRight?: React.ComponentType<MarkerProps>;
+    customLabel?: React.ComponentType<LabelProps>;
 
     isMarkersSeparated?: boolean;
 
