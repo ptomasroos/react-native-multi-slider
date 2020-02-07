@@ -55,6 +55,7 @@ export default class MultiSlider extends React.Component {
       max,
       step,
       sliderLength,
+      valueOne,
       valueTwo,
       optionsArray,
     } = state;
