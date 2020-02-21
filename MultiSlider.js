@@ -206,7 +206,7 @@ export default class MultiSlider extends React.Component {
     }
     const unconfined = I18nManager.isRTL ? this.state.pastOne - gestureState.dx : gestureState.dx + this.state.pastOne;
     var bottom = 0;
-    var trueTop = this.state.positionTwo - (this.props.allowOverlap ? 0 : this.stepLength);
+    var trueTop = this.state.positionTwo - (this.props.allowOverlap ? 0 : (this.props.sliderLength * 0.064));
     var top = trueTop === 0 ? 0 : trueTop || this.props.sliderLength;
     var confined = unconfined < bottom
       ? bottom
@@ -250,7 +250,7 @@ export default class MultiSlider extends React.Component {
       return;
     }
     const unconfined = I18nManager.isRTL ? this.state.pastTwo - gestureState.dx : gestureState.dx + this.state.pastTwo;
-    var bottom = this.state.positionOne + (this.props.allowOverlap ? 0 : this.stepLength);
+    var bottom = this.state.positionOne + (this.props.allowOverlap ? 0 : (this.props.sliderLength * 0.064));
     var top = this.props.sliderLength;
     var confined = unconfined < bottom
       ? bottom
@@ -355,12 +355,15 @@ export default class MultiSlider extends React.Component {
       borderRadius,
     } = this.props.touchDimensions;
     const touchStyle = {
+      slipDisplacement,
+      height,
+      width,
       borderRadius: borderRadius || 0,
     };
 
-    const markerContainerOne = { top: markerOffsetY - 24, left : trackOneLength + markerOffsetX - 24 }
+    const markerContainerOne = { top: markerOffsetY - (touchStyle.height/2), left : trackOneLength + markerOffsetX - (touchStyle.width/2) }
 
-    const markerContainerTwo = { top: markerOffsetY - 24, right: trackThreeLength + markerOffsetX - 24 };
+    const markerContainerTwo = { top: markerOffsetY - (touchStyle.height/2), right: trackThreeLength + markerOffsetX - (touchStyle.width/2) };
 
     return (
       <View style={[styles.container, this.props.containerStyle]}>
@@ -498,8 +501,8 @@ const styles = StyleSheet.create({
   },
   markerContainer: {
     position: 'absolute',
-    width: 48,
-    height: 48,
+    width: 20,
+    height: 20,
     backgroundColor: 'transparent',
     justifyContent: 'center',
     alignItems: 'center',
@@ -514,3 +517,4 @@ const styles = StyleSheet.create({
     alignSelf: 'stretch',
   },
 });
+
