@@ -77,10 +77,12 @@ Feel free to contribute to this part of the documentation.
 | onValuesChangeFinish | (values) => {} | function | Callback when the value stops changing |
 | sliderLength | 280 | number | Length of the slider (?) |
 | touchDimensions | {height: 50,width: 50,borderRadius: 15,slipDisplacement: 200} | object | (?) |
+| enableLabel |  | function | Enable the label rendering |
+| customLabel |  | function | Component used for rendering a label above the cursors. |
 | customMarker |  | function | Component used for the cursor. |
 | customMarkerLeft |  | function | Component used for the left cursor. |
 | customMarkerRight |  | function | Component used for the right cursor. |
-| isMarkersSeparated |  | boolean | (?) |
+| isMarkersSeparated |  | boolean | See explaination above in the README.md |
 | min | 0 | number | Minimum value available in the slider. |
 | max | 10 | number | Maximum value available in the slider. |
 | step | 1 | number | Step value of the slider. |

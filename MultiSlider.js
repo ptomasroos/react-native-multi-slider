@@ -47,64 +47,6 @@ export default class MultiSlider extends React.Component {
     minMarkerOverlapDistance: 0,
   };
 
-  static getDerivedStateFromProps(props, state) {
-    const {
-      onePressed,
-      twoPressed,
-      min,
-      max,
-      step,
-      sliderLength,
-      valueTwo,
-      optionsArray,
-    } = state;
-    if (onePressed || twoPressed) {
-      return null;
-    }
-
-    let nextState = {};
-
-    if (
-      props.min !== min ||
-      props.max !== max ||
-      props.step !== step ||
-      props.values[0] !== valueOne ||
-      props.sliderLength !== sliderLength ||
-      props.values[1] !== valueTwo ||
-      (props.sliderLength !== sliderLength && props.values[1])
-    ) {
-      this.optionsArray =
-        optionsArray || createArray(props.min, props.max, props.step);
-
-      this.stepLength = sliderLength / this.optionsArray.length;
-
-      const positionOne = valueToPosition(
-        props.values[0],
-        this.optionsArray,
-        props.sliderLength,
-      );
-      nextState.valueOne = props.values[0];
-      nextState.pastOne = positionOne;
-      nextState.positionOne = positionOne;
-
-      const positionTwo = valueToPosition(
-        props.values[1],
-        this.optionsArray,
-        props.sliderLength,
-      );
-      nextState.valueTwo = props.values[1];
-      nextState.pastTwo = positionTwo;
-      nextState.positionTwo = positionTwo;
-    }
-
-    if (nextState != {}) {
-      return {
-        ...state,
-        ...nextState,
-      };
-    }
-  }
-
   constructor(props) {
     super(props);
 
@@ -367,11 +309,12 @@ export default class MultiSlider extends React.Component {
     );
   };
 
-  componentDidUpdate(_, prevState) {
+  componentDidUpdate(prevProps, prevState) {
     const {
       positionOne: prevPositionOne,
       positionTwo: prevPositionTwo,
     } = prevState;
+
     const { positionOne, positionTwo } = this.state;
 
     if (
@@ -383,6 +326,48 @@ export default class MultiSlider extends React.Component {
 
     if (positionOne !== prevPositionOne || positionTwo !== prevPositionTwo) {
       this.props.onMarkersPosition([positionOne, positionTwo]);
+    }
+
+    if (this.state.onePressed || this.state.twoPressed) {
+      return;
+    }
+
+    let nextState = {};
+    if (
+      prevProps.min !== this.props.min ||
+      prevProps.max !== this.props.max ||
+      prevProps.step !== this.props.step ||
+      prevProps.values[0] !== this.props.values[0] ||
+      prevProps.sliderLength !== this.props.sliderLength ||
+      prevProps.values[1] !== this.props.values[1] ||
+      (prevProps.sliderLength !== this.props.sliderLength &&
+        prevProps.values[1])
+    ) {
+      this.optionsArray =
+        this.props.optionsArray ||
+        createArray(this.props.min, this.props.max, this.props.step);
+
+      this.stepLength = this.props.sliderLength / this.optionsArray.length;
+
+      const positionOne = valueToPosition(
+        this.props.values[0],
+        this.optionsArray,
+        this.props.sliderLength,
+      );
+      nextState.valueOne = this.props.values[0];
+      nextState.pastOne = positionOne;
+      nextState.positionOne = positionOne;
+
+      const positionTwo = valueToPosition(
+        this.props.values[1],
+        this.optionsArray,
+        this.props.sliderLength,
+      );
+      nextState.valueTwo = this.props.values[1];
+      nextState.pastTwo = positionTwo;
+      nextState.positionTwo = positionTwo;
+
+      this.setState(nextState);
     }
   }
 
@@ -556,14 +541,17 @@ export default class MultiSlider extends React.Component {
 
     return (
       <View>
-        <Label
-          oneMarkerValue={this.state.valueOne}
-          twoMarkerValue={this.state.valueTwo}
-          oneMarkerLeftPosition={positionOne}
-          twoMarkerLeftPosition={positionTwo}
-          oneMarkerPressed={this.state.onePressed}
-          twoMarkerPressed={this.state.twoPressed}
-        />
+        {this.props.enableLabel && (
+          <Label
+            leftDiff={leftDiff}
+            oneMarkerValue={this.state.valueOne}
+            twoMarkerValue={this.state.valueTwo}
+            oneMarkerLeftPosition={positionOne}
+            twoMarkerLeftPosition={positionTwo}
+            oneMarkerPressed={this.state.onePressed}
+            twoMarkerPressed={this.state.twoPressed}
+          />
+        )}
         {this.props.imageBackgroundSource && (
           <ImageBackground
             source={this.props.imageBackgroundSource}
