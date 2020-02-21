@@ -25,7 +25,7 @@ export default class DefaultMarker extends React.Component {
             this.props.markerStyle,
             this.props.pressed && styles.pressedMarkerStyle,
             this.props.pressed && this.props.pressedMarkerStyle,
-          ] : [styles.markerStyle, styles.disabled]}
+          ] : [styles.markerStyle, this.props.markerStyle, styles.disabled]}
         />
       </TouchableHighlight>
     );
@@ -70,6 +70,7 @@ const styles = StyleSheet.create({
   },
   disabled: {
     backgroundColor: '#d3d3d3',
+    borderColor: '#d3d3d3',
   },
 });
 

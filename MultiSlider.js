@@ -365,11 +365,20 @@ export default class MultiSlider extends React.Component {
 
     const markerContainerTwo = { top: markerOffsetY - (touchStyle.height/2), right: trackThreeLength + markerOffsetX - (touchStyle.width/2) };
 
+    //If both markers are disabled, the track is styled accordingly
+    const disabled = !this.props.enabledOne && !this.props.enabledTwo;
+
     return (
       <View style={[styles.container, this.props.containerStyle]}>
         <View style={[styles.fullTrack, { width: sliderLength }]}>
           <View
-            style={[
+            style={disabled ? [
+              styles.track,
+              this.props.trackStyle,
+              trackOneStyle,
+              { width: trackOneLength },
+              styles.disabledTrack,
+            ] : [
               styles.track,
               this.props.trackStyle,
               trackOneStyle,
@@ -377,7 +386,13 @@ export default class MultiSlider extends React.Component {
             ]}
           />
           <View
-            style={[
+            style={disabled ? [
+              styles.track,
+              this.props.trackStyle,
+              trackTwoStyle,
+              { width: trackTwoLength },
+              styles.disabledTrack,
+            ] : [
               styles.track,
               this.props.trackStyle,
               trackTwoStyle,
@@ -386,7 +401,13 @@ export default class MultiSlider extends React.Component {
           />
           {twoMarkers &&
           <View
-            style={[
+            style={disabled ? [
+              styles.track,
+              this.props.trackStyle,
+              trackThreeStyle,
+              { width: trackThreeLength },
+              styles.disabledTrack,
+            ] : [
               styles.track,
               this.props.trackStyle,
               trackThreeStyle,
@@ -498,6 +519,9 @@ const styles = StyleSheet.create({
         backgroundColor: '#0D8675',
       },
     }),
+  },
+  disabledTrack:{
+    backgroundColor: '#d3d3d3',
   },
   markerContainer: {
     position: 'absolute',
