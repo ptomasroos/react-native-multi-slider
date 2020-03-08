@@ -1,322 +1,252 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 
 import {
   StyleSheet,
   PanResponder,
   View,
   Platform,
-  Dimensions,
   I18nManager,
   ImageBackground,
 } from 'react-native';
 
-import DefaultMarker from './DefaultMarker';
-import DefaultLabel from './DefaultLabel';
+import { DefaultMarker } from './DefaultMarker';
+import { DefaultLabel } from './DefaultLabel';
 import { createArray, valueToPosition, positionToValue } from './converters';
 
-export default class MultiSlider extends React.Component {
-  static defaultProps = {
-    values: [0],
-    onValuesChangeStart: () => {},
-    onValuesChange: values => {},
-    onValuesChangeFinish: values => {},
-    onMarkersPosition: values => {},
-    step: 1,
-    min: 0,
-    max: 10,
-    touchDimensions: {
-      height: 50,
-      width: 50,
-      borderRadius: 15,
-      slipDisplacement: 200,
-    },
-    customMarker: DefaultMarker,
-    customMarkerLeft: DefaultMarker,
-    customMarkerRight: DefaultMarker,
-    customLabel: DefaultLabel,
-    markerOffsetX: 0,
-    markerOffsetY: 0,
-    sliderLength: 280,
-    onToggleOne: undefined,
-    onToggleTwo: undefined,
-    enabledOne: true,
-    enabledTwo: true,
-    allowOverlap: false,
-    snapped: false,
-    vertical: false,
-    minMarkerOverlapDistance: 0,
-  };
+function MultiSlider({
+  values = [0],
+  onValuesChangeStart = () => {},
+  onValuesChange = () => {},
+  onValuesChangeFinish = () => {},
+  onMarkersPosition = () => {},
+  step = 1,
+  min = 0,
+  max = 10,
+  touchDimensions = {
+    height: 50,
+    width: 50,
+    borderRadius: 15,
+    slipDisplacement: 200,
+  },
+  customMarker = DefaultMarker,
+  customMarkerLeft = DefaultMarker,
+  customMarkerRight = DefaultMarker,
+  customLabel = DefaultLabel,
+  markerOffsetX = 0,
+  markerOffsetY = 0,
+  sliderLength = 280,
+  onToggleOne = () => {},
+  onToggleTwo = () => {},
+  enabledOne = true,
+  enabledTwo = true,
+  allowOverlap = false,
+  snapped = false,
+  vertical = false,
+  minMarkerOverlapDistance = 0,
+}) {
+  let [onePressed, setOnePressed] = useState(false);
+  let [twoPressed, setTwoPressed] = useState(false);
+  let [valueOne, setValueOne] = useState(values[0]);
+  let [valueTwo, setValueTwo] = useState(values[1]);
+  let [pastOne, setPastOne] = useState(initialValues[0]);
+  let [pastTwo, setPastTwo] = useState(initialValues[1]);
+  let [positionOne, setPositionOne] = useState(initialValues[0]);
+  let [positionTwo, setPositionTwo] = useState(initialValues[1]);
 
-  constructor(props) {
-    super(props);
+  let optionsArray = optionsArray || createArray(min, max, step);
+  let stepLength = sliderLength / optionsArray.length;
+  let initialValues = values.map(value =>
+    valueToPosition(value, optionsArray, sliderLength),
+  );
+  let customPanResponder = (start, move, end) =>
+    PanResponder.create({
+      onStartShouldSetPanResponder: () => true,
+      onStartShouldSetPanResponderCapture: () => true,
+      onMoveShouldSetPanResponder: () => true,
+      onMoveShouldSetPanResponderCapture: () => true,
+      onPanResponderGrant: () => start(),
+      onPanResponderMove: (undefined, gestureState) => move(gestureState),
+      onPanResponderTerminationRequest: () => false,
+      onPanResponderRelease: (undefined, gestureState) => end(gestureState),
+      onPanResponderTerminate: (undefined, gestureState) => end(gestureState),
+      onShouldBlockNativeResponder: () => true,
+    });
 
-    this.optionsArray =
-      this.props.optionsArray ||
-      createArray(this.props.min, this.props.max, this.props.step);
-    this.stepLength = this.props.sliderLength / this.optionsArray.length;
-
-    var initialValues = this.props.values.map(value =>
-      valueToPosition(value, this.optionsArray, this.props.sliderLength),
-    );
-
-    this.state = {
-      pressedOne: true,
-      valueOne: this.props.values[0],
-      valueTwo: this.props.values[1],
-      pastOne: initialValues[0],
-      pastTwo: initialValues[1],
-      positionOne: initialValues[0],
-      positionTwo: initialValues[1],
-    };
-
-    this.subscribePanResponder();
-  }
-
-  subscribePanResponder = () => {
-    var customPanResponder = (start, move, end) => {
-      return PanResponder.create({
-        onStartShouldSetPanResponder: (evt, gestureState) => true,
-        onStartShouldSetPanResponderCapture: (evt, gestureState) => true,
-        onMoveShouldSetPanResponder: (evt, gestureState) => true,
-        onMoveShouldSetPanResponderCapture: (evt, gestureState) => true,
-        onPanResponderGrant: (evt, gestureState) => start(),
-        onPanResponderMove: (evt, gestureState) => move(gestureState),
-        onPanResponderTerminationRequest: (evt, gestureState) => false,
-        onPanResponderRelease: (evt, gestureState) => end(gestureState),
-        onPanResponderTerminate: (evt, gestureState) => end(gestureState),
-        onShouldBlockNativeResponder: (evt, gestureState) => true,
-      });
-    };
-
-    this._panResponderBetween = customPanResponder(
-      gestureState => {
-        this.startOne(gestureState);
-        this.startTwo(gestureState);
-      },
-      gestureState => {
-        this.moveOne(gestureState);
-        this.moveTwo(gestureState);
-      },
-      gestureState => {
-        this.endOne(gestureState);
-        this.endTwo(gestureState);
-      },
-    );
-
-    this._panResponderOne = customPanResponder(
-      this.startOne,
-      this.moveOne,
-      this.endOne,
-    );
-    this._panResponderTwo = customPanResponder(
-      this.startTwo,
-      this.moveTwo,
-      this.endTwo,
-    );
-  };
-
-  startOne = () => {
-    if (this.props.enabledOne) {
-      this.props.onValuesChangeStart();
-      this.setState({
-        onePressed: !this.state.onePressed,
-      });
+  let startOne = () => {
+    if (enabledOne) {
+      onValuesChangeStart();
+      setOnePressed(!onePressed);
     }
   };
 
-  startTwo = () => {
-    if (this.props.enabledTwo) {
-      this.props.onValuesChangeStart();
-      this.setState({
-        twoPressed: !this.state.twoPressed,
-      });
+  let startTwo = () => {
+    if (enabledTwo) {
+      onValuesChangeStart();
+      setTwoPressed(!twoPressed);
     }
   };
 
-  moveOne = gestureState => {
-    if (!this.props.enabledOne) {
+  let moveOne = gestureState => {
+    if (enabledOne) {
       return;
     }
 
-    const accumDistance = this.props.vertical
-      ? -gestureState.dy
-      : gestureState.dx;
-    const accumDistanceDisplacement = this.props.vertical
+    let accumulatedDistance = vertical ? -gestureState.dy : gestureState.dx;
+    let accumulatedDistanceDisplacement = vertical
       ? gestureState.dx
       : gestureState.dy;
-
-    const unconfined = I18nManager.isRTL
-      ? this.state.pastOne - accumDistance
-      : accumDistance + this.state.pastOne;
-    var bottom = 0;
-    var trueTop =
-      this.state.positionTwo -
-      (this.props.allowOverlap
+    let unconfined = I18nManager.isRTL
+      ? pastOne - accumulatedDistance
+      : accumulatedDistance + pastOne;
+    let bottom = 0;
+    let trueTop =
+      positionTwo -
+      (allowOverlap
         ? 0
-        : this.props.minMarkerOverlapDistance > 0
-        ? this.props.minMarkerOverlapDistance
-        : this.stepLength);
-    var top = trueTop === 0 ? 0 : trueTop || this.props.sliderLength;
-    var confined =
+        : minMarkerOverlapDistance > 0
+        ? minMarkerOverlapDistance
+        : stepLength);
+    let top = trueTop === 0 ? 0 : trueTop || sliderLength;
+    let confined =
       unconfined < bottom ? bottom : unconfined > top ? top : unconfined;
-    var slipDisplacement = this.props.touchDimensions.slipDisplacement;
+    let slipDisplacement = touchDimensions.slipDisplacement;
 
     if (
-      Math.abs(accumDistanceDisplacement) < slipDisplacement ||
+      Math.abs(accumulatedDistanceDisplacement) < slipDisplacement ||
       !slipDisplacement
     ) {
-      var value = positionToValue(
-        confined,
-        this.optionsArray,
-        this.props.sliderLength,
-      );
-      var snapped = valueToPosition(
-        value,
-        this.optionsArray,
-        this.props.sliderLength,
-      );
-      this.setState({
-        positionOne: this.props.snapped ? snapped : confined,
-      });
+      let value = positionToValue(confined, optionsArray, sliderLength);
+      let snapped = valueToPosition(value, optionsArray, sliderLength);
 
-      if (value !== this.state.valueOne) {
+      setPositionOne(snapped ? snapped : confined);
+
+      if (value !== valueOne) {
         this.setState(
           {
             valueOne: value,
           },
           () => {
-            var change = [this.state.valueOne];
-            if (this.state.valueTwo) {
-              change.push(this.state.valueTwo);
+            let change = [valueOne];
+            if (valueTwo) {
+              change.push(valueTwo);
             }
-            this.props.onValuesChange(change);
+            onValuesChange(change);
 
-            this.props.onMarkersPosition([
-              this.state.positionOne,
-              this.state.positionTwo,
-            ]);
+            onMarkersPosition([positionOne, positionTwo]);
           },
         );
       }
     }
   };
 
-  moveTwo = gestureState => {
-    if (!this.props.enabledTwo) {
+  let moveTwo = gestureState => {
+    if (!enabledTwo) {
       return;
     }
 
-    const accumDistance = this.props.vertical
-      ? -gestureState.dy
-      : gestureState.dx;
-    const accumDistanceDisplacement = this.props.vertical
+    const accumulatedDistance = vertical ? -gestureState.dy : gestureState.dx;
+    const accumulatedDistanceDisplacement = vertical
       ? gestureState.dx
       : gestureState.dy;
 
     const unconfined = I18nManager.isRTL
-      ? this.state.pastTwo - accumDistance
-      : accumDistance + this.state.pastTwo;
-    var bottom =
-      this.state.positionOne +
-      (this.props.allowOverlap
+      ? pastTwo - accumulatedDistance
+      : accumulatedDistance + pastTwo;
+    let bottom =
+      positionOne +
+      (allowOverlap
         ? 0
-        : this.props.minMarkerOverlapDistance > 0
-        ? this.props.minMarkerOverlapDistance
-        : this.stepLength);
-    var top = this.props.sliderLength;
-    var confined =
+        : minMarkerOverlapDistance > 0
+        ? minMarkerOverlapDistance
+        : stepLength);
+    let top = sliderLength;
+    let confined =
       unconfined < bottom ? bottom : unconfined > top ? top : unconfined;
-    var slipDisplacement = this.props.touchDimensions.slipDisplacement;
+    let slipDisplacement = touchDimensions.slipDisplacement;
 
     if (
-      Math.abs(accumDistanceDisplacement) < slipDisplacement ||
+      Math.abs(accumulatedDistanceDisplacement) < slipDisplacement ||
       !slipDisplacement
     ) {
-      var value = positionToValue(
-        confined,
-        this.optionsArray,
-        this.props.sliderLength,
-      );
-      var snapped = valueToPosition(
-        value,
-        this.optionsArray,
-        this.props.sliderLength,
-      );
+      let value = positionToValue(confined, optionsArray, sliderLength);
+      let snapped = valueToPosition(value, optionsArray, sliderLength);
 
-      this.setState({
-        positionTwo: this.props.snapped ? snapped : confined,
-      });
+      setPositionTwo(snapped ? snapped : confined);
 
-      if (value !== this.state.valueTwo) {
+      if (value !== valueTwo) {
         this.setState(
           {
             valueTwo: value,
           },
           () => {
-            this.props.onValuesChange([
-              this.state.valueOne,
-              this.state.valueTwo,
-            ]);
+            onValuesChange([valueOne, valueTwo]);
 
-            this.props.onMarkersPosition([
-              this.state.positionOne,
-              this.state.positionTwo,
-            ]);
+            onMarkersPosition([positionOne, positionTwo]);
           },
         );
       }
     }
   };
 
-  endOne = gestureState => {
-    if (gestureState.moveX === 0 && this.props.onToggleOne) {
-      this.props.onToggleOne();
+  let endOne = gestureState => {
+    if (gestureState.moveX === 0 && onToggleOne) {
+      onToggleOne();
       return;
     }
 
     this.setState(
       {
-        pastOne: this.state.positionOne,
-        onePressed: !this.state.onePressed,
+        pastOne: positionOne,
+        onePressed: !onePressed,
       },
       () => {
-        var change = [this.state.valueOne];
-        if (this.state.valueTwo) {
-          change.push(this.state.valueTwo);
+        var change = [valueOne];
+        if (valueTwo) {
+          change.push(valueTwo);
         }
-        this.props.onValuesChangeFinish(change);
+        onValuesChangeFinish(change);
       },
     );
   };
 
-  endTwo = gestureState => {
-    if (gestureState.moveX === 0 && this.props.onToggleTwo) {
-      this.props.onToggleTwo();
+  let endTwo = gestureState => {
+    if (gestureState.moveX === 0 && onToggleTwo) {
+      onToggleTwo();
       return;
     }
 
     this.setState(
       {
-        twoPressed: !this.state.twoPressed,
-        pastTwo: this.state.positionTwo,
+        twoPressed: !twoPressed,
+        pastTwo: positionTwo,
       },
       () => {
-        this.props.onValuesChangeFinish([
-          this.state.valueOne,
-          this.state.valueTwo,
-        ]);
+        onValuesChangeFinish([valueOne, valueTwo]);
       },
     );
   };
 
-  componentDidUpdate(prevProps, prevState) {
-    const {
-      positionOne: prevPositionOne,
-      positionTwo: prevPositionTwo,
-    } = prevState;
+  let _panResponderBetween = customPanResponder(
+    gestureState => {
+      startOne(gestureState);
+      startTwo(gestureState);
+    },
+    gestureState => {
+      moveOne(gestureState);
+      moveTwo(gestureState);
+    },
+    gestureState => {
+      endOne(gestureState);
+      endTwo(gestureState);
+    },
+  );
 
-    const { positionOne, positionTwo } = this.state;
+  let _panResponderOne = customPanResponder(startOne, moveOne, endOne);
 
+  let _panResponderTwo = customPanResponder(startTwo, moveTwo, endTwo);
+
+  useEffect(() => {
     if (
       typeof positionOne === 'undefined' &&
       typeof positionTwo !== 'undefined'
@@ -324,249 +254,232 @@ export default class MultiSlider extends React.Component {
       return;
     }
 
-    if (positionOne !== prevPositionOne || positionTwo !== prevPositionTwo) {
-      this.props.onMarkersPosition([positionOne, positionTwo]);
-    }
+    onMarkersPosition([positionOne, positionTwo]);
 
-    if (this.state.onePressed || this.state.twoPressed) {
+    if (onePressed || twoPressed) {
       return;
     }
 
-    let nextState = {};
-    if (
-      prevProps.min !== this.props.min ||
-      prevProps.max !== this.props.max ||
-      prevProps.step !== this.props.step ||
-      prevProps.values[0] !== this.props.values[0] ||
-      prevProps.sliderLength !== this.props.sliderLength ||
-      prevProps.values[1] !== this.props.values[1] ||
-      (prevProps.sliderLength !== this.props.sliderLength &&
-        prevProps.values[1])
-    ) {
-      this.optionsArray =
-        this.props.optionsArray ||
-        createArray(this.props.min, this.props.max, this.props.step);
+    optionsArray = optionsArray || createArray(min, max, step);
+    stepLength = sliderLength / optionsArray.length;
 
-      this.stepLength = this.props.sliderLength / this.optionsArray.length;
+    let newPositionOne = valueToPosition(values[0], optionsArray, sliderLength);
 
-      const positionOne = valueToPosition(
-        this.props.values[0],
-        this.optionsArray,
-        this.props.sliderLength,
-      );
-      nextState.valueOne = this.props.values[0];
-      nextState.pastOne = positionOne;
-      nextState.positionOne = positionOne;
+    setValueOne(values[0]);
+    setPastOne(newPositionOne);
+    setPositionOne(newPositionOne);
 
-      const positionTwo = valueToPosition(
-        this.props.values[1],
-        this.optionsArray,
-        this.props.sliderLength,
-      );
-      nextState.valueTwo = this.props.values[1];
-      nextState.pastTwo = positionTwo;
-      nextState.positionTwo = positionTwo;
+    let newPositionTwo = valueToPosition(values[1], optionsArray, sliderLength);
 
-      this.setState(nextState);
-    }
+    setValueTwo(values[1]);
+    setPastTwo(newPositionTwo);
+    setPositionTwo(newPositionTwo);
+  }, [min, max, step, values, sliderLength, positionOne, positionTwo]);
+
+  let twoMarkers = values.length == 2; // when allowOverlap, positionTwo could be 0, identified as string '0' and throwing 'RawText 0 needs to be wrapped in <Text>' error
+  let trackOneLength = positionOne;
+  let trackOneStyle = twoMarkers
+    ? this.props.unselectedStyle
+    : this.props.selectedStyle || styles.selectedTrack;
+  let trackThreeLength = twoMarkers ? sliderLength - positionTwo : 0;
+  let trackThreeStyle = this.props.unselectedStyle;
+  let trackTwoLength = sliderLength - trackOneLength - trackThreeLength;
+  let trackTwoStyle = twoMarkers
+    ? this.props.selectedStyle || styles.selectedTrack
+    : this.props.unselectedStyle;
+
+  let Marker = customMarker;
+  let MarkerLeft = customMarkerLeft;
+  let MarkerRight = customMarkerRight;
+  let isMarkersSeparated = this.props.isMarkersSeparated || false;
+  let Label = customLabel;
+
+  let { borderRadius } = touchDimensions;
+  let touchStyle = {
+    borderRadius: borderRadius || 0,
+  };
+  let markerContainerOne = {
+    top: markerOffsetY - 24,
+    left: trackOneLength + markerOffsetX - 24,
+  };
+
+  let markerContainerTwo = {
+    top: markerOffsetY - 24,
+    right: trackThreeLength - markerOffsetX - 24,
+  };
+
+  let containerStyle = [styles.container, this.props.containerStyle];
+
+  if (vertical) {
+    containerStyle.push({
+      transform: [{ rotate: '-90deg' }],
+    });
   }
 
-  render() {
-    const { positionOne, positionTwo } = this.state;
-    const {
-      selectedStyle,
-      unselectedStyle,
-      sliderLength,
-      markerOffsetX,
-      markerOffsetY,
-    } = this.props;
-    const twoMarkers = this.props.values.length == 2; // when allowOverlap, positionTwo could be 0, identified as string '0' and throwing 'RawText 0 needs to be wrapped in <Text>' error
-
-    const trackOneLength = positionOne;
-    const trackOneStyle = twoMarkers
-      ? unselectedStyle
-      : selectedStyle || styles.selectedTrack;
-    const trackThreeLength = twoMarkers ? sliderLength - positionTwo : 0;
-    const trackThreeStyle = unselectedStyle;
-    const trackTwoLength = sliderLength - trackOneLength - trackThreeLength;
-    const trackTwoStyle = twoMarkers
-      ? selectedStyle || styles.selectedTrack
-      : unselectedStyle;
-    const Marker = this.props.customMarker;
-
-    const MarkerLeft = this.props.customMarkerLeft;
-    const MarkerRight = this.props.customMarkerRight;
-    const isMarkersSeparated = this.props.isMarkersSeparated || false;
-
-    const Label = this.props.customLabel;
-
-    const {
-      slipDisplacement,
-      height,
-      width,
-      borderRadius,
-    } = this.props.touchDimensions;
-    const touchStyle = {
-      borderRadius: borderRadius || 0,
-    };
-
-    const markerContainerOne = {
-      top: markerOffsetY - 24,
-      left: trackOneLength + markerOffsetX - 24,
-    };
-
-    const markerContainerTwo = {
-      top: markerOffsetY - 24,
-      right: trackThreeLength - markerOffsetX - 24,
-    };
-
-    const containerStyle = [styles.container, this.props.containerStyle];
-
-    if (this.props.vertical) {
-      containerStyle.push({
-        transform: [{ rotate: '-90deg' }],
-      });
-    }
-
-    const body = (
-      <React.Fragment>
-        <View style={[styles.fullTrack, { width: sliderLength }]}>
+  let body = (
+    <React.Fragment>
+      <View style={[styles.fullTrack, { width: sliderLength }]}>
+        <View
+          style={[
+            styles.track,
+            this.props.trackStyle,
+            trackOneStyle,
+            { width: trackOneLength },
+          ]}
+        />
+        <View
+          style={[
+            styles.track,
+            this.props.trackStyle,
+            trackTwoStyle,
+            { width: trackTwoLength },
+          ]}
+          {...(twoMarkers ? _panResponderBetween.panHandlers : {})}
+        />
+        {twoMarkers && (
           <View
             style={[
               styles.track,
               this.props.trackStyle,
-              trackOneStyle,
-              { width: trackOneLength },
+              trackThreeStyle,
+              { width: trackThreeLength },
             ]}
           />
+        )}
+        <View
+          style={[
+            styles.markerContainer,
+            markerContainerOne,
+            this.props.markerContainerStyle,
+            positionOne > sliderLength / 2 && styles.topMarkerContainer,
+          ]}
+        >
           <View
-            style={[
-              styles.track,
-              this.props.trackStyle,
-              trackTwoStyle,
-              { width: trackTwoLength },
-            ]}
-            {...(twoMarkers ? this._panResponderBetween.panHandlers : {})}
-          />
-          {twoMarkers && (
-            <View
-              style={[
-                styles.track,
-                this.props.trackStyle,
-                trackThreeStyle,
-                { width: trackThreeLength },
-              ]}
-            />
-          )}
+            style={[styles.touch, touchStyle]}
+            {..._panResponderOne.panHandlers}
+          >
+            {isMarkersSeparated === false ? (
+              <Marker
+                enabled={enabledOne}
+                pressed={onePressed}
+                markerStyle={this.props.markerStyle}
+                pressedMarkerStyle={this.props.pressedMarkerStyle}
+                disabledMarkerStyle={this.props.disabledMarkerStyle}
+                currentValue={valueOne}
+                valuePrefix={this.props.valuePrefix}
+                valueSuffix={this.props.valueSuffix}
+              />
+            ) : (
+              <MarkerLeft
+                enabled={enabledOne}
+                pressed={onePressed}
+                markerStyle={this.props.markerStyle}
+                pressedMarkerStyle={this.props.pressedMarkerStyle}
+                disabledMarkerStyle={this.props.disabledMarkerStyle}
+                currentValue={valueOne}
+                valuePrefix={this.props.valuePrefix}
+                valueSuffix={this.props.valueSuffix}
+              />
+            )}
+          </View>
+        </View>
+
+        {twoMarkers && positionOne !== sliderLength && (
           <View
             style={[
               styles.markerContainer,
-              markerContainerOne,
+              markerContainerTwo,
               this.props.markerContainerStyle,
-              positionOne > sliderLength / 2 && styles.topMarkerContainer,
             ]}
           >
             <View
               style={[styles.touch, touchStyle]}
-              ref={component => (this._markerOne = component)}
-              {...this._panResponderOne.panHandlers}
+              {..._panResponderTwo.panHandlers}
             >
               {isMarkersSeparated === false ? (
                 <Marker
-                  enabled={this.props.enabledOne}
-                  pressed={this.state.onePressed}
+                  pressed={twoPressed}
                   markerStyle={this.props.markerStyle}
                   pressedMarkerStyle={this.props.pressedMarkerStyle}
                   disabledMarkerStyle={this.props.disabledMarkerStyle}
-                  currentValue={this.state.valueOne}
+                  currentValue={valueTwo}
+                  enabled={enabledTwo}
                   valuePrefix={this.props.valuePrefix}
                   valueSuffix={this.props.valueSuffix}
                 />
               ) : (
-                <MarkerLeft
-                  enabled={this.props.enabledOne}
-                  pressed={this.state.onePressed}
+                <MarkerRight
+                  pressed={twoPressed}
                   markerStyle={this.props.markerStyle}
                   pressedMarkerStyle={this.props.pressedMarkerStyle}
                   disabledMarkerStyle={this.props.disabledMarkerStyle}
-                  currentValue={this.state.valueOne}
+                  currentValue={valueTwo}
+                  enabled={enabledTwo}
                   valuePrefix={this.props.valuePrefix}
                   valueSuffix={this.props.valueSuffix}
                 />
               )}
             </View>
           </View>
-          {twoMarkers && positionOne !== this.props.sliderLength && (
-            <View
-              style={[
-                styles.markerContainer,
-                markerContainerTwo,
-                this.props.markerContainerStyle,
-              ]}
-            >
-              <View
-                style={[styles.touch, touchStyle]}
-                ref={component => (this._markerTwo = component)}
-                {...this._panResponderTwo.panHandlers}
-              >
-                {isMarkersSeparated === false ? (
-                  <Marker
-                    pressed={this.state.twoPressed}
-                    markerStyle={this.props.markerStyle}
-                    pressedMarkerStyle={this.props.pressedMarkerStyle}
-                    disabledMarkerStyle={this.props.disabledMarkerStyle}
-                    currentValue={this.state.valueTwo}
-                    enabled={this.props.enabledTwo}
-                    valuePrefix={this.props.valuePrefix}
-                    valueSuffix={this.props.valueSuffix}
-                  />
-                ) : (
-                  <MarkerRight
-                    pressed={this.state.twoPressed}
-                    markerStyle={this.props.markerStyle}
-                    pressedMarkerStyle={this.props.pressedMarkerStyle}
-                    disabledMarkerStyle={this.props.disabledMarkerStyle}
-                    currentValue={this.state.valueTwo}
-                    enabled={this.props.enabledTwo}
-                    valuePrefix={this.props.valuePrefix}
-                    valueSuffix={this.props.valueSuffix}
-                  />
-                )}
-              </View>
-            </View>
-          )}
-        </View>
-      </React.Fragment>
-    );
-
-    return (
-      <View>
-        {this.props.enableLabel && (
-          <Label
-            leftDiff={leftDiff}
-            oneMarkerValue={this.state.valueOne}
-            twoMarkerValue={this.state.valueTwo}
-            oneMarkerLeftPosition={positionOne}
-            twoMarkerLeftPosition={positionTwo}
-            oneMarkerPressed={this.state.onePressed}
-            twoMarkerPressed={this.state.twoPressed}
-          />
-        )}
-        {this.props.imageBackgroundSource && (
-          <ImageBackground
-            source={this.props.imageBackgroundSource}
-            style={[{ width: '100%', height: '100%' }, containerStyle]}
-          >
-            {body}
-          </ImageBackground>
-        )}
-        {!this.props.imageBackgroundSource && (
-          <View style={containerStyle}>{body}</View>
         )}
       </View>
-    );
-  }
+    </React.Fragment>
+  );
+
+  return (
+    <View>
+      {this.props.enableLabel && (
+        <Label
+          leftDiff={leftDiff}
+          oneMarkerValue={valueOne}
+          twoMarkerValue={valueTwo}
+          oneMarkerLeftPosition={positionOne}
+          twoMarkerLeftPosition={positionTwo}
+          oneMarkerPressed={onePressed}
+          twoMarkerPressed={twoPressed}
+        />
+      )}
+      {this.props.imageBackgroundSource && (
+        <ImageBackground
+          source={this.props.imageBackgroundSource}
+          style={[{ width: '100%', height: '100%' }, containerStyle]}
+        >
+          {body}
+        </ImageBackground>
+      )}
+      {!this.props.imageBackgroundSource && (
+        <View style={containerStyle}>{body}</View>
+      )}
+    </View>
+  );
 }
+
+MultiSlider.propTypes = {
+  values: PropTypes.arrayOf(PropTypes.number),
+  onValuesChangeStart: PropTypes.func,
+  onValuesChange: PropTypes.func,
+  onValuesChangeFinish: PropTypes.func,
+  onMarkersPosition: PropTypes.func,
+  step: PropTypes.number,
+  min: PropTypes.number,
+  max: PropTypes.number,
+  touchDimensions: PropTypes.objectOf(PropTypes.number),
+  customMarker: PropTypes.elementType,
+  customMarkerLeft: PropTypes.elementType,
+  customMarkerRight: PropTypes.elementType,
+  customLabel: PropTypes.elementType,
+  markerOffsetX: PropTypes.number,
+  markerOffsetY: PropTypes.number,
+  sliderLength: PropTypes.number,
+  onToggleOne: PropTypes.func,
+  onToggleTwo: PropTypes.func,
+  enabledOne: PropTypes.bool,
+  enabledTwo: PropTypes.bool,
+  allowOverlap: PropTypes.bool,
+  snapped: PropTypes.bool,
+  vertical: PropTypes.bool,
+  minMarkerOverlapDistance: PropTypes.number,
+};
 
 const styles = StyleSheet.create({
   container: {

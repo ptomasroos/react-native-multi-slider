@@ -1,29 +1,29 @@
 import React from 'react';
 import { View, StyleSheet, Platform, TouchableHighlight } from 'react-native';
 
-class DefaultMarker extends React.Component {
-  render() {
-    return (
-      <TouchableHighlight>
-        <View
-          style={
-            this.props.enabled
-              ? [
-                  styles.markerStyle,
-                  this.props.markerStyle,
-                  this.props.pressed && styles.pressedMarkerStyle,
-                  this.props.pressed && this.props.pressedMarkerStyle,
-                ]
-              : [
-                  styles.markerStyle,
-                  styles.disabled,
-                  this.props.disabledMarkerStyle,
-                ]
-          }
-        />
-      </TouchableHighlight>
-    );
-  }
+export function DefaultMarker({
+  enabled,
+  pressed,
+  pressedMarkerStyle,
+  disabledMarkerStyle,
+  markerStyle,
+}) {
+  return (
+    <TouchableHighlight>
+      <View
+        style={
+          enabled
+            ? [
+                styles.markerStyle,
+                markerStyle,
+                pressed && styles.pressedMarkerStyle,
+                pressed && pressedMarkerStyle,
+              ]
+            : [styles.markerStyle, styles.disabled, disabledMarkerStyle]
+        }
+      />
+    </TouchableHighlight>
+  );
 }
 
 const styles = StyleSheet.create({
@@ -82,5 +82,3 @@ const styles = StyleSheet.create({
     backgroundColor: '#d3d3d3',
   },
 });
-
-export default DefaultMarker;

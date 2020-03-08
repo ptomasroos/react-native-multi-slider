@@ -5,61 +5,54 @@ import { View, Text, StyleSheet } from 'react-native';
 
 const sliderRadius = 3;
 const width = 50;
-export default class DefaultLabel extends React.Component {
-  static propTypes = {
 
-    oneMarkerValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    twoMarkerValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+export function DefaultLabel({
+  oneMarkerValue,
+  twoMarkerValue,
+  oneMarkerLeftPosition,
+  twoMarkerLeftPosition,
+  oneMarkerPressed,
+  twoMarkerPressed,
+}) {
+  return (
+    <View style={{ position: 'relative' }}>
+      {Number.isFinite(oneMarkerLeftPosition) &&
+        Number.isFinite(oneMarkerValue) && (
+          <View
+            style={[
+              styles.sliderLabel,
+              { left: oneMarkerLeftPosition - width / 2 + sliderRadius },
+              oneMarkerPressed && styles.markerPressed,
+            ]}
+          >
+            <Text style={styles.sliderLabelText}>{oneMarkerValue}</Text>
+          </View>
+        )}
 
-    oneMarkerLeftPosition: PropTypes.number,
-    twoMarkerLeftPosition: PropTypes.number,
-
-    oneMarkerPressed: PropTypes.bool,
-    twoMarkerPressed: PropTypes.bool,
-  };
-
-
-  render() {
-    const {
-      oneMarkerValue,
-      twoMarkerValue,
-      oneMarkerLeftPosition,
-      twoMarkerLeftPosition,
-      oneMarkerPressed,
-      twoMarkerPressed,
-    } = this.props;
-
-    return (
-      <View style={{ position: 'relative' }}>
-        {Number.isFinite(oneMarkerLeftPosition) &&
-          Number.isFinite(oneMarkerValue) && (
-            <View
-              style={[
-                styles.sliderLabel,
-                { left: oneMarkerLeftPosition - width / 2 + sliderRadius },
-                oneMarkerPressed && styles.markerPressed,
-              ]}
-            >
-              <Text style={styles.sliderLabelText}>{oneMarkerValue}</Text>
-            </View>
-          )}
-
-        {Number.isFinite(twoMarkerLeftPosition) &&
-          Number.isFinite(twoMarkerValue) && (
-            <View
-              style={[
-                styles.sliderLabel,
-                { left: twoMarkerLeftPosition - width / 2 + sliderRadius },
-                twoMarkerPressed && styles.markerPressed,
-              ]}
-            >
-              <Text style={styles.sliderLabelText}>{twoMarkerValue}</Text>
-            </View>
-          )}
-      </View>
-    );
-  }
+      {Number.isFinite(twoMarkerLeftPosition) &&
+        Number.isFinite(twoMarkerValue) && (
+          <View
+            style={[
+              styles.sliderLabel,
+              { left: twoMarkerLeftPosition - width / 2 + sliderRadius },
+              twoMarkerPressed && styles.markerPressed,
+            ]}
+          >
+            <Text style={styles.sliderLabelText}>{twoMarkerValue}</Text>
+          </View>
+        )}
+    </View>
+  );
 }
+
+DefaultLabel.propTypes = {
+  oneMarkerValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  twoMarkerValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  oneMarkerLeftPosition: PropTypes.number,
+  twoMarkerLeftPosition: PropTypes.number,
+  oneMarkerPressed: PropTypes.bool,
+  twoMarkerPressed: PropTypes.bool,
+};
 
 const styles = StyleSheet.create({
   sliderLabel: {
