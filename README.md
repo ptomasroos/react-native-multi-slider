@@ -44,13 +44,13 @@ $ npm install --save @ptomasroos/react-native-multi-slider
 ```
 ### shape up CustomMarker as left and right
 
-In order to make different styles on markers you can set isMarkersSeparated to true, define customMarkerLeft and customMarkerRight in MultiSlider. for example:
+In order to make different styles on markers you can set areMarkersSeparated to true, define customMarkerLeft and customMarkerRight in MultiSlider. for example:
 
 
 ```
 <MultiSlider
      ...
-      isMarkersSeparated={true}
+      areMarkersSeparated={true}
 
       customMarkerLeft={(e) => {
          return (<CustomSliderMarkerLeft
@@ -82,7 +82,7 @@ Feel free to contribute to this part of the documentation.
 | customMarker |  | function | Component used for the cursor. |
 | customMarkerLeft |  | function | Component used for the left cursor. |
 | customMarkerRight |  | function | Component used for the right cursor. |
-| isMarkersSeparated |  | boolean | See explaination above in the README.md |
+| areMarkersSeparated |  | boolean | See explaination above in the README.md |
 | min | 0 | number | Minimum value available in the slider. |
 | max | 10 | number | Maximum value available in the slider. |
 | step | 1 | number | Step value of the slider. |

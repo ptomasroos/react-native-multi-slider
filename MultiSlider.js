@@ -19,31 +19,45 @@ function MultiSlider({
   onValuesChangeStart = () => {},
   onValuesChange = () => {},
   onValuesChangeFinish = () => {},
-  onMarkersPosition = () => {},
-  step = 1,
-  min = 0,
-  max = 10,
+  sliderLength = 280,
   touchDimensions = {
     height: 50,
     width: 50,
     borderRadius: 15,
     slipDisplacement: 200
   },
+  enableLabel,
+  customLabel = DefaultLabel,
   customMarker = DefaultMarker,
   customMarkerLeft = DefaultMarker,
   customMarkerRight = DefaultMarker,
-  customLabel = DefaultLabel,
-  markerOffsetX = 0,
-  markerOffsetY = 0,
-  sliderLength = 280,
-  onToggleOne = () => {},
-  onToggleTwo = () => {},
+  areMarkersSeparated = false,
+  min = 0,
+  max = 10,
+  step = 1,
+  optionsArray = undefined,
+  containerStyle = {},
+  markerContainerStyle = {},
+  markerStyle = {},
+  pressedMarkerStyle = {},
+  selectedStyle = {},
+  trackStyle = {},
+  unselectedStyle = {},
+  valuePrefix = "",
+  valueSuffix = "",
   enabledOne = true,
   enabledTwo = true,
+  onToggleOne = undefined,
+  onToggleTwo = undefined,
   allowOverlap = false,
   snapped = false,
-  vertical = false,
-  minMarkerOverlapDistance = 0
+  markerOffsetX = 0,
+  markerOffsetY = 0,
+  minMarkerOverlapDistance = 0,
+  imageBackgroundSource = undefined,
+  onMarkersPosition = () => {},
+  disabledMarkerStyle = {},
+  vertical = false
 }) {
   const optionsArray = optionsArray || createArray(min, max, step);
   const stepLength = sliderLength / optionsArray.length;
@@ -118,9 +132,9 @@ function MultiSlider({
       !slipDisplacement
     ) {
       const value = positionToValue(confined, optionsArray, sliderLength);
-      const snapped = valueToPosition(value, optionsArray, sliderLength);
+      const snappedOne = valueToPosition(value, optionsArray, sliderLength);
 
-      setPositionOne(snapped ? snapped : confined);
+      setPositionOne(snapped ? snappedOne : confined);
 
       if (value !== valueOne) {
         this.setState(
@@ -171,9 +185,9 @@ function MultiSlider({
       !slipDisplacement
     ) {
       const value = positionToValue(confined, optionsArray, sliderLength);
-      const snapped = valueToPosition(value, optionsArray, sliderLength);
+      const snappedTwo = valueToPosition(value, optionsArray, sliderLength);
 
-      setPositionTwo(snapped ? snapped : confined);
+      setPositionTwo(snapped ? snappedTwo : confined);
 
       if (value !== valueTwo) {
         this.setState(
@@ -288,19 +302,18 @@ function MultiSlider({
   const twoMarkers = values.length == 2; // when allowOverlap, positionTwo could be 0, identified as string '0' and throwing 'RawText 0 needs to be wrapped in <Text>' error
   const trackOneLength = positionOne;
   const trackOneStyle = twoMarkers
-    ? this.props.unselectedStyle
-    : this.props.selectedStyle || styles.selectedTrack;
+    ? unselectedStyle
+    : selectedStyle || styles.selectedTrack;
   const trackThreeLength = twoMarkers ? sliderLength - positionTwo : 0;
-  const trackThreeStyle = this.props.unselectedStyle;
+  const trackThreeStyle = unselectedStyle;
   const trackTwoLength = sliderLength - trackOneLength - trackThreeLength;
   const trackTwoStyle = twoMarkers
-    ? this.props.selectedStyle || styles.selectedTrack
-    : this.props.unselectedStyle;
+    ? selectedStyle || styles.selectedTrack
+    : unselectedStyle;
 
   const Marker = customMarker;
   const MarkerLeft = customMarkerLeft;
   const MarkerRight = customMarkerRight;
-  const isMarkersSeparated = this.props.isMarkersSeparated || false;
   const Label = customLabel;
 
   const { borderRadius } = touchDimensions;
@@ -317,10 +330,10 @@ function MultiSlider({
     right: trackThreeLength - markerOffsetX - 24
   };
 
-  const containerStyle = [styles.container, this.props.containerStyle];
+  const allContainerStyle = [styles.container, containerStyle];
 
   if (vertical) {
-    containerStyle.push({
+    allContainerStyle.push({
       transform: [{ rotate: "-90deg" }]
     });
   }
@@ -331,7 +344,7 @@ function MultiSlider({
         <View
           style={[
             styles.track,
-            this.props.trackStyle,
+            trackStyle,
             trackOneStyle,
             { width: trackOneLength }
           ]}
@@ -339,7 +352,7 @@ function MultiSlider({
         <View
           style={[
             styles.track,
-            this.props.trackStyle,
+            trackStyle,
             trackTwoStyle,
             { width: trackTwoLength }
           ]}
@@ -349,7 +362,7 @@ function MultiSlider({
           <View
             style={[
               styles.track,
-              this.props.trackStyle,
+              trackStyle,
               trackThreeStyle,
               { width: trackThreeLength }
             ]}
@@ -359,7 +372,7 @@ function MultiSlider({
           style={[
             styles.markerContainer,
             markerContainerOne,
-            this.props.markerContainerStyle,
+            markerContainerStyle,
             positionOne > sliderLength / 2 && styles.topMarkerContainer
           ]}
         >
@@ -367,27 +380,27 @@ function MultiSlider({
             style={[styles.touch, touchStyle]}
             {..._panResponderOne.panHandlers}
           >
-            {isMarkersSeparated === false ? (
+            {!areMarkersSeparated ? (
               <Marker
                 enabled={enabledOne}
                 pressed={onePressed}
-                markerStyle={this.props.markerStyle}
-                pressedMarkerStyle={this.props.pressedMarkerStyle}
-                disabledMarkerStyle={this.props.disabledMarkerStyle}
+                markerStyle={markerStyle}
+                pressedMarkerStyle={pressedMarkerStyle}
+                disabledMarkerStyle={disabledMarkerStyle}
                 currentValue={valueOne}
-                valuePrefix={this.props.valuePrefix}
-                valueSuffix={this.props.valueSuffix}
+                valuePrefix={valuePrefix}
+                valueSuffix={valueSuffix}
               />
             ) : (
               <MarkerLeft
                 enabled={enabledOne}
                 pressed={onePressed}
-                markerStyle={this.props.markerStyle}
-                pressedMarkerStyle={this.props.pressedMarkerStyle}
-                disabledMarkerStyle={this.props.disabledMarkerStyle}
+                markerStyle={markerStyle}
+                pressedMarkerStyle={pressedMarkerStyle}
+                disabledMarkerStyle={disabledMarkerStyle}
                 currentValue={valueOne}
-                valuePrefix={this.props.valuePrefix}
-                valueSuffix={this.props.valueSuffix}
+                valuePrefix={valuePrefix}
+                valueSuffix={valueSuffix}
               />
             )}
           </View>
@@ -398,34 +411,34 @@ function MultiSlider({
             style={[
               styles.markerContainer,
               markerContainerTwo,
-              this.props.markerContainerStyle
+              markerContainerStyle
             ]}
           >
             <View
               style={[styles.touch, touchStyle]}
               {..._panResponderTwo.panHandlers}
             >
-              {isMarkersSeparated === false ? (
+              {!areMarkersSeparated ? (
                 <Marker
                   pressed={twoPressed}
-                  markerStyle={this.props.markerStyle}
-                  pressedMarkerStyle={this.props.pressedMarkerStyle}
-                  disabledMarkerStyle={this.props.disabledMarkerStyle}
+                  markerStyle={markerStyle}
+                  pressedMarkerStyle={pressedMarkerStyle}
+                  disabledMarkerStyle={disabledMarkerStyle}
                   currentValue={valueTwo}
                   enabled={enabledTwo}
-                  valuePrefix={this.props.valuePrefix}
-                  valueSuffix={this.props.valueSuffix}
+                  valuePrefix={valuePrefix}
+                  valueSuffix={valueSuffix}
                 />
               ) : (
                 <MarkerRight
                   pressed={twoPressed}
-                  markerStyle={this.props.markerStyle}
-                  pressedMarkerStyle={this.props.pressedMarkerStyle}
-                  disabledMarkerStyle={this.props.disabledMarkerStyle}
+                  markerStyle={markerStyle}
+                  pressedMarkerStyle={pressedMarkerStyle}
+                  disabledMarkerStyle={disabledMarkerStyle}
                   currentValue={valueTwo}
                   enabled={enabledTwo}
-                  valuePrefix={this.props.valuePrefix}
-                  valueSuffix={this.props.valueSuffix}
+                  valuePrefix={valuePrefix}
+                  valueSuffix={valueSuffix}
                 />
               )}
             </View>
@@ -437,7 +450,7 @@ function MultiSlider({
 
   return (
     <View>
-      {this.props.enableLabel && (
+      {enableLabel && (
         <Label
           leftDiff={leftDiff}
           oneMarkerValue={valueOne}
@@ -448,16 +461,15 @@ function MultiSlider({
           twoMarkerPressed={twoPressed}
         />
       )}
-      {this.props.imageBackgroundSource && (
+      {imageBackgroundSource ? (
         <ImageBackground
-          source={this.props.imageBackgroundSource}
-          style={[{ width: "100%", height: "100%" }, containerStyle]}
+          source={imageBackgroundSource}
+          style={[{ width: "100%", height: "100%" }, allContainerStyle]}
         >
           {body}
         </ImageBackground>
-      )}
-      {!this.props.imageBackgroundSource && (
-        <View style={containerStyle}>{body}</View>
+      ) : (
+        <View style={allContainerStyle}>{body}</View>
       )}
     </View>
   );
@@ -468,26 +480,40 @@ MultiSlider.propTypes = {
   onValuesChangeStart: PropTypes.func,
   onValuesChange: PropTypes.func,
   onValuesChangeFinish: PropTypes.func,
-  onMarkersPosition: PropTypes.func,
-  step: PropTypes.number,
-  min: PropTypes.number,
-  max: PropTypes.number,
+  sliderLength: PropTypes.number,
   touchDimensions: PropTypes.objectOf(PropTypes.number),
+  enableLabel: PropTypes.func,
+  customLabel: PropTypes.elementType,
   customMarker: PropTypes.elementType,
   customMarkerLeft: PropTypes.elementType,
   customMarkerRight: PropTypes.elementType,
-  customLabel: PropTypes.elementType,
-  markerOffsetX: PropTypes.number,
-  markerOffsetY: PropTypes.number,
-  sliderLength: PropTypes.number,
-  onToggleOne: PropTypes.func,
-  onToggleTwo: PropTypes.func,
+  areMarkersSeparated: PropTypes.bool,
+  min: PropTypes.number,
+  max: PropTypes.number,
+  step: PropTypes.number,
+  optionsArray: PropTypes.array,
+  containerStyle: PropTypes.object,
+  markerContainerStyle: PropTypes.object,
+  markerStyle: PropTypes.object,
+  pressedMarkerStyle: PropTypes.object,
+  selectedStyle: PropTypes.object,
+  trackStyle: PropTypes.object,
+  unselectedStyle: PropTypes.object,
+  valuePrefix: PropTypes.string,
+  valueSuffix: PropTypes.string,
   enabledOne: PropTypes.bool,
   enabledTwo: PropTypes.bool,
+  onToggleOne: PropTypes.func,
+  onToggleTwo: PropTypes.func,
   allowOverlap: PropTypes.bool,
   snapped: PropTypes.bool,
+  markerOffsetX: PropTypes.number,
+  markerOffsetY: PropTypes.number,
+  minMarkerOverlapDistance: PropTypes.number,
+  imageBackgroundSource: PropTypes.string,
+  onMarkersPosition: PropTypes.func,
+  disabledMarkerStyle: PropTypes.object,
   vertical: PropTypes.bool,
-  minMarkerOverlapDistance: PropTypes.number
 };
 
 const styles = StyleSheet.create({
