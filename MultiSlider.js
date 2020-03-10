@@ -59,34 +59,22 @@ function MultiSlider({
   disabledMarkerStyle = {},
   vertical = false
 }) {
-  const optionsArray = optionsArray || createArray(min, max, step);
-  const stepLength = sliderLength / optionsArray.length;
-  const initialValues = values.map(value =>
-    valueToPosition(value, optionsArray, sliderLength)
-  );
+  let optionsArray;
+  let stepLength;
+  let initialValues;
+
+  let _panResponderBetween;
+  let _panResponderOne;
+  let _panResponderTwo;  
 
   const [onePressed, setOnePressed] = useState(false);
   const [twoPressed, setTwoPressed] = useState(false);
-  const [valueOne, setValueOne] = useState(values[0]);
-  const [valueTwo, setValueTwo] = useState(values[1]);
-  const [pastOne, setPastOne] = useState(initialValues[0]);
-  const [pastTwo, setPastTwo] = useState(initialValues[1]);
-  const [positionOne, setPositionOne] = useState(initialValues[0]);
-  const [positionTwo, setPositionTwo] = useState(initialValues[1]);
-
-  const customPanResponder = (start, move, end) =>
-    PanResponder.create({
-      onStartShouldSetPanResponder: () => true,
-      onStartShouldSetPanResponderCapture: () => true,
-      onMoveShouldSetPanResponder: () => true,
-      onMoveShouldSetPanResponderCapture: () => true,
-      onPanResponderGrant: () => start(),
-      onPanResponderMove: (undefined, gestureState) => move(gestureState),
-      onPanResponderTerminationRequest: () => false,
-      onPanResponderRelease: (undefined, gestureState) => end(gestureState),
-      onPanResponderTerminate: (undefined, gestureState) => end(gestureState),
-      onShouldBlockNativeResponder: () => true
-    });
+  const [valueOne, setValueOne] = useState([]);
+  const [valueTwo, setValueTwo] = useState([]);
+  const [pastOne, setPastOne] = useState([]);
+  const [pastTwo, setPastTwo] = useState([]);
+  const [positionOne, setPositionOne] = useState([]);
+  const [positionTwo, setPositionTwo] = useState([]);
 
   const startOne = () => {
     if (enabledOne) {
@@ -242,26 +230,55 @@ function MultiSlider({
     );
   };
 
-  const _panResponderBetween = customPanResponder(
-    gestureState => {
-      startOne(gestureState);
-      startTwo(gestureState);
-    },
-    gestureState => {
-      moveOne(gestureState);
-      moveTwo(gestureState);
-    },
-    gestureState => {
-      endOne(gestureState);
-      endTwo(gestureState);
-    }
-  );
+  useEffect(function subscribePanResponder() {
+    const customPanResponder = (start, move, end) =>
+      PanResponder.create({
+        onStartShouldSetPanResponder: () => true,
+        onStartShouldSetPanResponderCapture: () => true,
+        onMoveShouldSetPanResponder: () => true,
+        onMoveShouldSetPanResponderCapture: () => true,
+        onPanResponderGrant: () => start(),
+        onPanResponderMove: (undefined, gestureState) => move(gestureState),
+        onPanResponderTerminationRequest: () => false,
+        onPanResponderRelease: (undefined, gestureState) => end(gestureState),
+        onPanResponderTerminate: (undefined, gestureState) => end(gestureState),
+        onShouldBlockNativeResponder: () => true
+      });
 
-  const _panResponderOne = customPanResponder(startOne, moveOne, endOne);
+    _panResponderBetween = customPanResponder(
+      gestureState => {
+        startOne(gestureState);
+        startTwo(gestureState);
+      },
+      gestureState => {
+        moveOne(gestureState);
+        moveTwo(gestureState);
+      },
+      gestureState => {
+        endOne(gestureState);
+        endTwo(gestureState);
+      }
+    );
 
-  const _panResponderTwo = customPanResponder(startTwo, moveTwo, endTwo);
+    _panResponderOne = customPanResponder(startOne, moveOne, endOne);
+
+    _panResponderTwo = customPanResponder(startTwo, moveTwo, endTwo);
+  });
 
   useEffect(() => {
+    optionsArray = optionsArray || createArray(min, max, step);
+    stepLength = sliderLength / optionsArray.length;
+    initialValues = values.map(value =>
+      valueToPosition(value, optionsArray, sliderLength)
+    );
+
+    setValueOne(values[0]);
+    setValueTwo(values[1]);
+    setPastOne(initialValues[0]);
+    setPastTwo(initialValues[1]);
+    setPositionOne(initialValues[0]);
+    setPositionTwo(initialValues[1]);
+
     if (
       typeof positionOne === "undefined" &&
       typeof positionTwo !== "undefined"
@@ -297,7 +314,16 @@ function MultiSlider({
     setValueTwo(values[1]);
     setPastTwo(newPositionTwo);
     setPositionTwo(newPositionTwo);
-  }, [min, max, step, values, sliderLength, positionOne, positionTwo]);
+  }, [
+    min,
+    max,
+    optionsArray,
+    positionOne,
+    positionTwo,
+    sliderLength,
+    step,
+    values
+  ]);
 
   const twoMarkers = values.length == 2; // when allowOverlap, positionTwo could be 0, identified as string '0' and throwing 'RawText 0 needs to be wrapped in <Text>' error
   const trackOneLength = positionOne;
@@ -513,7 +539,7 @@ MultiSlider.propTypes = {
   imageBackgroundSource: PropTypes.string,
   onMarkersPosition: PropTypes.func,
   disabledMarkerStyle: PropTypes.object,
-  vertical: PropTypes.bool,
+  vertical: PropTypes.bool
 };
 
 const styles = StyleSheet.create({
