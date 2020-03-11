@@ -46,7 +46,7 @@ export interface MultiSliderProps {
     customMarkerRight?: React.ComponentType<MarkerProps>;
     customLabel?: React.ComponentType<LabelProps>;
 
-    areMarkersSeparated?: boolean;
+    isMarkersSeparated?: boolean;
 
     min?: number;
     max?: number;

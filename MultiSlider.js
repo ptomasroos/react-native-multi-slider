@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import PropTypes from "prop-types";
+import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 
 import {
   StyleSheet,
@@ -7,12 +7,12 @@ import {
   View,
   Platform,
   I18nManager,
-  ImageBackground
-} from "react-native";
+  ImageBackground,
+} from 'react-native';
 
-import { DefaultMarker } from "./DefaultMarker";
-import { DefaultLabel } from "./DefaultLabel";
-import { createArray, valueToPosition, positionToValue } from "./converters";
+import { DefaultMarker } from './DefaultMarker';
+import { DefaultLabel } from './DefaultLabel';
+import { createArray, valueToPosition, positionToValue } from './converters';
 
 function MultiSlider({
   values = [0],
@@ -24,14 +24,14 @@ function MultiSlider({
     height: 50,
     width: 50,
     borderRadius: 15,
-    slipDisplacement: 200
+    slipDisplacement: 200,
   },
   enableLabel,
   customLabel = DefaultLabel,
   customMarker = DefaultMarker,
   customMarkerLeft = DefaultMarker,
   customMarkerRight = DefaultMarker,
-  areMarkersSeparated = false,
+  isMarkersSeparated = false,
   min = 0,
   max = 10,
   step = 1,
@@ -43,8 +43,8 @@ function MultiSlider({
   selectedStyle = {},
   trackStyle = {},
   unselectedStyle = {},
-  valuePrefix = "",
-  valueSuffix = "",
+  valuePrefix = '',
+  valueSuffix = '',
   enabledOne = true,
   enabledTwo = true,
   onToggleOne = undefined,
@@ -57,7 +57,7 @@ function MultiSlider({
   imageBackgroundSource = undefined,
   onMarkersPosition = () => {},
   disabledMarkerStyle = {},
-  vertical = false
+  vertical = false,
 }) {
   let optionsArray;
   let stepLength;
@@ -65,7 +65,7 @@ function MultiSlider({
 
   let _panResponderBetween;
   let _panResponderOne;
-  let _panResponderTwo;  
+  let _panResponderTwo;
 
   const [onePressed, setOnePressed] = useState(false);
   const [twoPressed, setTwoPressed] = useState(false);
@@ -127,7 +127,7 @@ function MultiSlider({
       if (value !== valueOne) {
         this.setState(
           {
-            valueOne: value
+            valueOne: value,
           },
           () => {
             const change = [valueOne];
@@ -137,7 +137,7 @@ function MultiSlider({
             onValuesChange(change);
 
             onMarkersPosition([positionOne, positionTwo]);
-          }
+          },
         );
       }
     }
@@ -180,13 +180,13 @@ function MultiSlider({
       if (value !== valueTwo) {
         this.setState(
           {
-            valueTwo: value
+            valueTwo: value,
           },
           () => {
             onValuesChange([valueOne, valueTwo]);
 
             onMarkersPosition([positionOne, positionTwo]);
-          }
+          },
         );
       }
     }
@@ -201,7 +201,7 @@ function MultiSlider({
     this.setState(
       {
         pastOne: positionOne,
-        onePressed: !onePressed
+        onePressed: !onePressed,
       },
       () => {
         const change = [valueOne];
@@ -209,7 +209,7 @@ function MultiSlider({
           change.push(valueTwo);
         }
         onValuesChangeFinish(change);
-      }
+      },
     );
   };
 
@@ -222,11 +222,11 @@ function MultiSlider({
     this.setState(
       {
         twoPressed: !twoPressed,
-        pastTwo: positionTwo
+        pastTwo: positionTwo,
       },
       () => {
         onValuesChangeFinish([valueOne, valueTwo]);
-      }
+      },
     );
   };
 
@@ -242,7 +242,7 @@ function MultiSlider({
         onPanResponderTerminationRequest: () => false,
         onPanResponderRelease: (undefined, gestureState) => end(gestureState),
         onPanResponderTerminate: (undefined, gestureState) => end(gestureState),
-        onShouldBlockNativeResponder: () => true
+        onShouldBlockNativeResponder: () => true,
       });
 
     _panResponderBetween = customPanResponder(
@@ -257,7 +257,7 @@ function MultiSlider({
       gestureState => {
         endOne(gestureState);
         endTwo(gestureState);
-      }
+      },
     );
 
     _panResponderOne = customPanResponder(startOne, moveOne, endOne);
@@ -269,7 +269,7 @@ function MultiSlider({
     optionsArray = optionsArray || createArray(min, max, step);
     stepLength = sliderLength / optionsArray.length;
     initialValues = values.map(value =>
-      valueToPosition(value, optionsArray, sliderLength)
+      valueToPosition(value, optionsArray, sliderLength),
     );
 
     setValueOne(values[0]);
@@ -280,8 +280,8 @@ function MultiSlider({
     setPositionTwo(initialValues[1]);
 
     if (
-      typeof positionOne === "undefined" &&
-      typeof positionTwo !== "undefined"
+      typeof positionOne === 'undefined' &&
+      typeof positionTwo !== 'undefined'
     ) {
       return;
     }
@@ -298,7 +298,7 @@ function MultiSlider({
     const newPositionOne = valueToPosition(
       values[0],
       optionsArray,
-      sliderLength
+      sliderLength,
     );
 
     setValueOne(values[0]);
@@ -308,7 +308,7 @@ function MultiSlider({
     const newPositionTwo = valueToPosition(
       values[1],
       optionsArray,
-      sliderLength
+      sliderLength,
     );
 
     setValueTwo(values[1]);
@@ -322,7 +322,7 @@ function MultiSlider({
     positionTwo,
     sliderLength,
     step,
-    values
+    values,
   ]);
 
   const twoMarkers = values.length == 2; // when allowOverlap, positionTwo could be 0, identified as string '0' and throwing 'RawText 0 needs to be wrapped in <Text>' error
@@ -344,23 +344,23 @@ function MultiSlider({
 
   const { borderRadius } = touchDimensions;
   const touchStyle = {
-    borderRadius: borderRadius || 0
+    borderRadius: borderRadius || 0,
   };
   const markerContainerOne = {
     top: markerOffsetY - 24,
-    left: trackOneLength + markerOffsetX - 24
+    left: trackOneLength + markerOffsetX - 24,
   };
 
   const markerContainerTwo = {
     top: markerOffsetY - 24,
-    right: trackThreeLength - markerOffsetX - 24
+    right: trackThreeLength - markerOffsetX - 24,
   };
 
   const allContainerStyle = [styles.container, containerStyle];
 
   if (vertical) {
     allContainerStyle.push({
-      transform: [{ rotate: "-90deg" }]
+      transform: [{ rotate: '-90deg' }],
     });
   }
 
@@ -372,7 +372,7 @@ function MultiSlider({
             styles.track,
             trackStyle,
             trackOneStyle,
-            { width: trackOneLength }
+            { width: trackOneLength },
           ]}
         />
         <View
@@ -380,7 +380,7 @@ function MultiSlider({
             styles.track,
             trackStyle,
             trackTwoStyle,
-            { width: trackTwoLength }
+            { width: trackTwoLength },
           ]}
           {...(twoMarkers ? _panResponderBetween.panHandlers : {})}
         />
@@ -390,7 +390,7 @@ function MultiSlider({
               styles.track,
               trackStyle,
               trackThreeStyle,
-              { width: trackThreeLength }
+              { width: trackThreeLength },
             ]}
           />
         )}
@@ -399,14 +399,14 @@ function MultiSlider({
             styles.markerContainer,
             markerContainerOne,
             markerContainerStyle,
-            positionOne > sliderLength / 2 && styles.topMarkerContainer
+            positionOne > sliderLength / 2 && styles.topMarkerContainer,
           ]}
         >
           <View
             style={[styles.touch, touchStyle]}
             {..._panResponderOne.panHandlers}
           >
-            {!areMarkersSeparated ? (
+            {!isMarkersSeparated ? (
               <Marker
                 enabled={enabledOne}
                 pressed={onePressed}
@@ -437,14 +437,14 @@ function MultiSlider({
             style={[
               styles.markerContainer,
               markerContainerTwo,
-              markerContainerStyle
+              markerContainerStyle,
             ]}
           >
             <View
               style={[styles.touch, touchStyle]}
               {..._panResponderTwo.panHandlers}
             >
-              {!areMarkersSeparated ? (
+              {!isMarkersSeparated ? (
                 <Marker
                   pressed={twoPressed}
                   markerStyle={markerStyle}
@@ -490,7 +490,7 @@ function MultiSlider({
       {imageBackgroundSource ? (
         <ImageBackground
           source={imageBackgroundSource}
-          style={[{ width: "100%", height: "100%" }, allContainerStyle]}
+          style={[{ width: '100%', height: '100%' }, allContainerStyle]}
         >
           {body}
         </ImageBackground>
@@ -513,7 +513,7 @@ MultiSlider.propTypes = {
   customMarker: PropTypes.elementType,
   customMarkerLeft: PropTypes.elementType,
   customMarkerRight: PropTypes.elementType,
-  areMarkersSeparated: PropTypes.bool,
+  isMarkersSeparated: PropTypes.bool,
   min: PropTypes.number,
   max: PropTypes.number,
   step: PropTypes.number,
@@ -539,64 +539,64 @@ MultiSlider.propTypes = {
   imageBackgroundSource: PropTypes.string,
   onMarkersPosition: PropTypes.func,
   disabledMarkerStyle: PropTypes.object,
-  vertical: PropTypes.bool
+  vertical: PropTypes.bool,
 };
 
 const styles = StyleSheet.create({
   container: {
-    position: "relative",
+    position: 'relative',
     height: 50,
-    justifyContent: "center"
+    justifyContent: 'center',
   },
   fullTrack: {
-    flexDirection: "row"
+    flexDirection: 'row',
   },
   track: {
     ...Platform.select({
       ios: {
         height: 2,
         borderRadius: 2,
-        backgroundColor: "#A7A7A7"
+        backgroundColor: '#A7A7A7',
       },
       android: {
         height: 2,
-        backgroundColor: "#CECECE"
+        backgroundColor: '#CECECE',
       },
       web: {
         height: 2,
         borderRadius: 2,
-        backgroundColor: "#A7A7A7"
-      }
-    })
+        backgroundColor: '#A7A7A7',
+      },
+    }),
   },
   selectedTrack: {
     ...Platform.select({
       ios: {
-        backgroundColor: "#095FFF"
+        backgroundColor: '#095FFF',
       },
       android: {
-        backgroundColor: "#0D8675"
+        backgroundColor: '#0D8675',
       },
       web: {
-        backgroundColor: "#095FFF"
-      }
-    })
+        backgroundColor: '#095FFF',
+      },
+    }),
   },
   markerContainer: {
-    position: "absolute",
+    position: 'absolute',
     width: 48,
     height: 48,
-    backgroundColor: "transparent",
-    justifyContent: "center",
-    alignItems: "center"
+    backgroundColor: 'transparent',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   topMarkerContainer: {
-    zIndex: 1
+    zIndex: 1,
   },
   touch: {
-    backgroundColor: "transparent",
-    justifyContent: "center",
-    alignItems: "center",
-    alignSelf: "stretch"
-  }
+    backgroundColor: 'transparent',
+    justifyContent: 'center',
+    alignItems: 'center',
+    alignSelf: 'stretch',
+  },
 });
