@@ -5,7 +5,7 @@ Options to customize track, touch area and provide customer markers and callback
 
 ## Examples
 
-```
+```js
 cd example/Basic
 npm install
 react-native run-ios
@@ -27,7 +27,7 @@ $ npm install --save @ptomasroos/react-native-multi-slider
 
 ### Usage in a ScrollView
 
-```
+```js
  enableScroll = () => this.setState({ scrollEnabled: true });
  disableScroll = () => this.setState({ scrollEnabled: false });
 
@@ -47,7 +47,7 @@ $ npm install --save @ptomasroos/react-native-multi-slider
 In order to make different styles on markers you can set isMarkersSeparated to true, define customMarkerLeft and customMarkerRight in MultiSlider. for example:
 
 
-```
+```js
 <MultiSlider
      ...
       isMarkersSeparated={true}
