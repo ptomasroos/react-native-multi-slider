@@ -71,6 +71,7 @@ Feel free to contribute to this part of the documentation.
 | Prop name | Default value | Type | Purpouse |
 |:---------------------------------------------------------------------------------:|:-------------------------------------------------------------:|:-----------------:|:---------------------------------------:|
 | values | [0] | array of numbers | Prefixed values of the slider. |
+| vertical | false | boolean | orientation of the slider |
 | onValuesChangeStart | () => {} | function | Callback when the value starts changing |
 | onValuesChange | () => {} | function | Callback when the value changes |
 | onValuesChangeFinish | (values) => {} | function | Callback when the value stops changing |
