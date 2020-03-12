@@ -5,7 +5,7 @@ Options to customize track, touch area and provide customer markers and callback
 
 ## Examples
 
-```js
+```
 cd example/Basic
 npm install
 react-native run-ios
@@ -62,7 +62,6 @@ In order to make different styles on markers you can set isMarkersSeparated to t
          currentValue={e.currentValue}/>)
          }}
      />
-
 ```
 
 ### Partial report of the props
