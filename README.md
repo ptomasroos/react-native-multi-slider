@@ -96,6 +96,7 @@ Feel free to contribute to this part of the documentation.
 | onToggleTwo | undefined | function callback | Listener when second cursor toggles. |
 | allowOverlap | false | boolean | Allow the overlap within the cursors. |
 | snapped | false | boolean | Use this when you want a fixed position for your markers, this will split the slider in N specific positions |
+| vertical | false | boolean | Use vertical orientation instead of horizontal. |
 | markerOffsetX | 0 | number | Offset first cursor. |
 | markerOffsetY | 0 | number | Offset second cursor. |
 | minMarkerOverlapDistance | 0 | number | if this is > 0 and allowOverlap is false, this value will determine the closest two markers can come to each other. This can be used for cases where you have two markers large cursors and you don't want them to overlap. Note that markers will still overlap at the start if starting values are too near. |
