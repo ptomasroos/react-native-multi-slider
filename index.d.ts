@@ -74,6 +74,7 @@ export interface MultiSliderProps {
     minMarkerOverlapDistance?: number;
     imageBackgroundSource?: string;
     enableLabel?: boolean;
+    vertical?: boolean;
 }
 
 export default class MultiSlider extends React.Component<MultiSliderProps> {}
