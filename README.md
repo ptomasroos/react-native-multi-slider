@@ -27,7 +27,7 @@ $ npm install --save @ptomasroos/react-native-multi-slider
 
 ### Usage in a ScrollView
 
-```
+```js
  enableScroll = () => this.setState({ scrollEnabled: true });
  disableScroll = () => this.setState({ scrollEnabled: false });
 
@@ -47,7 +47,7 @@ $ npm install --save @ptomasroos/react-native-multi-slider
 In order to make different styles on markers you can set isMarkersSeparated to true, define customMarkerLeft and customMarkerRight in MultiSlider. for example:
 
 
-```
+```js
 <MultiSlider
      ...
       isMarkersSeparated={true}
@@ -62,7 +62,6 @@ In order to make different styles on markers you can set isMarkersSeparated to t
          currentValue={e.currentValue}/>)
          }}
      />
-
 ```
 
 ### Partial report of the props
@@ -72,6 +71,7 @@ Feel free to contribute to this part of the documentation.
 | Prop name | Default value | Type | Purpouse |
 |:---------------------------------------------------------------------------------:|:-------------------------------------------------------------:|:-----------------:|:---------------------------------------:|
 | values | [0] | array of numbers | Prefixed values of the slider. |
+| vertical | false | boolean | orientation of the slider |
 | onValuesChangeStart | () => {} | function | Callback when the value starts changing |
 | onValuesChange | () => {} | function | Callback when the value changes |
 | onValuesChangeFinish | (values) => {} | function | Callback when the value stops changing |
