@@ -548,7 +548,7 @@ export default class MultiSlider extends React.Component {
     );
 
     return (
-      <View>
+      <View pointerEvents={this.props.containerPointerEvents}>
         {this.props.enableLabel && (
           <Label
             oneMarkerValue={this.state.valueOne}
