@@ -5,7 +5,8 @@
   "main": "MultiSlider.js",
   "types": "index.d.ts",
   "scripts": {
-    "prettier": "prettier --single-quote --trailing-comma all --bracket-spacing --write \"**/*.js\""
+    "prettier": "prettier --single-quote --trailing-comma all --bracket-spacing --write \"**/*.js\"",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -42,13 +43,30 @@
     "react-native": "*"
   },
   "devDependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.8.3",
+    "@babel/preset-env": "^7.9.0",
+    "@testing-library/react-native": "^5.0.3",
+    "@types/react": "^16.9.25",
+    "@types/react-native": "^0.61.23",
+    "babel-cli": "^6.26.0",
+    "babel-jest": "^25.1.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react-native": "^4.0.1",
     "husky": "^1.1.2",
+    "jest": "^25.1.0",
     "lint-staged": "^7.3.0",
-    "prettier": "^1.14.3"
+    "metro-react-native-babel-preset": "^0.59.0",
+    "prettier": "^1.14.3",
+    "react": "^16.13.1",
+    "react-native": "^0.61.5",
+    "react-test-renderer": "^16.13.1"
   },
   "bugs": {
     "url": "https://github.com/ptomasroos/react-native-multi-slider/issues"
   },
   "homepage": "https://github.com/ptomasroos/react-native-multi-slider#readme",
-  "dependencies": {}
+  "dependencies": {},
+  "jest": {
+    "preset": "@testing-library/react-native"
+  }
 }
