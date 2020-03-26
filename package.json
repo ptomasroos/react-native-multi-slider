@@ -51,7 +51,6 @@
     "babel-cli": "^6.26.0",
     "babel-jest": "^25.1.0",
     "babel-preset-env": "^1.7.0",
-    "babel-preset-react-native": "^4.0.1",
     "husky": "^1.1.2",
     "jest": "^25.1.0",
     "lint-staged": "^7.3.0",
