@@ -543,7 +543,6 @@ export default class MultiSlider extends React.Component {
       <View>
         {this.props.enableLabel && (
           <Label
-            leftDiff={leftDiff}
             oneMarkerValue={this.state.valueOne}
             twoMarkerValue={this.state.valueTwo}
             oneMarkerLeftPosition={positionOne}
