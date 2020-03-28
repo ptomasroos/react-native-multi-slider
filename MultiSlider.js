@@ -545,6 +545,8 @@ export default class MultiSlider extends React.Component {
           <Label
             oneMarkerValue={this.state.valueOne}
             twoMarkerValue={this.state.valueTwo}
+            minValue={this.props.min}
+            maxValue={this.props.max}
             oneMarkerLeftPosition={positionOne}
             twoMarkerLeftPosition={positionTwo}
             oneMarkerPressed={this.state.onePressed}

@@ -20,6 +20,8 @@ export interface MarkerProps {
 export interface LabelProps {
     oneMarkerValue: string | number;
     twoMarkerValue: string | number;
+    minValue: number;
+    maxValue: number;
     oneMarkerLeftPosition: number;
     twoMarkerLeftPosition: number;
     oneMarkerPressed: boolean;
