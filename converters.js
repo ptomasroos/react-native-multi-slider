@@ -39,6 +39,8 @@ const closest = (array, n) => {
 };
 
 export function valueToPosition(value, valuesArray, sliderLength) {
+  if (value === undefined)
+    return undefined;
   const index = closest(valuesArray, value);
 
   const arrLength = valuesArray.length - 1;
