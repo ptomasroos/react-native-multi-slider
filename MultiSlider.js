@@ -408,6 +408,8 @@ export default class MultiSlider extends React.Component {
     } = this.props.touchDimensions;
     const touchStyle = {
       borderRadius: borderRadius || 0,
+      ...height && { height },
+      ...width && { width },
     };
 
     const markerContainerOne = {
@@ -624,6 +626,5 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
     justifyContent: 'center',
     alignItems: 'center',
-    alignSelf: 'stretch',
   },
 });
