@@ -38,15 +38,21 @@ const closest = (array, n) => {
   return -1;
 };
 
-export function valueToPosition(value, valuesArray, sliderLength) {
-  if (value === undefined)
-    return undefined;
+export function valueToPosition(
+  value,
+  valuesArray,
+  sliderLength,
+  markerSize = 0,
+) {
+  if (value === undefined) return undefined;
   const index = closest(valuesArray, value);
 
   const arrLength = valuesArray.length - 1;
   const validIndex = index === -1 ? arrLength : index;
+  const output =
+    ((sliderLength - markerSize) * validIndex) / arrLength + markerSize / 2;
 
-  return (sliderLength * validIndex) / arrLength;
+  return output;
 }
 
 export function positionToValue(position, valuesArray, sliderLength) {
@@ -58,7 +64,9 @@ export function positionToValue(position, valuesArray, sliderLength) {
   } else {
     arrLength = valuesArray.length - 1;
     index = (arrLength * position) / sliderLength;
-    return valuesArray[Math.round(index)];
+    const output = valuesArray[Math.round(index)];
+
+    return output;
   }
 }
 
