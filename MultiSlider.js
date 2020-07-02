@@ -153,7 +153,7 @@ export default class MultiSlider extends React.Component {
     const unconfined = I18nManager.isRTL
       ? this.state.pastOne - accumDistance
       : accumDistance + this.state.pastOne;
-    var bottom = 0;
+    var bottom = this.props.markerSize / 2;
     var trueTop =
       this.state.positionTwo -
       (this.props.allowOverlap
@@ -161,7 +161,10 @@ export default class MultiSlider extends React.Component {
         : this.props.minMarkerOverlapDistance > 0
         ? this.props.minMarkerOverlapDistance
         : this.stepLength);
-    var top = trueTop === 0 ? 0 : trueTop || this.props.sliderLength;
+    var top =
+      trueTop === 0
+        ? 0
+        : trueTop || this.props.sliderLength - this.props.markerSize / 2;
     var confined =
       unconfined < bottom ? bottom : unconfined > top ? top : unconfined;
     var slipDisplacement = this.props.touchDimensions.slipDisplacement;
@@ -174,6 +177,7 @@ export default class MultiSlider extends React.Component {
         confined,
         this.optionsArray,
         this.props.sliderLength,
+        this.props.markerSize,
       );
       var snapped = valueToPosition(
         value,
@@ -229,7 +233,7 @@ export default class MultiSlider extends React.Component {
         : this.props.minMarkerOverlapDistance > 0
         ? this.props.minMarkerOverlapDistance
         : this.stepLength);
-    var top = this.props.sliderLength;
+    var top = this.props.sliderLength - this.props.markerSize / 2;
     var confined =
       unconfined < bottom ? bottom : unconfined > top ? top : unconfined;
     var slipDisplacement = this.props.touchDimensions.slipDisplacement;
@@ -242,6 +246,7 @@ export default class MultiSlider extends React.Component {
         confined,
         this.optionsArray,
         this.props.sliderLength,
+        this.props.markerSize,
       );
       var snapped = valueToPosition(
         value,
