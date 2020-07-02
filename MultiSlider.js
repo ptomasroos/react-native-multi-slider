@@ -36,6 +36,7 @@ export default class MultiSlider extends React.Component {
     customLabel: DefaultLabel,
     markerOffsetX: 0,
     markerOffsetY: 0,
+    markerSize: 0,
     sliderLength: 280,
     onToggleOne: undefined,
     onToggleTwo: undefined,
