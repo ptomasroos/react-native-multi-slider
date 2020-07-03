@@ -36,6 +36,7 @@ export default class MultiSlider extends React.Component {
     customLabel: DefaultLabel,
     markerOffsetX: 0,
     markerOffsetY: 0,
+    markerSize: 0,
     sliderLength: 280,
     onToggleOne: undefined,
     onToggleTwo: undefined,
@@ -56,7 +57,12 @@ export default class MultiSlider extends React.Component {
     this.stepLength = this.props.sliderLength / this.optionsArray.length;
 
     var initialValues = this.props.values.map(value =>
-      valueToPosition(value, this.optionsArray, this.props.sliderLength),
+      valueToPosition(
+        value,
+        this.optionsArray,
+        this.props.sliderLength,
+        this.props.markerSize,
+      ),
     );
 
     this.state = {
@@ -148,7 +154,7 @@ export default class MultiSlider extends React.Component {
     const unconfined = I18nManager.isRTL
       ? this.state.pastOne - accumDistance
       : accumDistance + this.state.pastOne;
-    var bottom = 0;
+    var bottom = this.props.markerSize / 2;
     var trueTop =
       this.state.positionTwo -
       (this.props.allowOverlap
@@ -156,7 +162,10 @@ export default class MultiSlider extends React.Component {
         : this.props.minMarkerOverlapDistance > 0
         ? this.props.minMarkerOverlapDistance
         : this.stepLength);
-    var top = trueTop === 0 ? 0 : trueTop || this.props.sliderLength;
+    var top =
+      trueTop === 0
+        ? 0
+        : trueTop || this.props.sliderLength - this.props.markerSize / 2;
     var confined =
       unconfined < bottom ? bottom : unconfined > top ? top : unconfined;
     var slipDisplacement = this.props.touchDimensions.slipDisplacement;
@@ -169,11 +178,13 @@ export default class MultiSlider extends React.Component {
         confined,
         this.optionsArray,
         this.props.sliderLength,
+        this.props.markerSize,
       );
       var snapped = valueToPosition(
         value,
         this.optionsArray,
         this.props.sliderLength,
+        this.props.markerSize,
       );
       this.setState({
         positionOne: this.props.snapped ? snapped : confined,
@@ -223,7 +234,7 @@ export default class MultiSlider extends React.Component {
         : this.props.minMarkerOverlapDistance > 0
         ? this.props.minMarkerOverlapDistance
         : this.stepLength);
-    var top = this.props.sliderLength;
+    var top = this.props.sliderLength - this.props.markerSize / 2;
     var confined =
       unconfined < bottom ? bottom : unconfined > top ? top : unconfined;
     var slipDisplacement = this.props.touchDimensions.slipDisplacement;
@@ -236,11 +247,13 @@ export default class MultiSlider extends React.Component {
         confined,
         this.optionsArray,
         this.props.sliderLength,
+        this.props.markerSize,
       );
       var snapped = valueToPosition(
         value,
         this.optionsArray,
         this.props.sliderLength,
+        this.props.markerSize,
       );
 
       this.setState({
@@ -353,6 +366,7 @@ export default class MultiSlider extends React.Component {
         this.props.values[0],
         this.optionsArray,
         this.props.sliderLength,
+        this.props.markerSize,
       );
       nextState.valueOne = this.props.values[0];
       nextState.pastOne = positionOne;
@@ -362,6 +376,7 @@ export default class MultiSlider extends React.Component {
         this.props.values[1],
         this.optionsArray,
         this.props.sliderLength,
+        this.props.markerSize,
       );
       nextState.valueTwo = this.props.values[1];
       nextState.pastTwo = positionTwo;
@@ -408,8 +423,8 @@ export default class MultiSlider extends React.Component {
     } = this.props.touchDimensions;
     const touchStyle = {
       borderRadius: borderRadius || 0,
-      ...height && { height },
-      ...width && { width },
+      ...(height && { height }),
+      ...(width && { width }),
     };
 
     const markerContainerOne = {

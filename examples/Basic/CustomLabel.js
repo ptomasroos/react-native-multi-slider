@@ -39,7 +39,8 @@ function LabelBase(props) {
               { translateY: -width },
             ],
           },
-        ]}>
+        ]}
+      >
         <View style={styles.pointer} />
         <Text style={styles.sliderLabelText}>{value}</Text>
       </AnimatedView>
