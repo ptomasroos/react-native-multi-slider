@@ -49,19 +49,19 @@ In order to make different styles on markers you can set isMarkersSeparated to t
 
 ```js
 <MultiSlider
-     ...
-      isMarkersSeparated={true}
+    ...
+    isMarkersSeparated={true}
 
-      customMarkerLeft={(e) => {
+    customMarkerLeft={(e) => {
          return (<CustomSliderMarkerLeft
           currentValue={e.currentValue}/>)
-          }}
+    }}
 
-         customMarkerRight={(e) => {
+    customMarkerRight={(e) => {
          return (<CustomSliderMarkerRight
          currentValue={e.currentValue}/>)
-         }}
-     />
+    }}
+/>
 ```
 
 ### Partial report of the props
