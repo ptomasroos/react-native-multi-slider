@@ -5,7 +5,7 @@
   "main": "MultiSlider.js",
   "types": "index.d.ts",
   "scripts": {
-    "prettier": "prettier --single-quote --trailing-comma all --bracket-spacing --write \"**/*.js\""
+    "prettier": "prettier --write \"**/*.js\""
   },
   "repository": {
     "type": "git",
