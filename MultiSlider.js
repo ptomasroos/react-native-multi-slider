@@ -17,10 +17,10 @@ import { createArray, valueToPosition, positionToValue } from './converters';
 export default class MultiSlider extends React.Component {
   static defaultProps = {
     values: [0],
-    onValuesChangeStart: () => {},
-    onValuesChange: values => {},
-    onValuesChangeFinish: values => {},
-    onMarkersPosition: values => {},
+    onValuesChangeStart: () => { },
+    onValuesChange: values => { },
+    onValuesChangeFinish: values => { },
+    onMarkersPosition: values => { },
     step: 1,
     min: 0,
     max: 10,
@@ -46,6 +46,7 @@ export default class MultiSlider extends React.Component {
     snapped: false,
     vertical: false,
     minMarkerOverlapDistance: 0,
+    moveLimitOne: 10,
   };
 
   constructor(props) {
@@ -140,6 +141,11 @@ export default class MultiSlider extends React.Component {
   };
 
   moveOne = gestureState => {
+    if (this.props.moveLimitOne === this.props.values[0]) {
+      if (gestureState.dx > 0)
+        return;
+    }
+
     if (!this.props.enabledOne) {
       return;
     }
@@ -160,8 +166,8 @@ export default class MultiSlider extends React.Component {
       (this.props.allowOverlap
         ? 0
         : this.props.minMarkerOverlapDistance > 0
-        ? this.props.minMarkerOverlapDistance
-        : this.stepLength);
+          ? this.props.minMarkerOverlapDistance
+          : this.stepLength);
     var top =
       trueTop === 0
         ? 0
@@ -232,8 +238,8 @@ export default class MultiSlider extends React.Component {
       (this.props.allowOverlap
         ? 0
         : this.props.minMarkerOverlapDistance > 0
-        ? this.props.minMarkerOverlapDistance
-        : this.stepLength);
+          ? this.props.minMarkerOverlapDistance
+          : this.stepLength);
     var top = this.props.sliderLength - this.props.markerSize / 2;
     var confined =
       unconfined < bottom ? bottom : unconfined > top ? top : unconfined;
@@ -500,17 +506,17 @@ export default class MultiSlider extends React.Component {
                   valueSuffix={this.props.valueSuffix}
                 />
               ) : (
-                <MarkerLeft
-                  enabled={this.props.enabledOne}
-                  pressed={this.state.onePressed}
-                  markerStyle={this.props.markerStyle}
-                  pressedMarkerStyle={this.props.pressedMarkerStyle}
-                  disabledMarkerStyle={this.props.disabledMarkerStyle}
-                  currentValue={this.state.valueOne}
-                  valuePrefix={this.props.valuePrefix}
-                  valueSuffix={this.props.valueSuffix}
-                />
-              )}
+                  <MarkerLeft
+                    enabled={this.props.enabledOne}
+                    pressed={this.state.onePressed}
+                    markerStyle={this.props.markerStyle}
+                    pressedMarkerStyle={this.props.pressedMarkerStyle}
+                    disabledMarkerStyle={this.props.disabledMarkerStyle}
+                    currentValue={this.state.valueOne}
+                    valuePrefix={this.props.valuePrefix}
+                    valueSuffix={this.props.valueSuffix}
+                  />
+                )}
             </View>
           </View>
           {twoMarkers && positionOne !== this.props.sliderLength && (
@@ -538,17 +544,17 @@ export default class MultiSlider extends React.Component {
                     valueSuffix={this.props.valueSuffix}
                   />
                 ) : (
-                  <MarkerRight
-                    pressed={this.state.twoPressed}
-                    markerStyle={this.props.markerStyle}
-                    pressedMarkerStyle={this.props.pressedMarkerStyle}
-                    disabledMarkerStyle={this.props.disabledMarkerStyle}
-                    currentValue={this.state.valueTwo}
-                    enabled={this.props.enabledTwo}
-                    valuePrefix={this.props.valuePrefix}
-                    valueSuffix={this.props.valueSuffix}
-                  />
-                )}
+                    <MarkerRight
+                      pressed={this.state.twoPressed}
+                      markerStyle={this.props.markerStyle}
+                      pressedMarkerStyle={this.props.pressedMarkerStyle}
+                      disabledMarkerStyle={this.props.disabledMarkerStyle}
+                      currentValue={this.state.valueTwo}
+                      enabled={this.props.enabledTwo}
+                      valuePrefix={this.props.valuePrefix}
+                      valueSuffix={this.props.valueSuffix}
+                    />
+                  )}
               </View>
             </View>
           )}

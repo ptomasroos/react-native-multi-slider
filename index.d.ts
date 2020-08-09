@@ -30,7 +30,6 @@ export interface LabelProps {
 
 export interface MultiSliderProps {
     values?: number[];
-
     onValuesChange?: (values: number[]) => void;
     onValuesChangeStart?: () => void;
     onValuesChangeFinish?: (values: number[]) => void;
@@ -77,6 +76,7 @@ export interface MultiSliderProps {
     imageBackgroundSource?: string;
     enableLabel?: boolean;
     vertical?: boolean;
+    moveLimitOne?: number;
 }
 
 export default class MultiSlider extends React.Component<MultiSliderProps> {}
