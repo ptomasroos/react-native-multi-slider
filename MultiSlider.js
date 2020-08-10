@@ -392,6 +392,11 @@ export default class MultiSlider extends React.Component {
     }
   }
 
+  componentDidMount() {
+    const { positionOne, positionTwo } = this.state;
+    this.props.onMarkersPosition([positionOne, positionTwo]);
+  }
+
   render() {
     const { positionOne, positionTwo } = this.state;
     const {
