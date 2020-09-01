@@ -166,9 +166,7 @@ export default class MultiSlider extends React.Component {
         ? 0
         : this.props.minMarkerOverlapDistance > 0
         ? this.props.minMarkerOverlapDistance
-        : this.props.minMarkerOverlapStepDistance > 0
-        ? this.props.minMarkerOverlapStepDistance * this.stepLength
-        : this.stepLength);
+        : (this.props.minMarkerOverlapStepDistance || 1) * this.stepLength);
     var top =
       trueTop === 0
         ? 0
@@ -240,9 +238,7 @@ export default class MultiSlider extends React.Component {
         ? 0
         : this.props.minMarkerOverlapDistance > 0
         ? this.props.minMarkerOverlapDistance
-        : this.props.minMarkerOverlapStepDistance > 0
-        ? this.props.minMarkerOverlapStepDistance * this.stepLength
-        : this.stepLength);
+        : (this.props.minMarkerOverlapStepDistance || 1) * this.stepLength);
     var top = this.props.sliderLength - this.props.markerSize / 2;
     var confined =
       unconfined < bottom ? bottom : unconfined > top ? top : unconfined;
