@@ -47,6 +47,7 @@ export default class MultiSlider extends React.Component {
     vertical: false,
     minMarkerOverlapDistance: 0,
     minMarkerOverlapStepDistance: 0,
+    testID: '',
   };
 
   constructor(props) {
@@ -562,7 +563,7 @@ export default class MultiSlider extends React.Component {
     );
 
     return (
-      <View>
+      <View testID={this.props.testID}>
         {this.props.enableLabel && (
           <Label
             oneMarkerValue={this.state.valueOne}
