@@ -20,8 +20,6 @@ export interface MarkerProps {
 export interface LabelProps {
     oneMarkerValue: string | number;
     twoMarkerValue: string | number;
-    minValue: number;
-    maxValue: number;
     oneMarkerLeftPosition: number;
     twoMarkerLeftPosition: number;
     oneMarkerPressed: boolean;
@@ -47,6 +45,11 @@ export interface MultiSliderProps {
     customMarkerLeft?: React.ComponentType<MarkerProps>;
     customMarkerRight?: React.ComponentType<MarkerProps>;
     customLabel?: React.ComponentType<LabelProps>;
+
+    breakPointSize?: number,
+    breakPointColor?: string,
+    showBreakPoints?: boolean,
+    breakPointBorderWidth?: number,
 
     isMarkersSeparated?: boolean;
 
@@ -74,7 +77,6 @@ export interface MultiSliderProps {
     markerOffsetX?: number;
     markerOffsetY?: number;
     minMarkerOverlapDistance?: number;
-    minMarkerOverlapStepDistance?: number;
     imageBackgroundSource?: string;
     enableLabel?: boolean;
     vertical?: boolean;
