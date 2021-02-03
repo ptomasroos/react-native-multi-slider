@@ -7,6 +7,13 @@ import * as React from "react";
 import { ViewStyle } from "react-native";
 
 
+export interface StepsAsProps {
+    index: number;
+    stepLabel: string;
+    prefix: string;
+    suffix: string;
+}
+
 export interface MarkerProps {
     pressed: boolean;
     pressedMarkerStyle: ViewStyle;
@@ -54,6 +61,8 @@ export interface MultiSliderProps {
     max?: number;
     step?: number;
 
+    stepsAs?: StepsAsProps[];
+
     optionsArray?: number[];
 
     containerStyle?: ViewStyle;
@@ -63,14 +72,21 @@ export interface MultiSliderProps {
     markerContainerStyle?: ViewStyle;
     markerStyle?: ViewStyle;
     pressedMarkerStyle?: ViewStyle;
+    stepStyle?: ViewStyle;
+    stepLabelStyle?: ViewStyle;
+    stepMarkerStyle?: ViewStyle;
     valuePrefix?: string;
     valueSuffix?: string;
+    showSteps?: boolean;
+    showStepMarkers?: boolean;
+    showStepLabels?: boolean;
     enabledOne?: boolean;
     enabledTwo?: boolean;
     onToggleOne?: () => void;
     onToggleTwo?: () => void;
     allowOverlap?: boolean;
     snapped?: boolean;
+    smoothSnapped?: boolean;
     markerOffsetX?: number;
     markerOffsetY?: number;
     minMarkerOverlapDistance?: number;

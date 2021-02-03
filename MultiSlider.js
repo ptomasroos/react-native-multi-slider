@@ -1,4 +1,5 @@
 import React from 'react';
+import { Text } from 'react-native';
 
 import {
   StyleSheet,
@@ -40,10 +41,15 @@ export default class MultiSlider extends React.Component {
     sliderLength: 280,
     onToggleOne: undefined,
     onToggleTwo: undefined,
+    stepsAs: [],
+    showSteps: false,
+    showStepMarkers: true,
+    showStepLabels: true,
     enabledOne: true,
     enabledTwo: true,
     allowOverlap: false,
     snapped: false,
+    smoothSnapped: false,
     vertical: false,
     minMarkerOverlapDistance: 0,
     minMarkerOverlapStepDistance: 0,
@@ -53,8 +59,13 @@ export default class MultiSlider extends React.Component {
   constructor(props) {
     super(props);
 
-    if(this.props.minMarkerOverlapDistance > 0 && this.props.minMarkerOverlapStepDistance > 0) {
-      console.error('You should provide either "minMarkerOverlapDistance" or "minMarkerOverlapStepDistance", not both. Expect unreliable results.');
+    if (
+      this.props.minMarkerOverlapDistance > 0 &&
+      this.props.minMarkerOverlapStepDistance > 0
+    ) {
+      console.error(
+        'You should provide either "minMarkerOverlapDistance" or "minMarkerOverlapStepDistance", not both. Expect unreliable results.',
+      );
     }
 
     this.optionsArray =
@@ -70,6 +81,31 @@ export default class MultiSlider extends React.Component {
         this.props.markerSize,
       ),
     );
+
+    var tempStepsAs = {};
+    this.props.stepsAs.forEach(step => {
+      if (step?.index !== undefined) {
+        tempStepsAs[step?.index] = step;
+      }
+    });
+
+    this.stepsAs = {};
+    this.optionsArray.forEach((ops, index) => {
+      if (tempStepsAs[index]) {
+        var step = tempStepsAs[index];
+        this.stepsAs[index] = {
+          stepLabel: step?.stepLabel ? step.stepLabel : ops,
+          suffix: step?.suffix ? step.suffix : '',
+          prefix: step?.prefix ? step.prefix : '',
+        };
+      } else {
+        this.stepsAs[index] = {
+          stepLabel: ops,
+          suffix: '',
+          prefix: '',
+        };
+      }
+    });
 
     this.state = {
       pressedOne: true,
@@ -293,9 +329,16 @@ export default class MultiSlider extends React.Component {
       return;
     }
 
+    var snapped = valueToPosition(
+      this.state.valueOne,
+      this.optionsArray,
+      this.props.sliderLength,
+    );
+
     this.setState(
       {
-        pastOne: this.state.positionOne,
+        pastOne: this.props.smoothSnapped ? snapped : this.state.positionOne,
+        ...(this.props.smoothSnapped ? { positionOne: snapped } : {}),
         onePressed: !this.state.onePressed,
       },
       () => {
@@ -314,10 +357,17 @@ export default class MultiSlider extends React.Component {
       return;
     }
 
+    var snapped = valueToPosition(
+      this.state.valueTwo,
+      this.optionsArray,
+      this.props.sliderLength,
+    );
+
     this.setState(
       {
         twoPressed: !this.state.twoPressed,
-        pastTwo: this.state.positionTwo,
+        pastTwo: this.props.smoothSnapped ? snapped : this.state.positionTwo,
+        ...(this.props.smoothSnapped ? { positionTwo: snapped } : {}),
       },
       () => {
         this.props.onValuesChangeFinish([
@@ -390,6 +440,50 @@ export default class MultiSlider extends React.Component {
 
       this.setState(nextState);
     }
+  }
+
+  getSteps() {
+    const stepLength = this.props.sliderLength / (this.optionsArray.length - 1);
+    const textStyles = [
+      styles.stepLabel,
+      this.props.stepLabelStyle,
+      ...(this.props.vertical ? [{ transform: [{ rotate: '90deg' }] }] : []),
+    ];
+    const markerHeight = this.props?.trackStyle?.height || styles.track.height;
+    const markerStyles = [
+      styles.stepMarker,
+      {
+        height: markerHeight,
+        width: markerHeight,
+        borderRadius: markerHeight / 2,
+      },
+      this.props.stepMarkerStyle,
+    ];
+
+    return this.optionsArray.map((number, index) => {
+      var step = this.stepsAs[index];
+      return (
+        <View
+          key={number}
+          style={[
+            styles.step,
+            this.props.stepStyle,
+            { left: stepLength * index },
+          ]}
+        >
+          {this.props.showStepMarkers &&
+            index !== 0 &&
+            index !== this.optionsArray.length - 1 && (
+              <View style={markerStyles} />
+            )}
+          {this.props.showStepLabels && (
+            <Text
+              style={textStyles}
+            >{`${step.prefix}${step.stepLabel}${step.suffix}`}</Text>
+          )}
+        </View>
+      );
+    });
   }
 
   render() {
@@ -481,6 +575,7 @@ export default class MultiSlider extends React.Component {
               ]}
             />
           )}
+          {this.props.showSteps && this.getSteps()}
           <View
             style={[
               styles.markerContainer,
@@ -647,5 +742,22 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  step: {
+    position: 'absolute',
+    marginLeft: -5,
+  },
+  stepMarker: {
+    position: 'absolute',
+    left: 2,
+    width: 6,
+    height: 6,
+    backgroundColor: '#0000008c',
+    borderRadius: 3,
+  },
+  stepLabel: {
+    position: 'absolute',
+    top: 15,
+    color: '#333',
   },
 });

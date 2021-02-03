@@ -86,15 +86,20 @@ Feel free to contribute to this part of the documentation.
 | max | 10 | number | Maximum value available in the slider. |
 | step | 1 | number | Step value of the slider. |
 | optionsArray |  | array of numbers | Possible values of the slider. Ignores min and max. |
-| {container/track/selected/unselected/ markerContainer/marker/pressedMarker} Style |  | style object | Styles for the slider |
+| {container/track/selected/unselected/ markerContainer/marker/pressedMarker/step/stepLabel/StepMarker} Style |  | style object | Styles for the slider |
 | valuePrefix |  | string | Prefix added to the value. |
 | valueSuffix |  | string | Suffix added to the value. |
 | enabledOne | true | boolean | Enables the first cursor |
 | enabledTwo | true | boolean | Enables the second cursor |
+| stepsAs | [] | array of objects | Use stepsAs when you want to customize the steps-labels. stepsAs expects an array of objects [{index: number, stepLabel: string, prefix: string, suffix: string}]. Where index is for which step you want to customize, and all the other steps will show its index as its stepLabel. Both showSteps and showStepsLabels has to be enabled for stepsAs to be used.   |
+| showSteps | false | boolean | Show steps |
+| showStepMarkers | true | boolean | Show steps-markers on the track, showSteps has to be enabled as well |
+| showStepLabels | true | boolean | Show steps-labels underneath the track, showSteps has to be enabled as well |
 | onToggleOne | undefined | function callback | Listener when first cursor toggles. |
 | onToggleTwo | undefined | function callback | Listener when second cursor toggles. |
 | allowOverlap | false | boolean | Allow the overlap within the cursors. |
 | snapped | false | boolean | Use this when you want a fixed position for your markers, this will split the slider in N specific positions |
+| smoothSnapped | false | boolean | Same as snapped but you can move the slider as usual. When released it will go to the nearest marker |
 | vertical | false | boolean | Use vertical orientation instead of horizontal. |
 | markerOffsetX | 0 | number | Offset the cursor(s) on the X axis |
 | markerOffsetY | 0 | number | Offset the cursor(s) on the Y axis |
