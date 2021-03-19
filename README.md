@@ -4,12 +4,15 @@ Pure JS react native slider component with one or two markers.
 Options to customize track, touch area and provide customer markers and callbacks for touch events and value changes.
 ----
 Added onPositionChange event
+
 onPositionChange={values => setMultiSliderValue(values)}
 
 Added thirdTrackStyle
+
         thirdTrackStyle={{
           backgroundColor: '#966789',
         }}       
+        
         selectedStyle={{
           backgroundColor: '#DDAF45',
         }}
