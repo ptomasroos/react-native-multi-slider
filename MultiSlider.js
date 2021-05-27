@@ -658,7 +658,7 @@ export default class MultiSlider extends React.Component {
     );
 
     return (
-      <View testID={this.props.testID}>
+      <View style={this.props?.wrapperStyle} testID={this.props.testID}>
         {this.props.enableLabel && (
           <Label
             oneMarkerValue={this.state.valueOne}

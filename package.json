@@ -1,6 +1,6 @@
 {
-  "name": "@ptomasroos/react-native-multi-slider",
-  "version": "2.2.2",
+  "name": "@digital-detox/react-native-multi-slider",
+  "version": "2.2.3",
   "description": "Android and iOS supported pure JS slider component with multiple markers for React Native",
   "main": "MultiSlider.js",
   "types": "index.d.ts",
@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ptomasroos/react-native-multi-slider.git"
+    "url": "git+https://github.com/digital-detox/react-native-multi-slider.git"
   },
   "keywords": [
     "react-native-multi-slider",
@@ -35,7 +35,7 @@
       "git add"
     ]
   },
-  "author": "Tomas Roos <ptomasroos@gmail.com>",
+  "author": "Digital Detox (Forked from Tomas Roos <ptomasroos@gmail.com>)",
   "license": "MIT",
   "peerDependencies": {
     "react": "*",
@@ -46,9 +46,6 @@
     "lint-staged": "^7.3.0",
     "prettier": "^1.14.3"
   },
-  "bugs": {
-    "url": "https://github.com/ptomasroos/react-native-multi-slider/issues"
-  },
-  "homepage": "https://github.com/ptomasroos/react-native-multi-slider#readme",
+  "homepage": "https://github.com/digital-detox/react-native-multi-slider",
   "dependencies": {}
 }
