@@ -232,7 +232,7 @@ export default class MultiSlider extends React.Component {
         positionOne: this.props.snapped ? snapped : confined,
       });
 
-      if (value !== this.state.valueOne) {
+      if (value !== this.state.valueOne && value !== this.state.valueTwo) {
         this.setState(
           {
             valueOne: value,
@@ -302,7 +302,7 @@ export default class MultiSlider extends React.Component {
         positionTwo: this.props.snapped ? snapped : confined,
       });
 
-      if (value !== this.state.valueTwo) {
+      if (value !== this.state.valueTwo && value !== this.state.valueOne) {
         this.setState(
           {
             valueTwo: value,
