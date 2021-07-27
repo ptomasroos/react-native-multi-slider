@@ -53,6 +53,7 @@ export default class MultiSlider extends React.Component {
     vertical: false,
     minMarkerOverlapDistance: 0,
     minMarkerOverlapStepDistance: 0,
+    trackOneRender: null,
     testID: '',
   };
 
@@ -486,6 +487,12 @@ export default class MultiSlider extends React.Component {
     });
   }
 
+  renderTrackOne(styles) {
+    const { trackOneRender } = this.props;
+    if (trackOneRender && typeof trackOneRender === 'function') return trackOneRender(styles)
+    return <View style={styles} />
+  }
+
   render() {
     const { positionOne, positionTwo } = this.state;
     const {
@@ -548,14 +555,12 @@ export default class MultiSlider extends React.Component {
     const body = (
       <React.Fragment>
         <View style={[styles.fullTrack, { width: sliderLength }]}>
-          <View
-            style={[
-              styles.track,
-              this.props.trackStyle,
-              trackOneStyle,
-              { width: trackOneLength },
-            ]}
-          />
+          {this.renderTrackOne([
+            styles.track,
+            this.props.trackStyle,
+            trackOneStyle,
+            { width: trackOneLength },
+          ])}
           <View
             style={[
               styles.track,
