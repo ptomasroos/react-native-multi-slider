@@ -71,6 +71,7 @@ export interface MultiSliderProps {
     unselectedStyle?: ViewStyle;
     markerContainerStyle?: ViewStyle;
     markerStyle?: ViewStyle;
+    disabledMarkerStyle?: ViewStyle;
     pressedMarkerStyle?: ViewStyle;
     stepStyle?: ViewStyle;
     stepLabelStyle?: ViewStyle;
