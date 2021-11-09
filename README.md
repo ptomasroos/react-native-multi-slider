@@ -87,6 +87,10 @@ Feel free to contribute to this part of the documentation.
 | step | 1 | number | Step value of the slider. |
 | optionsArray |  | array of numbers | Possible values of the slider. Ignores min and max. |
 | {container/track/selected/unselected/ markerContainer/marker/pressedMarker/step/stepLabel/StepMarker} Style |  | style object | Styles for the slider |
+| selectedStyle |  | style object | Style for the track right of the marker in  the 1 marker case. Style of the track between the 2 markers in the 2 marker case. |
+| unselectedStyle |  | style object | Style for the track left of the marker in the 1 marker case. Style of the track on either side of the 2 markers in the 2 marker case. |
+| thirdStyle |  | style object | Style for the track right of the right marker in the 2 marker case. |
+| overlap |  | boolean | Enables 2 markers to exist at the same slider position. default behaviour right marker disappears. |
 | valuePrefix |  | string | Prefix added to the value. |
 | valueSuffix |  | string | Suffix added to the value. |
 | enabledOne | true | boolean | Enables the first cursor |
