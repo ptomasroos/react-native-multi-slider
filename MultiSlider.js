@@ -675,6 +675,7 @@ export default class MultiSlider extends React.Component {
           <ImageBackground
             source={this.props.imageBackgroundSource}
             style={[{ width: '100%', height: '100%' }, containerStyle]}
+            resizeMode='stretch'
           >
             {body}
           </ImageBackground>
