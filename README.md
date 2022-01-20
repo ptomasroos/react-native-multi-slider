@@ -28,7 +28,7 @@ $ npm install --save @ptomasroos/react-native-multi-slider
 ### Usage in a ScrollView
 
 ```js
-import MultiSlider from 'react-native-multi-slider';
+import MultiSlider from '@ptomasroos/react-native-multi-slider';
 
 ...
 
