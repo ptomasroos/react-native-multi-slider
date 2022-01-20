@@ -28,6 +28,10 @@ $ npm install --save @ptomasroos/react-native-multi-slider
 ### Usage in a ScrollView
 
 ```js
+import MultiSlider from 'react-native-multi-slider';
+
+...
+
  enableScroll = () => this.setState({ scrollEnabled: true });
  disableScroll = () => this.setState({ scrollEnabled: false });
 
