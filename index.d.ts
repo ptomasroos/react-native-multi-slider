@@ -7,13 +7,6 @@ import * as React from "react";
 import { ViewStyle } from "react-native";
 
 
-export interface StepsAsProps {
-    index: number;
-    stepLabel: string;
-    prefix: string;
-    suffix: string;
-}
-
 export interface MarkerProps {
     pressed: boolean;
     pressedMarkerStyle: ViewStyle;
@@ -27,8 +20,6 @@ export interface MarkerProps {
 export interface LabelProps {
     oneMarkerValue: string | number;
     twoMarkerValue: string | number;
-    minValue: number;
-    maxValue: number;
     oneMarkerLeftPosition: number;
     twoMarkerLeftPosition: number;
     oneMarkerPressed: boolean;
@@ -61,8 +52,6 @@ export interface MultiSliderProps {
     max?: number;
     step?: number;
 
-    stepsAs?: StepsAsProps[];
-
     optionsArray?: number[];
 
     containerStyle?: ViewStyle;
@@ -71,29 +60,24 @@ export interface MultiSliderProps {
     unselectedStyle?: ViewStyle;
     markerContainerStyle?: ViewStyle;
     markerStyle?: ViewStyle;
+    tappableStepStyle?: ViewStyle;
+    activeTappableStepStyle?: ViewStyle;
     pressedMarkerStyle?: ViewStyle;
-    stepStyle?: ViewStyle;
-    stepLabelStyle?: ViewStyle;
-    stepMarkerStyle?: ViewStyle;
     valuePrefix?: string;
     valueSuffix?: string;
-    showSteps?: boolean;
-    showStepMarkers?: boolean;
-    showStepLabels?: boolean;
     enabledOne?: boolean;
     enabledTwo?: boolean;
     onToggleOne?: () => void;
     onToggleTwo?: () => void;
     allowOverlap?: boolean;
     snapped?: boolean;
-    smoothSnapped?: boolean;
     markerOffsetX?: number;
     markerOffsetY?: number;
     minMarkerOverlapDistance?: number;
-    minMarkerOverlapStepDistance?: number;
     imageBackgroundSource?: string;
     enableLabel?: boolean;
     vertical?: boolean;
+    enableTapSteps?: boolean;
 }
 
 export default class MultiSlider extends React.Component<MultiSliderProps> {}
