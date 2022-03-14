@@ -7,10 +7,6 @@
   "scripts": {
     "prettier": "prettier --write \"**/*.js\""
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/ptomasroos/react-native-multi-slider.git"
-  },
   "keywords": [
     "react-native-multi-slider",
     "react-component",
@@ -50,5 +46,8 @@
     "url": "https://github.com/ptomasroos/react-native-multi-slider/issues"
   },
   "homepage": "https://github.com/ptomasroos/react-native-multi-slider#readme",
-  "dependencies": {}
+  "dependencies": {},
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  }
 }
