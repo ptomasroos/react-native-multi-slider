@@ -48,13 +48,19 @@ export default class MultiSlider extends React.Component {
     minMarkerOverlapDistance: 0,
     minMarkerOverlapStepDistance: 0,
     testID: '',
+    containerPointerEvents: 'auto',
   };
 
   constructor(props) {
     super(props);
 
-    if(this.props.minMarkerOverlapDistance > 0 && this.props.minMarkerOverlapStepDistance > 0) {
-      console.error('You should provide either "minMarkerOverlapDistance" or "minMarkerOverlapStepDistance", not both. Expect unreliable results.');
+    if (
+      this.props.minMarkerOverlapDistance > 0 &&
+      this.props.minMarkerOverlapStepDistance > 0
+    ) {
+      console.error(
+        'You should provide either "minMarkerOverlapDistance" or "minMarkerOverlapStepDistance", not both. Expect unreliable results.',
+      );
     }
 
     this.optionsArray =
@@ -453,7 +459,10 @@ export default class MultiSlider extends React.Component {
 
     const body = (
       <React.Fragment>
-        <View style={[styles.fullTrack, { width: sliderLength }]}>
+        <View
+          style={[styles.fullTrack, { width: sliderLength }]}
+          pointerEvents={this.props.containerPointerEvents}
+        >
           <View
             style={[
               styles.track,
@@ -461,6 +470,7 @@ export default class MultiSlider extends React.Component {
               trackOneStyle,
               { width: trackOneLength },
             ]}
+            pointerEvents={this.props.containerPointerEvents}
           />
           <View
             style={[
@@ -470,6 +480,7 @@ export default class MultiSlider extends React.Component {
               { width: trackTwoLength },
             ]}
             {...(twoMarkers ? this._panResponderBetween.panHandlers : {})}
+            pointerEvents={this.props.containerPointerEvents}
           />
           {twoMarkers && (
             <View
@@ -479,6 +490,7 @@ export default class MultiSlider extends React.Component {
                 trackThreeStyle,
                 { width: trackThreeLength },
               ]}
+              pointerEvents={this.props.containerPointerEvents}
             />
           )}
           <View
@@ -488,6 +500,7 @@ export default class MultiSlider extends React.Component {
               this.props.markerContainerStyle,
               positionOne > sliderLength / 2 && styles.topMarkerContainer,
             ]}
+            pointerEvents={this.props.containerPointerEvents}
           >
             <View
               style={[styles.touch, touchStyle]}
@@ -563,7 +576,10 @@ export default class MultiSlider extends React.Component {
     );
 
     return (
-      <View testID={this.props.testID}>
+      <View
+        pointerEvents={this.props.containerPointerEvents}
+        testID={this.props.testID}
+      >
         {this.props.enableLabel && (
           <Label
             oneMarkerValue={this.state.valueOne}
@@ -585,7 +601,12 @@ export default class MultiSlider extends React.Component {
           </ImageBackground>
         )}
         {!this.props.imageBackgroundSource && (
-          <View style={containerStyle}>{body}</View>
+          <View
+            style={containerStyle}
+            pointerEvents={this.props.containerPointerEvents}
+          >
+            {body}
+          </View>
         )}
       </View>
     );
