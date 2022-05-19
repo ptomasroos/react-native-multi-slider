@@ -6,7 +6,6 @@ import {
   PanResponder,
   View,
   Platform,
-  Dimensions,
   I18nManager,
   ImageBackground,
 } from 'react-native';
@@ -53,7 +52,8 @@ export default class MultiSlider extends React.Component {
     vertical: false,
     minMarkerOverlapDistance: 0,
     minMarkerOverlapStepDistance: 0,
-    testID: '',
+    testID: undefined,
+    renderTrack: undefined,
   };
 
   constructor(props) {
@@ -494,6 +494,7 @@ export default class MultiSlider extends React.Component {
       sliderLength,
       markerOffsetX,
       markerOffsetY,
+      renderTrack,
     } = this.props;
     const twoMarkers = this.props.values.length == 2; // when allowOverlap, positionTwo could be 0, identified as string '0' and throwing 'RawText 0 needs to be wrapped in <Text>' error
 
@@ -548,23 +549,48 @@ export default class MultiSlider extends React.Component {
     const body = (
       <React.Fragment>
         <View style={[styles.fullTrack, { width: sliderLength }]}>
-          <View
-            style={[
-              styles.track,
-              this.props.trackStyle,
-              trackOneStyle,
-              { width: trackOneLength },
-            ]}
-          />
-          <View
-            style={[
-              styles.track,
-              this.props.trackStyle,
-              trackTwoStyle,
-              { width: trackTwoLength },
-            ]}
-            {...(twoMarkers ? this._panResponderBetween.panHandlers : {})}
-          />
+          {renderTrack ? (
+            renderTrack({
+              selectedStyle: !twoMarkers,
+              style: [
+                styles.track,
+                this.props.trackStyle,
+                trackOneStyle,
+                { width: trackOneLength },
+              ],
+            })
+          ) : (
+            <View
+              style={[
+                styles.track,
+                this.props.trackStyle,
+                trackOneStyle,
+                { width: trackOneLength },
+              ]}
+            />
+          )}
+          {renderTrack ? (
+            renderTrack({
+              selectedStyle: !!twoMarkers,
+              style: [
+                styles.track,
+                this.props.trackStyle,
+                trackTwoStyle,
+                { width: trackTwoLength },
+              ],
+              ...(twoMarkers ? this._panResponderBetween.panHandlers : {}),
+            })
+          ) : (
+            <View
+              style={[
+                styles.track,
+                this.props.trackStyle,
+                trackTwoStyle,
+                { width: trackTwoLength },
+              ]}
+              {...(twoMarkers ? this._panResponderBetween.panHandlers : {})}
+            />
+          )}
           {twoMarkers && (
             <View
               style={[

@@ -96,6 +96,7 @@ export interface MultiSliderProps {
     enableLabel?: boolean;
     vertical?: boolean;
     testID?: string;
+    renderTrack?: ({ style: ViewStyle, selectedStyle: boolean }) => any;
 }
 
 export default class MultiSlider extends React.Component<MultiSliderProps> {}
