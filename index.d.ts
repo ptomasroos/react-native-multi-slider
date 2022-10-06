@@ -94,6 +94,10 @@ export interface MultiSliderProps {
     imageBackgroundSource?: string;
     enableLabel?: boolean;
     vertical?: boolean;
+    /**
+     * can be used to render custom marker over slider (Will not block Marker movement)
+     */
+    renderCustomCuts?:React.ComponentType<any>
 }
 
 export default class MultiSlider extends React.Component<MultiSliderProps> {}
