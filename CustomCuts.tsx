@@ -14,7 +14,7 @@ const CustomCutsComponent:React.FunctionComponent<ICustomCutsProps>=(props)=>{
     if(!!props?.customCuts?.length && isValidCuts(props?.customCuts, props?.min, props?.max)){
         if(props?.renderCustomCuts){
             const Component = props?.renderCustomCuts;
-            return <Component customCuts={props?.customCuts}/>
+            return <Component customCuts={props?.customCuts} min={props.min} max={props.max}/>
         }else{
             return(
                 <View style={styles.cutsContainer} pointerEvents={'none'}>
