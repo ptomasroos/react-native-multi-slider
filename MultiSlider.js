@@ -14,6 +14,7 @@ import {
 import DefaultMarker from './DefaultMarker';
 import DefaultLabel from './DefaultLabel';
 import { createArray, valueToPosition, positionToValue } from './converters';
+import CustomCutsComponent from './CustomCuts';
 
 export default class MultiSlider extends React.Component {
   static defaultProps = {
@@ -576,7 +577,7 @@ export default class MultiSlider extends React.Component {
             />
           )}
           {this.props.showSteps && this.getSteps()}
-          {this?.props?.renderCustomCuts}
+          <CustomCutsComponent min={this?.props?.min} max={this?.props?.max} renderCustomCuts={this?.props?.renderCustomCuts}/>
           <View
             style={[
               styles.markerContainer,

@@ -98,6 +98,10 @@ export interface MultiSliderProps {
      * can be used to render custom marker over slider (Will not block Marker movement)
      */
     renderCustomCuts?:React.ComponentType<any>
+    /**
+     * Array to show custom cuts -> must be in increasing order from min to max
+     */
+    customCuts?:number[];
 }
 
 export default class MultiSlider extends React.Component<MultiSliderProps> {}
