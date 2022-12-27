@@ -577,7 +577,7 @@ export default class MultiSlider extends React.Component {
             />
           )}
           {this.props.showSteps && this.getSteps()}
-          <CustomCutsComponent min={this?.props?.min} max={this?.props?.max} renderCustomCuts={this?.props?.renderCustomCuts}/>
+          <CustomCutsComponent min={this?.props?.min} max={this?.props?.max} renderCustomCuts={this?.props?.renderCustomCuts} customCuts={this.props?.customCuts ?? []}/>
           <View
             style={[
               styles.markerContainer,
