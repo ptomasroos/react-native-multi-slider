@@ -54,36 +54,24 @@ export function valueToPosition(
   return output;
 }
 
-export function positionToValue(
-  position,
-  valuesArray,
-  sliderLength,
-  markerSize = 0,
-) {
+export function positionToValue(position, valuesArray, sliderLength) {
   if (position < 0 || sliderLength < position) {
     return null;
   } else {
     const arrLength = valuesArray.length - 1;
-    const offset = (position - markerSize / 2) / (sliderLength - markerSize);
-    const index =
-      (arrLength * (position - markerSize / 2 + offset * markerSize)) /
-      sliderLength;
-    const output = valuesArray[Math.round(index)];
-
-    return output;
+    const index = (arrLength * position) / sliderLength;
+    return valuesArray[Math.round(index)];
   }
 }
 
 export function createArray(start, end, step) {
-  const direction = start - end > 0 ? -1 : 1;
   const result = [];
-  if (!step) {
-    return result;
-  } else {
-    const length = Math.abs((start - end) / step) + 1;
-    for (let i = 0; i < length; i++) {
-      result.push(start + i * Math.abs(step) * direction);
-    }
-    return result;
+  let currentValue = start;
+  
+  while ((step > 0 && currentValue <= end) || (step < 0 && currentValue >= end)) {
+    result.push(currentValue);
+    currentValue += step;
   }
+  
+  return result;
 }
