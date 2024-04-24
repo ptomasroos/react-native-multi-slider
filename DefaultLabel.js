@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text } from 'react-native';
+import { ScaledSheet, moderateScale } from 'react-native-size-matters';
 
-const sliderRadius = 3;
-const width = 50;
+const width = moderateScale(50);
 export default class DefaultLabel extends React.Component {
   static propTypes = {
     oneMarkerValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
@@ -34,7 +34,7 @@ export default class DefaultLabel extends React.Component {
             <View
               style={[
                 styles.sliderLabel,
-                { left: oneMarkerLeftPosition - width / 2 },
+                { left: moderateScale(oneMarkerLeftPosition) - width / 2 },
                 oneMarkerPressed && styles.markerPressed,
               ]}
             >
@@ -47,7 +47,7 @@ export default class DefaultLabel extends React.Component {
             <View
               style={[
                 styles.sliderLabel,
-                { left: twoMarkerLeftPosition - width / 2 },
+                { left: moderateScale(twoMarkerLeftPosition) - width / 2 },
                 twoMarkerPressed && styles.markerPressed,
               ]}
             >
@@ -59,12 +59,12 @@ export default class DefaultLabel extends React.Component {
   }
 }
 
-const styles = StyleSheet.create({
+const styles = ScaledSheet.create({
   sliderLabel: {
     position: 'absolute',
     bottom: 0,
     minWidth: width,
-    padding: 8,
+    padding: '8@ms',
     backgroundColor: '#f1f1f1',
   },
   sliderLabelText: {
@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
     fontSize: 11,
   },
   markerPressed: {
-    borderWidth: 2,
+    borderWidth: '2@ms',
     borderColor: '#999',
   },
 });

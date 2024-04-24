@@ -1,5 +1,6 @@
 import React from 'react';
-import { View, StyleSheet, Platform, TouchableHighlight } from 'react-native';
+import { View, Platform, TouchableHighlight } from 'react-native';
+import { ScaledSheet, moderateScale } from 'react-native-size-matters';
 
 class DefaultMarker extends React.Component {
   render() {
@@ -26,34 +27,34 @@ class DefaultMarker extends React.Component {
   }
 }
 
-const styles = StyleSheet.create({
+const styles = ScaledSheet.create({
   markerStyle: {
     ...Platform.select({
       ios: {
-        height: 30,
-        width: 30,
-        borderRadius: 30,
-        borderWidth: 1,
+        height: '30@ms',
+        width: '30@ms',
+        borderRadius: '30@ms',
+        borderWidth: '1@ms',
         borderColor: '#DDDDDD',
         backgroundColor: '#FFFFFF',
         shadowColor: '#000000',
         shadowOffset: {
           width: 0,
-          height: 3,
+          height: moderateScale(3),
         },
         shadowRadius: 1,
         shadowOpacity: 0.2,
       },
       android: {
-        height: 12,
-        width: 12,
-        borderRadius: 12,
+        height: '12@ms',
+        width: '12@ms',
+        borderRadius: '12@ms',
         backgroundColor: '#0D8675',
       },
       web: {
-        height: 30,
-        width: 30,
-        borderRadius: 30,
+        height: '30@ms',
+        width: '30@ms',
+        borderRadius: '30@ms',
         borderWidth: 1,
         borderColor: '#DDDDDD',
         backgroundColor: '#FFFFFF',
@@ -72,9 +73,9 @@ const styles = StyleSheet.create({
       web: {},
       ios: {},
       android: {
-        height: 20,
-        width: 20,
-        borderRadius: 20,
+        height: '20@ms',
+        width: '20@ms',
+        borderRadius: '20@ms',
       },
     }),
   },

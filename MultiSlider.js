@@ -2,7 +2,6 @@ import React from 'react';
 import { Text } from 'react-native';
 
 import {
-  StyleSheet,
   PanResponder,
   View,
   Platform,
@@ -472,6 +471,7 @@ export default class MultiSlider extends React.Component {
           ]}
         >
           {this.props.showStepMarkers && <View style={markerStyles} />}
+
           {this.props.showStepLabels && (
             <Text
               style={textStyles}
@@ -524,13 +524,13 @@ export default class MultiSlider extends React.Component {
     };
 
     const markerContainerOne = {
-      top: markerOffsetY - 24,
-      left: trackOneLength + markerOffsetX - 24,
+      top: markerOffsetY - moderateScale(24),
+      left: trackOneLength + markerOffsetX - moderateScale(24),
     };
 
     const markerContainerTwo = {
-      top: markerOffsetY - 24,
-      right: trackThreeLength + markerOffsetX - 24,
+      top: markerOffsetY - moderateScale(24),
+      right: trackThreeLength + markerOffsetX - moderateScale(24),
     };
 
     const containerStyle = [styles.container, this.props.containerStyle];
@@ -755,5 +755,6 @@ const styles = ScaledSheet.create({
     position: 'absolute',
     top: '15@ms',
     color: '#333',
+    left: '3@ms',
   },
 });
