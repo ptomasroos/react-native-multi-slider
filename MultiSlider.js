@@ -472,8 +472,7 @@ export default class MultiSlider extends React.Component {
           ]}
         >
           {this.props.showStepMarkers &&
-            index !== 0 &&
-            index !== this.optionsArray.length - 1 && (
+            (
               <View style={markerStyles} />
             )}
           {this.props.showStepLabels && (
