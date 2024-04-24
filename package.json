@@ -50,5 +50,7 @@
     "url": "https://github.com/ptomasroos/react-native-multi-slider/issues"
   },
   "homepage": "https://github.com/ptomasroos/react-native-multi-slider#readme",
-  "dependencies": {}
+  "dependencies": {
+    "react-native-size-matters": "^0.4.2"
+  }
 }

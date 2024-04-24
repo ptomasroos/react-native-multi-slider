@@ -6,7 +6,6 @@ import {
   PanResponder,
   View,
   Platform,
-  Dimensions,
   I18nManager,
   ImageBackground,
 } from 'react-native';
@@ -14,6 +13,7 @@ import {
 import DefaultMarker from './DefaultMarker';
 import DefaultLabel from './DefaultLabel';
 import { createArray, valueToPosition, positionToValue } from './converters';
+import { ScaledSheet, moderateScale } from 'react-native-size-matters';
 
 export default class MultiSlider extends React.Component {
   static defaultProps = {
@@ -26,10 +26,10 @@ export default class MultiSlider extends React.Component {
     min: 0,
     max: 10,
     touchDimensions: {
-      height: 50,
-      width: 50,
-      borderRadius: 15,
-      slipDisplacement: 200,
+      height: moderateScale(50),
+      width: moderateScale(50),
+      borderRadius: moderateScale(15),
+      slipDisplacement: moderateScale(200),
     },
     customMarker: DefaultMarker,
     customMarkerLeft: DefaultMarker,
@@ -38,7 +38,7 @@ export default class MultiSlider extends React.Component {
     markerOffsetX: 0,
     markerOffsetY: 0,
     markerSize: 0,
-    sliderLength: 280,
+    sliderLength: moderateScale(280),
     onToggleOne: undefined,
     onToggleTwo: undefined,
     stepsAs: [],
@@ -471,10 +471,7 @@ export default class MultiSlider extends React.Component {
             { left: stepLength * index },
           ]}
         >
-          {this.props.showStepMarkers &&
-            (
-              <View style={markerStyles} />
-            )}
+          {this.props.showStepMarkers && <View style={markerStyles} />}
           {this.props.showStepLabels && (
             <Text
               style={textStyles}
@@ -686,10 +683,10 @@ export default class MultiSlider extends React.Component {
   }
 }
 
-const styles = StyleSheet.create({
+const styles = ScaledSheet.create({
   container: {
     position: 'relative',
-    height: 50,
+    height: '50@ms',
     justifyContent: 'center',
   },
   fullTrack: {
@@ -698,17 +695,17 @@ const styles = StyleSheet.create({
   track: {
     ...Platform.select({
       ios: {
-        height: 2,
-        borderRadius: 2,
+        height: '2@ms',
+        borderRadius: '2@ms',
         backgroundColor: '#A7A7A7',
       },
       android: {
-        height: 2,
+        height: '2@ms',
         backgroundColor: '#CECECE',
       },
       web: {
-        height: 2,
-        borderRadius: 2,
+        height: '2@ms',
+        borderRadius: '2@ms',
         backgroundColor: '#A7A7A7',
       },
     }),
@@ -728,14 +725,14 @@ const styles = StyleSheet.create({
   },
   markerContainer: {
     position: 'absolute',
-    width: 48,
-    height: 48,
+    width: '48@ms',
+    height: '48@ms',
     backgroundColor: 'transparent',
     justifyContent: 'center',
     alignItems: 'center',
   },
   topMarkerContainer: {
-    zIndex: 1,
+    // zIndex: 1,
   },
   touch: {
     backgroundColor: 'transparent',
@@ -744,19 +741,19 @@ const styles = StyleSheet.create({
   },
   step: {
     position: 'absolute',
-    marginLeft: -5,
+    marginLeft: '-5@ms',
   },
   stepMarker: {
     position: 'absolute',
-    left: 2,
-    width: 6,
-    height: 6,
+    left: '2@ms',
+    width: '6@ms',
+    height: '6@ms',
     backgroundColor: '#0000008c',
-    borderRadius: 3,
+    borderRadius: '3@ms',
   },
   stepLabel: {
     position: 'absolute',
-    top: 15,
+    top: '15@ms',
     color: '#333',
   },
 });
