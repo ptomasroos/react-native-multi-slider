@@ -112,3 +112,13 @@ Feel free to contribute to this part of the documentation.
 | minMarkerOverlapStepDistance | 0 | number | if this is > 0 and allowOverlap is false, this value will determine the closest two markers can come to each other (in steps, not pixels). This can be used for cases where you have two markers large cursors and you don't want them to overlap. Note that markers will still overlap at the start if starting values are too near. CANNOT be combined with minMarkerOverlapDistance |
 | imageBackgroundSource | undefined | string | Specifies the source as required by [ImageBackground](https://facebook.github.io/react-native/docs/imagebackground)|
 | testID |  | string | Used to locate this view in end-to-end tests. |
+
+# Recommendations
+
+For very large min = 0 & max = 99999999 and very small step = 1, the step generation loop generates very large array which can causes a crash. Its better to dynamically generate a step size in those cases.
+
+```js
+step = Math.round(Math.abs(max - min) / 100)
+```
+
+Credit https://github.com/ptomasroos/react-native-multi-slider/issues/281#issuecomment-1700770841
