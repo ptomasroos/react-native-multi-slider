@@ -491,9 +491,11 @@ export default class MultiSlider extends React.Component {
     const {
       selectedStyle,
       unselectedStyle,
+      thirdStyle,
       sliderLength,
       markerOffsetX,
       markerOffsetY,
+      overlap
     } = this.props;
     const twoMarkers = this.props.values.length == 2; // when allowOverlap, positionTwo could be 0, identified as string '0' and throwing 'RawText 0 needs to be wrapped in <Text>' error
 
@@ -502,7 +504,7 @@ export default class MultiSlider extends React.Component {
       ? unselectedStyle
       : selectedStyle || styles.selectedTrack;
     const trackThreeLength = twoMarkers ? sliderLength - positionTwo : 0;
-    const trackThreeStyle = unselectedStyle;
+    const trackThreeStyle = thirdStyle!=undefined?thirdStyle:unselectedStyle;
     const trackTwoLength = sliderLength - trackOneLength - trackThreeLength;
     const trackTwoStyle = twoMarkers
       ? selectedStyle || styles.selectedTrack
@@ -614,7 +616,7 @@ export default class MultiSlider extends React.Component {
               )}
             </View>
           </View>
-          {twoMarkers && positionOne !== this.props.sliderLength && (
+          {twoMarkers && (overlap==true || positionOne !== this.props.sliderLength) && (
             <View
               style={[
                 styles.markerContainer,
