@@ -107,6 +107,8 @@ export default class MultiSlider extends React.Component {
       }
     });
 
+    this.lastBounds = { min: this.props.min, max: this.props.max };
+
     this.state = {
       pressedOne: true,
       valueOne: this.props.values[0],
@@ -323,14 +325,55 @@ export default class MultiSlider extends React.Component {
     }
   };
 
+  getReleaseState = () => {
+    // componentDidUpdate defers bounds updates while a marker is pressed.
+    if (
+      this.props.optionsArray ||
+      (this.lastBounds.min === this.props.min &&
+        this.lastBounds.max === this.props.max)
+    ) {
+      return {};
+    }
+
+    this.optionsArray = createArray(
+      this.props.min,
+      this.props.max,
+      this.props.step,
+    );
+    this.stepLength = this.props.sliderLength / (this.optionsArray.length - 1);
+
+    const nextState = {};
+    ['One', 'Two'].forEach(marker => {
+      const currentValue = this.state[`value${marker}`];
+      if (currentValue === undefined) return;
+      const value = Math.max(
+        this.props.min,
+        Math.min(this.props.max, currentValue),
+      );
+      const position = valueToPosition(
+        value,
+        this.optionsArray,
+        this.props.sliderLength,
+        this.props.markerSize,
+      );
+      nextState[`value${marker}`] = value;
+      nextState[`position${marker}`] = position;
+      nextState[`past${marker}`] = position;
+    });
+    return nextState;
+  };
+
   endOne = gestureState => {
     if (gestureState.moveX === 0 && this.props.onToggleOne) {
       this.props.onToggleOne();
       return;
     }
 
+    const releaseState = this.getReleaseState();
     var snapped = valueToPosition(
-      this.state.valueOne,
+      releaseState.valueOne === undefined
+        ? this.state.valueOne
+        : releaseState.valueOne,
       this.optionsArray,
       this.props.sliderLength,
     );
@@ -339,11 +382,12 @@ export default class MultiSlider extends React.Component {
       {
         pastOne: this.props.smoothSnapped ? snapped : this.state.positionOne,
         ...(this.props.smoothSnapped ? { positionOne: snapped } : {}),
+        ...releaseState,
         onePressed: !this.state.onePressed,
       },
       () => {
         var change = [this.state.valueOne];
-        if (this.state.valueTwo) {
+        if (this.state.valueTwo !== undefined) {
           change.push(this.state.valueTwo);
         }
         this.props.onValuesChangeFinish(change);
@@ -357,17 +401,21 @@ export default class MultiSlider extends React.Component {
       return;
     }
 
+    const releaseState = this.getReleaseState();
     var snapped = valueToPosition(
-      this.state.valueTwo,
+      releaseState.valueTwo === undefined
+        ? this.state.valueTwo
+        : releaseState.valueTwo,
       this.optionsArray,
       this.props.sliderLength,
     );
 
     this.setState(
       {
-        twoPressed: !this.state.twoPressed,
         pastTwo: this.props.smoothSnapped ? snapped : this.state.positionTwo,
         ...(this.props.smoothSnapped ? { positionTwo: snapped } : {}),
+        ...releaseState,
+        twoPressed: !this.state.twoPressed,
       },
       () => {
         this.props.onValuesChangeFinish([
@@ -440,6 +488,7 @@ export default class MultiSlider extends React.Component {
 
       this.setState(nextState);
     }
+    this.lastBounds = { min: this.props.min, max: this.props.max };
   }
 
   getSteps() {

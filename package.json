@@ -5,7 +5,8 @@
   "main": "MultiSlider.js",
   "types": "index.d.ts",
   "scripts": {
-    "prettier": "prettier --write \"**/*.js\""
+    "prettier": "prettier --write \"**/*.js\"",
+    "test": "node --test tests/*.test.mjs"
   },
   "repository": {
     "type": "git",
@@ -44,7 +45,10 @@
   "devDependencies": {
     "husky": "^1.1.2",
     "lint-staged": "^7.3.0",
-    "prettier": "^1.14.3"
+    "prettier": "^1.14.3",
+    "esbuild": "0.25.12",
+    "react": "18.3.1",
+    "react-test-renderer": "18.3.1"
   },
   "bugs": {
     "url": "https://github.com/ptomasroos/react-native-multi-slider/issues"
