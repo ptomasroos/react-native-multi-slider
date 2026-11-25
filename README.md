@@ -122,3 +122,8 @@ step = Math.round(Math.abs(max - min) / 100)
 ```
 
 Credit https://github.com/ptomasroos/react-native-multi-slider/issues/281#issuecomment-1700770841
+
+## Tests
+
+Run `npm install --legacy-peer-deps`, then `npm test`.
+The tests mount the component with React Test Renderer and mock native view primitives.

@@ -2,3 +2,4 @@ docs/
 examples/
 .idea/
 node_modules/
+tests/
